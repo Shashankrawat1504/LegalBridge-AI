@@ -1,326 +1,392 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
+import OfficialNavbar from '../components/OfficialNavbar';
+import Footer from '../components/Footer';
+import { useTheme } from '../context/ThemeContext';
+import { COLORS, RADIUS, SHADOWS } from '../constants/theme';
 
 type VisionNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Vision'>;
 
+interface PillarItem {
+  icon: keyof typeof Ionicons.glyphMap;
+  title: string;
+  category: string;
+  description: string;
+}
+
 const Vision = () => {
   const navigation = useNavigation<VisionNavigationProp>();
+  const { theme } = useTheme();
+  const { width } = useWindowDimensions();
+  const isCompact = width < 768;
+
+  const pillars: PillarItem[] = [
+    {
+      icon: 'shield-checkmark-outline',
+      title: 'Constitutional & Statutory Integrity',
+      category: 'LEGAL FIDELITY',
+      description: 'Ensuring that every algorithm, recommendation, and document generation adheres strictly to the Constitution of India and updated statutory codes (BNS, BNSS, BSA).',
+    },
+    {
+      icon: 'people-outline',
+      title: 'Law Enforcement Empowerment',
+      category: 'OFFICER SUPPORT',
+      description: 'Equipping police officers and investigating personnel with automated legal drafting, precedent cross-referencing, and reduced procedural burdens in the field.',
+    },
+    {
+      icon: 'ribbon-outline',
+      title: 'Equitable Justice & Transparency',
+      category: 'PUBLIC SERVICE',
+      description: 'Fostering public trust through transparent, non-discriminatory, and accountable legal technology that accelerates case disposal across all judicial tiers.',
+    },
+    {
+      icon: 'analytics-outline',
+      title: 'Data-Driven Judicial Administration',
+      category: 'GOVERNANCE METRICS',
+      description: 'Providing policy makers and senior judicial officers with actionable insights, trend analysis, and comprehensive case monitoring tools.',
+    },
+  ];
 
   return (
-    <ScrollView style={styles.container}>
-      
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <OfficialNavbar currentRoute="Vision" />
 
-      {/* Hero Section */}
-      <LinearGradient
-        colors={['#0047AB', '#6B46C1']}
-        style={styles.hero}
+      <ScrollView
+        style={styles.scrollContainer}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
       >
-        <View style={styles.visionIconContainer}>
-          <Ionicons name="eye" size={48} color="#ffffff" />
-        </View>
-        <Text style={styles.heroTitle}>Shaping the Future of Law Enforcement</Text>
-        <Text style={styles.heroSubtitle}>
-          We envision a world where technology empowers justice, where every officer has the tools
-          to serve their community with unprecedented efficiency and accuracy.
-        </Text>
-      </LinearGradient>
-
-      {/* Mission Section */}
-      <View style={styles.missionSection}>
-        <Text style={styles.sectionTitle}>Our Mission</Text>
-        <Text style={styles.missionText}>
-          To revolutionize law enforcement through cutting-edge AI technology, creating a more
-          efficient, transparent, and just legal system that serves citizens and upholds the rule of law.
-        </Text>
-      </View>
-
-      {/* Vision Pillars */}
-      <View style={styles.pillarsContainer}>
-        <Text style={styles.sectionTitle}>Vision Pillars</Text>
-
-        <View style={styles.pillarCard}>
-          <LinearGradient
-            colors={['#0047AB', '#6B46C1']}
-            style={styles.pillarIconContainer}
-          >
-            <Ionicons name="bulb" size={32} color="#ffffff" />
-          </LinearGradient>
-          <Text style={styles.pillarTitle}>Innovation First</Text>
-          <Text style={styles.pillarDescription}>
-            Leveraging the latest AI advancements to bring unmatched precision and efficiency
-            to legal processes and law enforcement operations.
-          </Text>
+        {/* Header Hero Section */}
+        <View style={[styles.heroSection, { backgroundColor: theme.surface, borderBottomColor: theme.border }]}>
+          <View style={styles.heroInner}>
+            <View style={[styles.tagBadge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
+              <Text style={styles.tagBadgeText}>
+                INSTITUTIONAL DIRECTIVE • DIGITAL JUSTICE MISSION
+              </Text>
+            </View>
+            <Text style={[styles.heroTitle, { color: theme.textPrimary }]}>
+              Strategic Vision for National Legal Empowerment
+            </Text>
+            <Text style={[styles.heroSubtitle, { color: theme.textSecondary }]}>
+              Fostering transparency, statutory accuracy, and ethical artificial intelligence in Indian
+              law enforcement and judicial administration.
+            </Text>
+          </View>
         </View>
 
-        <View style={styles.pillarCard}>
-          <LinearGradient
-            colors={['#0047AB', '#6B46C1']}
-            style={styles.pillarIconContainer}
-          >
-            <Ionicons name="people" size={32} color="#ffffff" />
-          </LinearGradient>
-          <Text style={styles.pillarTitle}>Officer Empowerment</Text>
-          <Text style={styles.pillarDescription}>
-            Providing law enforcement professionals with powerful tools that enhance their
-            effectiveness and enable them to serve their communities better.
-          </Text>
+        {/* Mission Statement Banner */}
+        <View style={styles.missionSection}>
+          <View style={[styles.missionCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
+            <View style={styles.missionTagRow}>
+              <View style={styles.saffronIndicator} />
+              <Text style={styles.missionTag}>DIRECTORATE MANDATE</Text>
+            </View>
+            <Text style={[styles.missionTitle, { color: theme.textPrimary }]}>Our National Mission</Text>
+            <Text style={[styles.missionText, { color: theme.textSecondary }]}>
+              To revolutionize Indian law enforcement through ethical, high-precision artificial intelligence;
+              creating a modernized, transparent, and expedited legal ecosystem that upholds the rule of law
+              and serves all citizens with dignity and efficiency.
+            </Text>
+          </View>
         </View>
 
-        <View style={styles.pillarCard}>
-          <LinearGradient
-            colors={['#0047AB', '#6B46C1']}
-            style={styles.pillarIconContainer}
-          >
-            <Ionicons name="shield-checkmark" size={32} color="#ffffff" />
-          </LinearGradient>
-          <Text style={styles.pillarTitle}>Justice for All</Text>
-          <Text style={styles.pillarDescription}>
-            Ensuring that justice is accessible, fair, and efficient across every corner of our nation,
-            bridging the gap between technology and public service.
-          </Text>
+        {/* Vision Pillars Grid */}
+        <View style={styles.pillarsSection}>
+          <View style={styles.sectionHeaderGroup}>
+            <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>Pillars of the Legal Intelligence Platform</Text>
+            <Text style={[styles.sectionSubtitle, { color: theme.textMuted }]}>
+              Four core principles guiding the architecture, policy compliance, and deployment of LegalBridge-AI.
+            </Text>
+          </View>
+
+          <View style={styles.pillarsGrid}>
+            {pillars.map((pillar, idx) => (
+              <View
+                key={idx}
+                style={[
+                  styles.pillarCard,
+                  isCompact ? styles.pillarCardFull : styles.pillarCardHalf,
+                  { backgroundColor: theme.cardBackground, borderColor: theme.border },
+                ]}
+              >
+                <View style={[styles.pillarIconBox, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
+                  <Ionicons name={pillar.icon} size={22} color={COLORS.navyGov} />
+                </View>
+                <Text style={styles.pillarCategory}>{pillar.category}</Text>
+                <Text style={[styles.pillarTitle, { color: theme.textPrimary }]}>{pillar.title}</Text>
+                <Text style={[styles.pillarDescription, { color: theme.textSecondary }]}>{pillar.description}</Text>
+              </View>
+            ))}
+          </View>
         </View>
 
-        <View style={styles.pillarCard}>
-          <LinearGradient
-            colors={['#0047AB', '#6B46C1']}
-            style={styles.pillarIconContainer}
-          >
-            <Ionicons name="analytics" size={32} color="#ffffff" />
-          </LinearGradient>
-          <Text style={styles.pillarTitle}>Data-Driven Excellence</Text>
-          <Text style={styles.pillarDescription}>
-            Utilizing comprehensive analytics and insights to continuously improve law enforcement
-            practices and outcomes for better community safety.
-          </Text>
+        {/* Call to Action */}
+        <View style={styles.ctaSection}>
+          <View style={styles.ctaCard}>
+            <Text style={styles.ctaHeading}>Partner with the LegalBridge-AI Initiative</Text>
+            <Text style={styles.ctaSubtext}>
+              Learn how your department, state police wing, or judicial academy can participate in platform integration.
+            </Text>
+            <View style={[styles.ctaButtonRow, isCompact && styles.ctaButtonRowCompact]}>
+              <TouchableOpacity
+                style={styles.primaryBtn}
+                onPress={() => navigation.navigate('Key Features')}
+                activeOpacity={0.85}
+              >
+                <Text style={styles.primaryBtnText}>Explore System Features</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.secondaryBtn}
+                onPress={() => navigation.navigate('Contact')}
+                activeOpacity={0.85}
+              >
+                <Text style={styles.secondaryBtnText}>Official Contact Desk</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
 
-      {/* Call to Action */}
-      <View style={styles.ctaSection}>
-        <Text style={styles.ctaTitle}>Join Us in Shaping the Future</Text>
-        <Text style={styles.ctaSubtitle}>
-          Be part of the revolution that's transforming law enforcement for the digital age.
-        </Text>
-        <View style={styles.ctaButtons}>
-          <TouchableOpacity
-            style={[styles.ctaButton, styles.primaryButton]}
-            onPress={() => navigation.navigate('Key Features')}
-          >
-            <Text style={styles.primaryButtonText}>Explore Features</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.ctaButton, styles.secondaryButton]}
-            onPress={() => navigation.navigate('Contact')}
-          >
-            <Text style={styles.secondaryButtonText}>Get in Touch</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+        <Footer />
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: COLORS.surfaceLight,
   },
-  header: {
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-  },
-  headerContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  backButton: {
-    padding: 8,
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    textAlign: 'center',
+  scrollContainer: {
     flex: 1,
   },
-  placeholder: {
-    width: 40,
+  scrollContent: {
+    flexGrow: 1,
   },
-  hero: {
-    paddingVertical: 40,
+  heroSection: {
+    backgroundColor: COLORS.white,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    paddingVertical: 48,
     paddingHorizontal: 20,
     alignItems: 'center',
   },
-  visionIconContainer: {
-    marginBottom: 20,
+  heroInner: {
+    maxWidth: 860,
+    width: '100%',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  tagBadge: {
+    backgroundColor: COLORS.surfaceMuted,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.sm,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginBottom: 14,
+  },
+  tagBadgeText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: COLORS.navyGov,
+    letterSpacing: 0.8,
   },
   heroTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#ffffff',
+    fontSize: 30,
+    fontWeight: '800',
+    color: COLORS.navyDark,
     textAlign: 'center',
-    marginBottom: 16,
-    lineHeight: 36,
+    lineHeight: 40,
+    marginBottom: 14,
   },
   heroSubtitle: {
-    fontSize: 16,
-    color: '#e5e7eb',
-    textAlign: 'center',
+    fontSize: 15,
     lineHeight: 24,
-    paddingHorizontal: 20,
+    color: COLORS.textSecondary,
+    textAlign: 'center',
+    maxWidth: 700,
   },
   missionSection: {
-    padding: 24,
-    backgroundColor: '#ffffff',
-    margin: 20,
-    borderRadius: 16,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1e3a8a',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  missionText: {
-    fontSize: 16,
-    color: '#4b5563',
-    textAlign: 'center',
-    lineHeight: 24,
-  },
-  pillarsContainer: {
-    padding: 20,
-  },
-  pillarCard: {
-    backgroundColor: '#ffffff',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 16,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 8,
-    elevation: 4,
-    alignItems: 'center',
-  },
-  pillarIconContainer: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  pillarTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#1e3a8a',
-    textAlign: 'center',
-    marginBottom: 12,
-    lineHeight: 24,
-  },
-  pillarDescription: {
-    fontSize: 14,
-    color: '#4b5563',
-    textAlign: 'center',
-    lineHeight: 20,
-  },
-  impactSection: {
-    margin: 20,
-    borderRadius: 16,
-    padding: 24,
-    alignItems: 'center',
-  },
-  impactTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    textAlign: 'center',
-    marginBottom: 12,
-  },
-  impactText: {
-    fontSize: 16,
-    color: '#e5e7eb',
-    textAlign: 'center',
-    lineHeight: 24,
-    marginBottom: 24,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    maxWidth: 1040,
     width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 36,
   },
-  statItem: {
+  missionCard: {
+    backgroundColor: COLORS.white,
+    borderRadius: RADIUS.xl,
+    padding: 28,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderLeftWidth: 4,
+    borderLeftColor: COLORS.navyGov,
+    ...SHADOWS.subtle,
+  },
+  missionTagRow: {
+    flexDirection: 'row',
     alignItems: 'center',
-  },
-  statNumber: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#facc15',
-    marginBottom: 4,
-  },
-  statLabel: {
-    fontSize: 12,
-    color: '#e5e7eb',
-    textAlign: 'center',
-    fontWeight: '600',
-  },
-  ctaSection: {
-    padding: 24,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-  },
-  ctaTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1e3a8a',
-    textAlign: 'center',
+    gap: 8,
     marginBottom: 8,
   },
-  ctaSubtitle: {
-    fontSize: 16,
-    color: '#4b5563',
-    textAlign: 'center',
-    marginBottom: 24,
-    lineHeight: 24,
+  saffronIndicator: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: COLORS.govSaffron,
   },
-  ctaButtons: {
+  missionTag: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: COLORS.accentGoldDark,
+    letterSpacing: 0.6,
+  },
+  missionTitle: {
+    fontSize: 20,
+    fontWeight: '800',
+    color: COLORS.navyDark,
+    marginBottom: 10,
+  },
+  missionText: {
+    fontSize: 14,
+    lineHeight: 23,
+    color: COLORS.textSecondary,
+  },
+  pillarsSection: {
+    maxWidth: 1040,
+    width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 36,
+  },
+  sectionHeaderGroup: {
+    marginBottom: 24,
+  },
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: COLORS.navyDark,
+    marginBottom: 6,
+  },
+  sectionSubtitle: {
+    fontSize: 13,
+    color: COLORS.textMuted,
+  },
+  pillarsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 16,
+  },
+  pillarCard: {
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.lg,
+    padding: 22,
+    ...SHADOWS.subtle,
+  },
+  pillarCardHalf: {
+    width: '48.8%',
+  },
+  pillarCardFull: {
+    width: '100%',
+  },
+  pillarIconBox: {
+    width: 44,
+    height: 44,
+    borderRadius: RADIUS.md,
+    backgroundColor: COLORS.surfaceLight,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 14,
+  },
+  pillarCategory: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: COLORS.accentGoldDark,
+    letterSpacing: 0.6,
+    marginBottom: 4,
+  },
+  pillarTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: COLORS.navyDark,
+    marginBottom: 8,
+    lineHeight: 22,
+  },
+  pillarDescription: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: COLORS.textSecondary,
+  },
+  ctaSection: {
+    maxWidth: 1040,
+    width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    paddingBottom: 24,
+  },
+  ctaCard: {
+    backgroundColor: COLORS.navyDark,
+    borderRadius: RADIUS.xl,
+    padding: 28,
+    borderWidth: 1,
+    borderColor: '#1E293B',
+    ...SHADOWS.card,
+  },
+  ctaHeading: {
+    fontSize: 20,
+    fontWeight: '800',
+    color: COLORS.white,
+    marginBottom: 6,
+  },
+  ctaSubtext: {
+    fontSize: 13,
+    color: '#94A3B8',
+    lineHeight: 20,
+    marginBottom: 20,
+  },
+  ctaButtonRow: {
     flexDirection: 'row',
     gap: 12,
   },
-  ctaButton: {
-    borderRadius: 25,
+  ctaButtonRowCompact: {
+    flexDirection: 'column',
+  },
+  primaryBtn: {
+    backgroundColor: COLORS.navyGov,
     paddingVertical: 12,
-    paddingHorizontal: 24,
-    minWidth: 120,
+    paddingHorizontal: 20,
+    borderRadius: RADIUS.md,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.navyMuted,
   },
-  primaryButton: {
-    backgroundColor: '#0047AB',
+  primaryBtnText: {
+    color: COLORS.white,
+    fontSize: 13,
+    fontWeight: '700',
   },
-  secondaryButton: {
-    backgroundColor: '#6B46C1',
+  secondaryBtn: {
+    backgroundColor: 'transparent',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: RADIUS.md,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#334155',
   },
-  primaryButtonText: {
-    fontSize: 16,
+  secondaryBtnText: {
+    color: COLORS.white,
+    fontSize: 13,
     fontWeight: '600',
-    color: '#ffffff',
-  },
-  secondaryButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#ffffff',
   },
 });
 

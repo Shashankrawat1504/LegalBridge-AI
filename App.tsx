@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, Text, StyleSheet } from 'react-native';
 import { RootStackParamList } from './types';
+import { ThemeProvider } from './context/ThemeContext';
 import Landing from './pages/Landing';
 import Settings from './pages/Settings';
 import Login from './pages/Login';
@@ -21,13 +22,19 @@ import OfficialFIRFormat from './pages/OfficialFIRFormat'; // Import from /pages
 import KeyFeatures from './pages/KeyFeatures';
 import Vision from './pages/Vision';
 import Contact from './pages/Contact';
+import ViewPDF from './pages/ViewPDF';
+import DocumentAnalyzer from './pages/DocumentAnalyzer';
+import CaseTracker from './pages/CaseTracker';
+import EvidenceTimeline from './pages/EvidenceTimeline';
+import CaseRiskAssessment from './pages/CaseRiskAssessment';
 // Create the stack navigator
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App() {
   return (
+    <ThemeProvider>
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" id={undefined}>
+      <Stack.Navigator initialRouteName="Home" id={undefined} screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Landing} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Login" component={Login} />
@@ -46,6 +53,11 @@ function App() {
         <Stack.Screen name="Vision" component={Vision} />
         <Stack.Screen name="Key Features" component={KeyFeatures} />
         <Stack.Screen name="Contact" component={Contact} />
+        <Stack.Screen name="ViewPDF" component={ViewPDF} />
+        <Stack.Screen name="Document Analyzer" component={DocumentAnalyzer} />
+        <Stack.Screen name="Case Tracker" component={CaseTracker} />
+        <Stack.Screen name="Evidence Timeline" component={EvidenceTimeline} />
+        <Stack.Screen name="Case Risk Assessment" component={CaseRiskAssessment} />
         {/* If you want to add a fallback, do it as below */}
         <Stack.Screen
           name="NotFound"
@@ -54,6 +66,7 @@ function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </ThemeProvider>
   );
 }
 

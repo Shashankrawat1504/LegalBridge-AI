@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../../context/ThemeContext';
 
 interface FIRDetailsCardProps {
   formData: {
@@ -14,28 +15,32 @@ interface FIRDetailsCardProps {
 }
 
 const FIRDetailsCard: React.FC<FIRDetailsCardProps> = ({ formData, onChange }) => {
+  const { isDark, theme } = useTheme();
+
   return (
-    <View style={styles.card}>
-      <View style={styles.cardHeader}>
-        <Ionicons name="shield-checkmark" size={20} color="#1e3a8a" />
-        <Text style={styles.cardTitle}>FIR Details</Text>
+    <View style={[styles.card, { backgroundColor: theme.cardBackground, borderWidth: 1, borderColor: theme.border }]}>
+      <View style={[styles.cardHeader, { borderBottomColor: theme.border }]}>
+        <Ionicons name="shield-checkmark" size={20} color={isDark ? '#D97706' : '#1e3a8a'} />
+        <Text style={[styles.cardTitle, { color: theme.textPrimary }]}>FIR Details</Text>
       </View>
 
       <View style={styles.row}>
         <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>District *</Text>
+          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>District *</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
             placeholder="Enter district"
+            placeholderTextColor={theme.textMuted}
             value={formData.district}
             onChangeText={(value) => onChange('district', value)}
           />
         </View>
         <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>Police Station *</Text>
+          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Police Station *</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
             placeholder="Enter police station"
+            placeholderTextColor={theme.textMuted}
             value={formData.policeStation}
             onChangeText={(value) => onChange('policeStation', value)}
           />
@@ -44,20 +49,22 @@ const FIRDetailsCard: React.FC<FIRDetailsCardProps> = ({ formData, onChange }) =
 
       <View style={styles.row}>
         <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>Year</Text>
+          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Year</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
             placeholder="Enter year"
+            placeholderTextColor={theme.textMuted}
             value={formData.year}
             onChangeText={(value) => onChange('year', value)}
             keyboardType="numeric"
           />
         </View>
         <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>FIR No. *</Text>
+          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>FIR No. *</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
             placeholder="Enter FIR number"
+            placeholderTextColor={theme.textMuted}
             value={formData.firNo}
             onChangeText={(value) => onChange('firNo', value)}
           />
@@ -65,10 +72,11 @@ const FIRDetailsCard: React.FC<FIRDetailsCardProps> = ({ formData, onChange }) =
       </View>
 
       <View style={styles.inputGroup}>
-        <Text style={styles.inputLabel}>Date</Text>
+        <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Date</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
           placeholder="DD/MM/YYYY"
+          placeholderTextColor={theme.textMuted}
           value={formData.date}
           onChangeText={(value) => onChange('date', value)}
         />

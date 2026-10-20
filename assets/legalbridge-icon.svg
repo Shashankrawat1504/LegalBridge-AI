@@ -26,7 +26,7 @@
     <rect x="-3" y="-50" width="6" height="30" fill="#ffffff"/>
   </g>
 
-  <!-- LawAI Text -->
-  <text x="512" y="750" text-anchor="middle" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ffffff">LawAI</text>
+  <!-- LegalBridge-AI Text -->
+  <text x="512" y="750" text-anchor="middle" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="#ffffff">LegalBridge-AI</text>
   <text x="512" y="820" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" fill="#E0E7FF">Justice & Technology</text>
 </svg>

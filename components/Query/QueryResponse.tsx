@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+import { useTheme } from '../../context/ThemeContext';
+
 interface ResponseData {
   acts?: Record<string, string>;
   description?: string;
@@ -19,35 +21,36 @@ const QueryResponse: React.FC<QueryResponseProps> = ({
   isLoading,
   error
 }) => {
+  const { theme, isDark } = useTheme();
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
   const toggleDescription = (section: string): void => {
     setActiveSection(activeSection === section ? null : section);
   };
 
-  const renderResponse = (data: ResponseData | string): JSX.Element => {
+  const renderResponse = (data: ResponseData | string): React.JSX.Element => {
     if (typeof data === 'string') {
-      return <Text style={styles.responseText}>{data}</Text>;
+      return <Text style={[styles.responseText, { color: theme.textSecondary }]}>{data}</Text>;
     }
 
     if (data.acts) {
       return (
         <View>
           {Object.entries(data.acts).map(([act, description]) => (
-            <View key={act} style={styles.actContainer}>
+            <View key={act} style={[styles.actContainer, { borderColor: theme.border }]}>
               <TouchableOpacity
-                style={styles.actHeader}
+                style={[styles.actHeader, { backgroundColor: theme.surfaceMuted }]}
                 onPress={() => toggleDescription(act)}
               >
-                <Text style={styles.actTitle}>{act}</Text>
+                <Text style={[styles.actTitle, { color: theme.textPrimary }]}>{act}</Text>
                 <Ionicons
                   name={activeSection === act ? "chevron-up" : "chevron-down"}
                   size={20}
-                  color="#6B7280"
+                  color={theme.textMuted}
                 />
               </TouchableOpacity>
               {activeSection === act && (
-                <Text style={styles.actDescription}>{description}</Text>
+                <Text style={[styles.actDescription, { color: theme.textSecondary }]}>{description}</Text>
               )}
             </View>
           ))}
@@ -55,11 +58,11 @@ const QueryResponse: React.FC<QueryResponseProps> = ({
       );
     }
 
-    return <Text style={styles.responseText}>No response data available</Text>;
+    return <Text style={[styles.responseText, { color: theme.textMuted }]}>No response data available</Text>;
   };
 
   return (
-    <View style={styles.responseBox}>
+    <View style={[styles.responseBox, { backgroundColor: theme.cardBackground, borderColor: theme.border, borderWidth: isDark ? 1 : 0 }]}>
       {isLoading ? (
         <ActivityIndicator size="large" color="#2563EB" />
       ) : error ? (

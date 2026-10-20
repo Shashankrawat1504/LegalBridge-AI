@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../../context/ThemeContext';
 
 interface DownloadSectionProps {
   isDownloading: boolean;
@@ -8,13 +9,15 @@ interface DownloadSectionProps {
 }
 
 const DownloadSection: React.FC<DownloadSectionProps> = ({ isDownloading, onDownload }) => {
+  const { isDark, theme } = useTheme();
+
   return (
     <View style={styles.section}>
       <View style={styles.sectionHeader}>
-        <Ionicons name="download" size={24} color="#1e3a8a" />
-        <Text style={styles.sectionTitle}>Official FIR Format</Text>
+        <Ionicons name="download" size={24} color={isDark ? '#D97706' : '#1e3a8a'} />
+        <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>Official FIR Format</Text>
       </View>
-      <Text style={styles.sectionDescription}>
+      <Text style={[styles.sectionDescription, { color: theme.textSecondary }]}>
         Download the official FIR format document for your reference and use.
       </Text>
 

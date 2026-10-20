@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Switch, StyleSheet } from 'react-native';
 
+import { useTheme } from '../../context/ThemeContext';
+
 interface SettingsToggleProps {
   title: string;
   subtitle?: string;
@@ -16,12 +18,14 @@ const SettingsToggle: React.FC<SettingsToggleProps> = ({
   onValueChange,
   disabled = false
 }) => {
+  const { theme } = useTheme();
+
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={[styles.title, disabled && styles.disabledText]}>{title}</Text>
+        <Text style={[styles.title, { color: theme.textPrimary }, disabled && styles.disabledText]}>{title}</Text>
         {subtitle && (
-          <Text style={[styles.subtitle, disabled && styles.disabledText]}>
+          <Text style={[styles.subtitle, { color: theme.textSecondary }, disabled && styles.disabledText]}>
             {subtitle}
           </Text>
         )}

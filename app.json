@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "LawAI",
-    "slug": "LawAI",
+    "name": "LegalBridge-AI",
+    "slug": "legalbridge-ai",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "scheme": "lawai",
+    "scheme": "legalbridgeai",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -15,14 +15,20 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.lawai.com.lawai",
-      "buildNumber": "1.0.0"
+      "bundleIdentifier": "com.legalbridgeai.app",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "LegalBridge-AI requires microphone access to dictate FIR narratives and record complainant statements in English and Hindi for official legal documentation.",
+        "NSSpeechRecognitionUsageDescription": "LegalBridge-AI uses on-device speech recognition to accurately transcribe bilingual statutory statements for First Information Reports under Section 173 BNSS."
+      }
     },
     "android": {
-      "package": "com.lawai.com.lawai",
+      "package": "com.legalbridgeai.app",
       "permissions": [
         "android.permission.INTERNET",
         "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.READ_EXTERNAL_STORAGE"
       ]

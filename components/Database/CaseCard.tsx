@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import StatusBadge from './StatusBadge';
 import TagList from './TagList';
 
+import { useTheme } from '../../context/ThemeContext';
+
 interface CaseItem {
   id: number;
   caseHeading: string;
@@ -20,30 +22,32 @@ interface CaseCardProps {
 }
 
 const CaseCard: React.FC<CaseCardProps> = ({ caseItem, onShowDetails, onEdit }) => {
+  const { theme, isDark } = useTheme();
+
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
       <View style={styles.cardHeader}>
-        <Text style={styles.caseHeading} numberOfLines={2}>
+        <Text style={[styles.caseHeading, { color: theme.textPrimary }]} numberOfLines={2}>
           {caseItem.caseHeading}
         </Text>
         <StatusBadge status={caseItem.status} />
       </View>
 
-      <Text style={styles.queryText} numberOfLines={3}>
+      <Text style={[styles.queryText, { color: theme.textSecondary }]} numberOfLines={3}>
         {caseItem.query}
       </Text>
 
       <View style={styles.tagsSection}>
-        <Text style={styles.sectionLabel}>Tags:</Text>
+        <Text style={[styles.sectionLabel, { color: theme.textMuted }]}>Tags:</Text>
         <TagList tags={caseItem.tags} />
       </View>
 
-      <View style={styles.cardFooter}>
+      <View style={[styles.cardFooter, { borderTopColor: theme.border }]}>
         <TouchableOpacity
           onPress={() => onShowDetails(caseItem.id)}
           style={styles.actionButton}
         >
-          <Text style={styles.detailsText}>Show Details</Text>
+          <Text style={[styles.detailsText, { color: isDark ? '#60A5FA' : '#1e3a8a' }]}>Show Details</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => onEdit(caseItem.id)}

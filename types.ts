@@ -17,5 +17,10 @@ export type RootStackParamList = {
   Vision: undefined;
   'Key Features': undefined;
   Contact: undefined;
+  ViewPDF: { filePath?: string; title?: string; htmlContent?: string };
+  'Document Analyzer': undefined;
+  'Case Tracker': undefined;
+  'Evidence Timeline': undefined;
+  'Case Risk Assessment': undefined;
   NotFound: undefined;
 };

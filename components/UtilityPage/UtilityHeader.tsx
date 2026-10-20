@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../../context/ThemeContext';
+import { COLORS, RADIUS } from '../../constants/theme';
 
 interface UtilityHeaderProps {
   title?: string;
@@ -8,15 +9,19 @@ interface UtilityHeaderProps {
 }
 
 const UtilityHeader: React.FC<UtilityHeaderProps> = ({
-  title = "LawAI Tools",
-  subtitle = "Access all your legal tools and resources in one place"
+  title = "Law Enforcement & Legal Tools Directory",
+  subtitle = "Official digital resources authorized for statutory verification, case documentation, and legal intelligence."
 }) => {
+  const { theme } = useTheme();
+
   return (
-    <View style={styles.header}>
+    <View style={[styles.header, { backgroundColor: theme.surface, borderBottomColor: theme.border }]}>
       <View style={styles.headerContent}>
-        <Ionicons name="construct" size={40} color="#fff" />
-        <Text style={styles.headerTitle}>{title}</Text>
-        <Text style={styles.headerSubtitle}>{subtitle}</Text>
+        <View style={[styles.badge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
+          <Text style={styles.badgeText}>OPERATIONAL MODULES</Text>
+        </View>
+        <Text style={[styles.headerTitle, { color: theme.textPrimary }]}>{title}</Text>
+        <Text style={[styles.headerSubtitle, { color: theme.textSecondary }]}>{subtitle}</Text>
       </View>
     </View>
   );
@@ -24,28 +29,48 @@ const UtilityHeader: React.FC<UtilityHeaderProps> = ({
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#1e3a8a',
-    paddingVertical: 30,
+    backgroundColor: COLORS.white,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    paddingVertical: 36,
     paddingHorizontal: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-  },
-  headerContent: {
     alignItems: 'center',
   },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginTop: 10,
+  headerContent: {
+    maxWidth: 800,
+    width: '100%',
+    alignItems: 'center',
     textAlign: 'center',
   },
+  badge: {
+    backgroundColor: COLORS.surfaceMuted,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.sm,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    marginBottom: 12,
+  },
+  badgeText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: COLORS.navyGov,
+    letterSpacing: 0.8,
+  },
+  headerTitle: {
+    fontSize: 26,
+    fontWeight: '800',
+    color: COLORS.navyDark,
+    textAlign: 'center',
+    marginBottom: 10,
+    lineHeight: 34,
+  },
   headerSubtitle: {
-    fontSize: 16,
-    color: '#e0e7ff',
-    marginTop: 4,
+    fontSize: 14,
+    color: COLORS.textSecondary,
     textAlign: 'center',
     lineHeight: 22,
+    maxWidth: 640,
   },
 });
 

@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, TouchableOpacity, TextInput, StyleSheet, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import OfficialNavbar from '../components/OfficialNavbar';
+import Footer from '../components/Footer';
+import { COLORS, RADIUS, SHADOWS } from '../constants/theme';
+import { useTheme } from '../context/ThemeContext';
 
 // Define types for the data structures
 interface SectionData {
@@ -122,6 +129,8 @@ const mva: SectionData[] =[
 ]
 
 const BareActs = () => {
+  const navigation = useNavigation();
+  const { theme, isDark } = useTheme();
   const [loading, setLoading] = useState<boolean>(true);
   const [showIPC, setShowIPC] = useState<boolean>(false);
   const [showCRPC, setShowCRPC] = useState<boolean>(false);
@@ -132,18 +141,75 @@ const BareActs = () => {
   const [showBNS, setShowBNS] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [activeModal, setActiveModal] = useState<string | null>(null);
+  // Bookmark state: Set of composite keys "ACT_SECTIONID"
+  const [bookmarks, setBookmarks] = useState<Set<string>>(new Set());
+  const [showBookmarks, setShowBookmarks] = useState<boolean>(false);
+
+  const BOOKMARK_KEY = '@lawai_bare_act_bookmarks';
 
   useEffect(() => {
     setLoading(false);
+    // Load persisted bookmarks
+    AsyncStorage.getItem(BOOKMARK_KEY).then((stored) => {
+      if (stored) setBookmarks(new Set(JSON.parse(stored)));
+    });
   }, []);
+
+  const toggleBookmark = async (actKey: string, sectionId: string) => {
+    const key = `${actKey}_${sectionId}`;
+    const updated = new Set(bookmarks);
+    if (updated.has(key)) {
+      updated.delete(key);
+    } else {
+      updated.add(key);
+    }
+    setBookmarks(updated);
+    await AsyncStorage.setItem(BOOKMARK_KEY, JSON.stringify([...updated]));
+  };
+
+  // Collect all bookmarked sections across every act for the Bookmarks tab
+  const getAllBookmarkedSections = (): Array<SectionData & { actKey: string }> => {
+    const actMap: Record<string, SectionData[]> = { BNS: bns, IPC: ipc, CRPC: crpc, IEA: iea, CPC: cpc, MVA: mva };
+    const results: Array<SectionData & { actKey: string }> = [];
+    Object.entries(actMap).forEach(([actKey, sections]) => {
+      sections.forEach((s) => {
+        if (bookmarks.has(`${actKey}_${s.section_id}`)) {
+          results.push({ ...s, actKey });
+        }
+      });
+    });
+    return results;
+  };
+
+  // Cross-act global search across all acts
+  const searchAcrossAllActs = (query: string): Array<SectionData & { actKey: string }> => {
+    if (!query || !query.trim()) return [];
+    const q = query.trim().toLowerCase();
+    const actMap: Record<string, SectionData[]> = { BNS: bns, IPC: ipc, CRPC: crpc, IEA: iea, CPC: cpc, MVA: mva };
+    const results: Array<SectionData & { actKey: string }> = [];
+    Object.entries(actMap).forEach(([actKey, sections]) => {
+      if (!sections) return;
+      sections.forEach((s) => {
+        if (
+          s.section_id.toLowerCase().includes(q) ||
+          s.section_title.toLowerCase().includes(q) ||
+          (s.description && s.description.toLowerCase().includes(q))
+        ) {
+          results.push({ ...s, actKey });
+        }
+      });
+    });
+    return results;
+  };
 
   if (loading) {
     return (
-      <ActivityIndicator
-        size="large"
-        color="#1E40AF"
-        style={styles.loader}
-      />
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator
+          size="large"
+          color={COLORS.navyGov}
+        />
+      </View>
     );
   }
 
@@ -151,7 +217,7 @@ const BareActs = () => {
     return (
       <View style={styles.errorContainer}>
         <Text style={styles.errorText}>
-          No data found or an error occurred!
+          No statutory records found or an error occurred.
         </Text>
       </View>
     );
@@ -172,212 +238,494 @@ const BareActs = () => {
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <Text style={styles.header}>Bare Acts Library</Text>
+    <View style={[styles.mainWrapper, { backgroundColor: theme.background }]}>
+      <OfficialNavbar />
 
-      {/* Section Cards */}
-      <View style={styles.cardContainer}>
-        {['BNS', 'IPC', 'CRPC', 'IEA', 'CPC', 'MVA'].map((item) => (
-          <TouchableOpacity
-            key={item}
-            style={[
-              styles.sectionCard,
-              activeSection === item && styles.sectionCardActive,
-            ]}
-            onPress={() => toggleSection(item)}
-          >
-            <Text
-              style={[
-                styles.sectionCardText,
-                activeSection === item && styles.sectionCardTextActive,
-              ]}
+      <ScrollView
+        style={styles.scrollContainer}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={[styles.header, { backgroundColor: theme.surface, borderBottomColor: theme.border }]}>
+          <View style={styles.headerContent}>
+            <TouchableOpacity
+              style={[styles.backBtn, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
+              onPress={() => navigation.goBack()}
+              activeOpacity={0.7}
             >
-              {item}
+              <Ionicons name="arrow-back-outline" size={18} color={isDark ? '#60A5FA' : COLORS.navyGov} />
+              <Text style={[styles.backBtnText, isDark && { color: '#60A5FA' }]}>Back to Tools</Text>
+            </TouchableOpacity>
+
+            <View style={[styles.badge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
+              <Text style={styles.badgeText}>GAZETTED STATUTES REPOSITORY</Text>
+            </View>
+
+            <Text style={[styles.headerTitle, { color: theme.textPrimary }]}>Bare Acts & Legislative Codes</Text>
+            <Text style={[styles.headerSubtitle, { color: theme.textSecondary }]}>
+              Official legislative text for Bharatiya Nyaya Sanhita (BNS), IPC, CrPC, and Indian Evidence Act.
             </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+          </View>
+        </View>
 
-      {/* Search */}
-      <TextInput
-        style={styles.searchBar}
-        placeholder="Search by Section ID or Title"
-        placeholderTextColor="#94A3B8"
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-      />
-
-      {/* Content Renderer */}
-      {activeSection &&
-        {
-          BNS: bns,
-          IPC: ipc,
-          CRPC: crpc,
-          IEA: iea,
-          CPC: cpc,
-          MVA: mva,
-        }[activeSection] && (
-          <View style={styles.detailsContainer}>
-            {filterSections(
-              {
-                BNS: bns,
-                IPC: ipc,
-                CRPC: crpc,
-                IEA: iea,
-                CPC: cpc,
-                MVA: mva,
-              }[activeSection]
-            ).map((item, index) => (
-              <View key={index} style={styles.detailCard}>
-                <Text style={styles.sectionId}>
-                  Section {item.section_id}
+        <View style={styles.contentWrapper}>
+          {/* Section Selection Cards */}
+          <Text style={[styles.selectionLabel, { color: theme.textMuted }]}>SELECT LEGISLATIVE ACT</Text>
+          <View style={styles.cardContainer}>
+            {['BNS', 'IPC', 'CRPC', 'IEA', 'CPC', 'MVA'].map((item) => (
+              <TouchableOpacity
+                key={item}
+                style={[
+                  styles.sectionCard,
+                  { backgroundColor: theme.cardBackground, borderColor: theme.border },
+                  activeSection === item && styles.sectionCardActive,
+                ]}
+                onPress={() => toggleSection(item)}
+                activeOpacity={0.8}
+              >
+                <Text
+                  style={[
+                    styles.sectionCardText,
+                    { color: theme.textPrimary },
+                    activeSection === item && styles.sectionCardTextActive,
+                  ]}
+                >
+                  {item}
                 </Text>
-                <Text style={styles.sectionTitle}>
-                  {item.section_title}
+                <Text
+                  style={[
+                    styles.sectionCardSub,
+                    { color: theme.textMuted },
+                    activeSection === item && styles.sectionCardSubActive,
+                  ]}
+                >
+                  {item === 'BNS'
+                    ? '2023 Enactment'
+                    : item === 'IPC'
+                    ? '1860 Penal Code'
+                    : item === 'CRPC'
+                    ? 'Criminal Proc.'
+                    : item === 'IEA'
+                    ? 'Evidence Act'
+                    : item === 'CPC'
+                    ? 'Civil Proc.'
+                    : 'Motor Vehicles'}
                 </Text>
-                <View style={styles.divider} />
-                <Text style={styles.sectionDescription}>
-                  {item.description}
-                </Text>
-              </View>
+              </TouchableOpacity>
             ))}
           </View>
-        )}
-    </ScrollView>
+
+          {/* Bookmarks Toggle Tab */}
+          <TouchableOpacity
+            style={[styles.bookmarkTab, { backgroundColor: theme.surface, borderColor: COLORS.accentGoldDark }, showBookmarks && styles.bookmarkTabActive]}
+            onPress={() => { setShowBookmarks((b) => !b); setActiveSection(null); }}
+            activeOpacity={0.7}
+          >
+            <Ionicons
+              name={showBookmarks ? 'bookmark' : 'bookmark-outline'}
+              size={16}
+              color={showBookmarks ? COLORS.white : COLORS.accentGoldDark}
+            />
+            <Text style={[styles.bookmarkTabText, showBookmarks && styles.bookmarkTabTextActive]}>
+              Bookmarks ({bookmarks.size})
+            </Text>
+          </TouchableOpacity>
+
+          {/* Search */}
+          <View style={[styles.searchContainer, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder }]}>
+            <Ionicons name="search-outline" size={18} color={theme.textMuted} style={styles.searchIcon} />
+            <TextInput
+              style={[styles.searchBar, { color: theme.textPrimary }]}
+              placeholder="Search sections across all acts (e.g. theft, bail, 302, 103)..."
+              placeholderTextColor={theme.textMuted}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+            />
+            {searchQuery.trim().length > 0 && (
+              <TouchableOpacity onPress={() => setSearchQuery('')} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                <Ionicons name="close-circle" size={18} color={theme.textMuted} />
+              </TouchableOpacity>
+            )}
+          </View>
+
+          {/* Cross-Act Global Search Results */}
+          {!showBookmarks && !activeSection && searchQuery.trim().length > 0 && (
+            <View style={styles.detailsContainer}>
+              <View style={styles.resultsHeader}>
+                <Text style={[styles.resultsCount, { color: theme.textMuted }]}>
+                  Search Results across All Acts: {searchAcrossAllActs(searchQuery).length} found
+                </Text>
+              </View>
+              {searchAcrossAllActs(searchQuery).length === 0 ? (
+                <View style={{ alignItems: 'center', paddingVertical: 40 }}>
+                  <Ionicons name="search" size={40} color={theme.textMuted} />
+                  <Text style={{ color: theme.textMuted, marginTop: 8, fontSize: 14 }}>
+                    No statutory sections found matching "{searchQuery}".
+                  </Text>
+                </View>
+              ) : (
+                searchAcrossAllActs(searchQuery).map((item, index) => (
+                  <View key={index} style={[styles.detailCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
+                    <View style={[styles.sectionBadgeRow, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+                      <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
+                        <View style={[styles.sectionBadge, { backgroundColor: COLORS.navyGov }]}>
+                          <Text style={[styles.sectionId, { color: COLORS.white }]}>{item.actKey}</Text>
+                        </View>
+                        <View style={[styles.sectionBadge, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
+                          <Text style={[styles.sectionId, isDark && { color: '#FDE68A' }]}>§ {item.section_id}</Text>
+                        </View>
+                      </View>
+                      <TouchableOpacity
+                        onPress={() => toggleBookmark(item.actKey, item.section_id)}
+                        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                      >
+                        <Ionicons
+                          name={bookmarks.has(`${item.actKey}_${item.section_id}`) ? 'bookmark' : 'bookmark-outline'}
+                          size={18}
+                          color={bookmarks.has(`${item.actKey}_${item.section_id}`) ? COLORS.accentGold : theme.textMuted}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{item.section_title}</Text>
+                    <View style={[styles.divider, { backgroundColor: theme.border }]} />
+                    <Text style={[styles.sectionDescription, { color: theme.textSecondary }]}>{item.description}</Text>
+                  </View>
+                ))
+              )}
+            </View>
+          )}
+
+          {/* Bookmarked Sections View */}
+          {showBookmarks && (
+            <View style={styles.detailsContainer}>
+              <View style={styles.resultsHeader}>
+                <Text style={[styles.resultsCount, { color: theme.textMuted }]}>
+                  {getAllBookmarkedSections().length} bookmarked section(s)
+                </Text>
+              </View>
+              {getAllBookmarkedSections().length === 0 ? (
+                <View style={{ alignItems: 'center', paddingVertical: 40 }}>
+                  <Ionicons name="bookmark-outline" size={40} color={theme.textMuted} />
+                  <Text style={{ color: theme.textMuted, marginTop: 8, fontSize: 14 }}>
+                    No bookmarks yet. Tap the bookmark icon on any section.
+                  </Text>
+                </View>
+              ) : (
+                getAllBookmarkedSections().map((item, index) => (
+                  <View key={index} style={[styles.detailCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
+                    <View style={[styles.sectionBadgeRow, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+                      <View style={[styles.sectionBadge, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
+                        <Text style={[styles.sectionId, isDark && { color: '#FDE68A' }]}>{item.actKey} § {item.section_id}</Text>
+                      </View>
+                      <TouchableOpacity onPress={() => toggleBookmark(item.actKey, item.section_id)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                        <Ionicons name="bookmark" size={18} color={COLORS.accentGold} />
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{item.section_title}</Text>
+                    <View style={[styles.divider, { backgroundColor: theme.border }]} />
+                    <Text style={[styles.sectionDescription, { color: theme.textSecondary }]}>{item.description}</Text>
+                  </View>
+                ))
+              )}
+            </View>
+          )}
+
+          {/* Per-Act Section Listing */}
+          {!showBookmarks && activeSection &&
+            {
+              BNS: bns,
+              IPC: ipc,
+              CRPC: crpc,
+              IEA: iea,
+              CPC: cpc,
+              MVA: mva,
+            }[activeSection] && (
+              <View style={styles.detailsContainer}>
+                <View style={styles.resultsHeader}>
+                  <Text style={[styles.resultsCount, { color: theme.textMuted }]}>
+                    Displaying sections for {activeSection}
+                  </Text>
+                </View>
+
+                {filterSections(
+                  {
+                    BNS: bns,
+                    IPC: ipc,
+                    CRPC: crpc,
+                    IEA: iea,
+                    CPC: cpc,
+                    MVA: mva,
+                  }[activeSection]
+                ).map((item, index) => (
+                  <View key={index} style={[styles.detailCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
+                    <View style={[styles.sectionBadgeRow, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+                      <View style={[styles.sectionBadge, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
+                        <Text style={[styles.sectionId, isDark && { color: '#FDE68A' }]}>SECTION {item.section_id}</Text>
+                      </View>
+                      <TouchableOpacity
+                        onPress={() => toggleBookmark(activeSection!, item.section_id)}
+                        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                      >
+                        <Ionicons
+                          name={bookmarks.has(`${activeSection}_${item.section_id}`) ? 'bookmark' : 'bookmark-outline'}
+                          size={18}
+                          color={bookmarks.has(`${activeSection}_${item.section_id}`) ? COLORS.accentGold : theme.textMuted}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{item.section_title}</Text>
+                    <View style={[styles.divider, { backgroundColor: theme.border }]} />
+                    <Text style={[styles.sectionDescription, { color: theme.textSecondary }]}>{item.description}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
+
+        </View>
+
+        <Footer />
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  mainWrapper: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
-    paddingHorizontal: 16,
+    backgroundColor: COLORS.surfaceLight,
   },
-
+  scrollContainer: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
   header: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: '#0F172A',
-    marginVertical: 20,
-    letterSpacing: 0.3,
+    backgroundColor: COLORS.white,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    paddingVertical: 28,
+    paddingHorizontal: 20,
+    alignItems: 'center',
   },
-
+  headerContent: {
+    maxWidth: 960,
+    width: '100%',
+  },
+  backBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: RADIUS.sm,
+    backgroundColor: COLORS.surfaceMuted,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    alignSelf: 'flex-start',
+    marginBottom: 12,
+  },
+  backBtnText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: COLORS.navyGov,
+  },
+  badge: {
+    backgroundColor: COLORS.surfaceMuted,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.sm,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    alignSelf: 'flex-start',
+    marginBottom: 10,
+  },
+  badgeText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: COLORS.accentGoldDark,
+    letterSpacing: 0.6,
+  },
+  headerTitle: {
+    fontSize: 26,
+    fontWeight: '800',
+    color: COLORS.navyDark,
+    marginBottom: 6,
+    lineHeight: 34,
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    lineHeight: 21,
+  },
+  contentWrapper: {
+    maxWidth: 960,
+    width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 28,
+  },
+  selectionLabel: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: COLORS.textMuted,
+    letterSpacing: 0.8,
+    marginBottom: 12,
+  },
   cardContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginBottom: 20,
+    gap: 12,
+    marginBottom: 24,
   },
-
   sectionCard: {
-    width: '48%',
-    height: 140,
-    borderRadius: 18,
-    backgroundColor: '#FFFFFF',
+    flex: 1,
+    minWidth: 130,
+    height: 90,
+    borderRadius: RADIUS.lg,
+    backgroundColor: COLORS.white,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 4,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: COLORS.border,
+    ...SHADOWS.subtle,
   },
-
   sectionCardActive: {
-    backgroundColor: '#1E40AF',
-    borderColor: '#1E40AF',
+    backgroundColor: COLORS.navyGov,
+    borderColor: COLORS.navyMuted,
   },
-
   sectionCardText: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: '#1E40AF',
+    fontSize: 20,
+    fontWeight: '800',
+    color: COLORS.navyDark,
   },
-
   sectionCardTextActive: {
-    color: '#FFFFFF',
+    color: COLORS.white,
   },
-
-  searchBar: {
-    height: 52,
-    borderRadius: 14,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 18,
-    fontSize: 15,
-    color: '#0F172A',
+  sectionCardSub: {
+    fontSize: 11,
+    color: COLORS.textMuted,
+    marginTop: 2,
+  },
+  sectionCardSubActive: {
+    color: '#CBD5E1',
+  },
+  bookmarkTab: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: RADIUS.md,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
-    marginBottom: 24,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 4,
-  },
-
-  detailsContainer: {
-    paddingBottom: 40,
-  },
-
-  detailCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 18,
+    borderColor: COLORS.accentGoldDark,
+    backgroundColor: COLORS.white,
     marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 3,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
+    gap: 6,
   },
-
-  sectionId: {
+  bookmarkTabActive: {
+    backgroundColor: COLORS.accentGoldDark,
+  },
+  bookmarkTabText: {
     fontSize: 13,
-    fontWeight: '700',
-    color: '#2563EB',
-    marginBottom: 4,
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
+    fontWeight: '600',
+    color: COLORS.accentGoldDark,
   },
-
+  bookmarkTabTextActive: {
+    color: COLORS.white,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.white,
+    borderRadius: RADIUS.md,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    paddingHorizontal: 14,
+    marginBottom: 24,
+    ...SHADOWS.subtle,
+  },
+  searchIcon: {
+    marginRight: 8,
+  },
+  searchBar: {
+    flex: 1,
+    height: 48,
+    fontSize: 14,
+    color: COLORS.navyDark,
+  },
+  detailsContainer: {
+    paddingBottom: 20,
+  },
+  resultsHeader: {
+    marginBottom: 14,
+  },
+  resultsCount: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: COLORS.textMuted,
+  },
+  detailCard: {
+    backgroundColor: COLORS.white,
+    borderRadius: RADIUS.lg,
+    padding: 20,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    ...SHADOWS.subtle,
+  },
+  sectionBadgeRow: {
+    marginBottom: 8,
+  },
+  sectionBadge: {
+    alignSelf: 'flex-start',
+    backgroundColor: COLORS.surfaceMuted,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: RADIUS.sm,
+  },
+  sectionId: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: COLORS.accentGoldDark,
+    letterSpacing: 0.6,
+  },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
-    color: '#0F172A',
-    marginBottom: 10,
+    color: COLORS.navyDark,
+    marginBottom: 8,
+    lineHeight: 23,
   },
-
   divider: {
     height: 1,
-    backgroundColor: '#E5E7EB',
-    marginBottom: 10,
+    backgroundColor: COLORS.border,
+    marginBottom: 12,
   },
-
   sectionDescription: {
-    fontSize: 14,
-    lineHeight: 22,
-    color: '#334155',
+    fontSize: 13,
+    lineHeight: 21,
+    color: COLORS.textSecondary,
   },
-
-  loader: {
+  loaderContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: COLORS.surfaceLight,
   },
-
   errorContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
+    backgroundColor: COLORS.surfaceLight,
   },
-
   errorText: {
-    fontSize: 16,
-    color: '#DC2626',
+    fontSize: 14,
+    color: COLORS.statusAlert,
+    fontWeight: '600',
   },
 });
 

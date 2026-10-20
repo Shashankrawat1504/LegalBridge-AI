@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { COLORS, RADIUS, SHADOWS } from '../../constants/theme';
 
 interface FormButtonProps {
   title: string;
@@ -17,19 +18,20 @@ const FormButton: React.FC<FormButtonProps> = ({
   isLoading,
   onPress,
   iconName,
-  backgroundColor = '#059669'
+  backgroundColor = COLORS.navyGov,
 }) => {
   return (
     <TouchableOpacity
       style={[styles.button, isLoading && styles.buttonDisabled]}
       onPress={onPress}
       disabled={isLoading}
+      activeOpacity={0.85}
     >
       <View style={[styles.buttonContent, isLoading && styles.buttonContentDisabled, { backgroundColor }]}>
         {isLoading ? (
-          <ActivityIndicator color="#fff" size="small" />
+          <ActivityIndicator color={COLORS.white} size="small" />
         ) : (
-          <Ionicons name={iconName} size={20} color="#fff" />
+          <Ionicons name={iconName} size={18} color={COLORS.white} />
         )}
         <Text style={styles.buttonText}>
           {isLoading ? loadingTitle : title}
@@ -41,28 +43,32 @@ const FormButton: React.FC<FormButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 12,
+    borderRadius: RADIUS.md,
     overflow: 'hidden',
-    marginTop: 10,
+    marginTop: 12,
+    borderWidth: 1,
+    borderColor: COLORS.navyMuted,
+    ...SHADOWS.subtle,
   },
   buttonDisabled: {
-    opacity: 0.6,
+    opacity: 0.65,
   },
   buttonContent: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 16,
-    paddingHorizontal: 24,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
   },
   buttonContentDisabled: {
-    backgroundColor: '#9ca3af',
+    backgroundColor: '#94A3B8',
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    color: COLORS.white,
+    fontSize: 14,
+    fontWeight: '700',
     marginLeft: 8,
+    letterSpacing: 0.3,
   },
 });
 

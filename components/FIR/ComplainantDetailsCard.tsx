@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../../context/ThemeContext';
 
 interface ComplainantDetailsCardProps {
   formData: {
@@ -15,18 +16,21 @@ interface ComplainantDetailsCardProps {
 }
 
 const ComplainantDetailsCard: React.FC<ComplainantDetailsCardProps> = ({ formData, onChange }) => {
+  const { theme } = useTheme();
+
   return (
-    <View style={styles.card}>
-      <View style={styles.cardHeader}>
+    <View style={[styles.card, { backgroundColor: theme.cardBackground, borderWidth: 1, borderColor: theme.border }]}>
+      <View style={[styles.cardHeader, { borderBottomColor: theme.border }]}>
         <Ionicons name="person" size={20} color="#059669" />
-        <Text style={styles.cardTitle}>Complainant Details</Text>
+        <Text style={[styles.cardTitle, { color: theme.textPrimary }]}>Complainant Details</Text>
       </View>
 
       <View style={styles.inputGroup}>
-        <Text style={styles.inputLabel}>Full Name *</Text>
+        <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Full Name *</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
           placeholder="Enter complainant's full name"
+          placeholderTextColor={theme.textMuted}
           value={formData.complainantName}
           onChangeText={(value) => onChange('complainantName', value)}
         />
@@ -34,19 +38,21 @@ const ComplainantDetailsCard: React.FC<ComplainantDetailsCardProps> = ({ formDat
 
       <View style={styles.row}>
         <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>Father's/Husband's Name</Text>
+          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Father's/Husband's Name</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
             placeholder="Enter father's or husband's name"
+            placeholderTextColor={theme.textMuted}
             value={formData.fatherName}
             onChangeText={(value) => onChange('fatherName', value)}
           />
         </View>
         <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>Date of Birth</Text>
+          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Date of Birth</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
             placeholder="DD/MM/YYYY"
+            placeholderTextColor={theme.textMuted}
             value={formData.birthDate}
             onChangeText={(value) => onChange('birthDate', value)}
           />
@@ -55,19 +61,21 @@ const ComplainantDetailsCard: React.FC<ComplainantDetailsCardProps> = ({ formDat
 
       <View style={styles.row}>
         <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>Nationality</Text>
+          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Nationality</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
             placeholder="Enter nationality"
+            placeholderTextColor={theme.textMuted}
             value={formData.nationality}
             onChangeText={(value) => onChange('nationality', value)}
           />
         </View>
         <View style={styles.inputGroup}>
-          <Text style={styles.inputLabel}>Occupation</Text>
+          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Occupation</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
             placeholder="Enter occupation"
+            placeholderTextColor={theme.textMuted}
             value={formData.occupation}
             onChangeText={(value) => onChange('occupation', value)}
           />
@@ -75,10 +83,11 @@ const ComplainantDetailsCard: React.FC<ComplainantDetailsCardProps> = ({ formDat
       </View>
 
       <View style={styles.inputGroup}>
-        <Text style={styles.inputLabel}>Address</Text>
+        <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Address</Text>
         <TextInput
-          style={[styles.input, styles.textArea]}
+          style={[styles.input, styles.textArea, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
           placeholder="Enter complainant's address"
+          placeholderTextColor={theme.textMuted}
           value={formData.complainantAddress}
           onChangeText={(value) => onChange('complainantAddress', value)}
           multiline

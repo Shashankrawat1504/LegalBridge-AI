@@ -1,4 +1,4 @@
-# LawAI Mobile App
+# LegalBridge-AI Mobile App
 
 A comprehensive mobile application for law enforcement agencies, powered by AI technology.
 
@@ -61,7 +61,7 @@ The app uses custom icons located in the `assets/` folder:
 
 To generate these icons from the provided SVG:
 
-1. Open `assets/lawai-icon.svg` in a vector graphics editor (Inkscape, Adobe Illustrator, etc.)
+1. Open `assets/legalbridge-icon.svg` in a vector graphics editor (Inkscape, Adobe Illustrator, etc.)
 2. Export as PNG at the required sizes:
    - 1024x1024 for icon.png and adaptive-icon.png
    - 512x512 for splash-icon.png
@@ -69,8 +69,8 @@ To generate these icons from the provided SVG:
 
 ### Configuration
 
-- **Bundle ID**: `com.lawai.com.lawai`
-- **Package Name**: `com.lawai.com.lawai`
+- **Bundle ID**: `com.legalbridgeai.app`
+- **Package Name**: `com.legalbridgeai.app`
 - **Version**: 1.0.0
 - **Build**: 1
 

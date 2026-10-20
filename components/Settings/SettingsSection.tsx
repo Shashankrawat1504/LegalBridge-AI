@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+import { useTheme } from '../../context/ThemeContext';
+
 interface SettingsSectionProps {
   title: string;
   description?: string;
@@ -17,16 +19,18 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
   iconColor = '#1e3a8a',
   children
 }) => {
+  const { theme, isDark } = useTheme();
+
   return (
     <View style={styles.section}>
       <View style={styles.sectionHeader}>
-        <Ionicons name={iconName} size={24} color={iconColor} />
-        <Text style={styles.sectionTitle}>{title}</Text>
+        <Ionicons name={iconName} size={24} color={isDark ? '#60a5fa' : iconColor} />
+        <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{title}</Text>
       </View>
       {description && (
-        <Text style={styles.sectionDescription}>{description}</Text>
+        <Text style={[styles.sectionDescription, { color: theme.textSecondary }]}>{description}</Text>
       )}
-      <View style={styles.sectionContent}>
+      <View style={[styles.sectionContent, { backgroundColor: theme.cardBackground, borderColor: theme.border, borderWidth: isDark ? 1 : 0 }]}>
         {children}
       </View>
     </View>

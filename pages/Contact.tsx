@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert, useWindowDimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import OfficialNavbar from '../components/OfficialNavbar';
+import Footer from '../components/Footer';
+import { useTheme } from '../context/ThemeContext';
+import { COLORS, RADIUS, SHADOWS } from '../constants/theme';
 
 const Contact = () => {
+  const { theme } = useTheme();
+  const { width } = useWindowDimensions();
+  const isCompact = width < 800;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: string, value: string) => {
     setFormData({
       ...formData,
       [field]: value
@@ -18,271 +26,384 @@ const Contact = () => {
   };
 
   const handleSubmit = () => {
-    // Handle form submission
-    console.log(formData);
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      Alert.alert('Incomplete Form', 'Please complete all required fields before submitting.');
+      return;
+    }
+    console.log('Submitted Contact Query:', formData);
+    setSubmitted(true);
+    Alert.alert(
+      'Official Query Received',
+      'Your inquiry has been logged in the official legal grievance & assistance system. A representative will review your message.'
+    );
+    setFormData({ name: '', email: '', message: '' });
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {/* Hero Section */}
-      <LinearGradient
-        colors={['#0047AB', '#6B46C1']}
-        style={styles.hero}
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <OfficialNavbar currentRoute="Contact" />
+
+      <ScrollView
+        style={styles.scrollContainer}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
       >
-        <View style={styles.contactIconContainer}>
-          <Ionicons name="mail" size={48} color="#ffffff" />
+        {/* Header Hero Section */}
+        <View style={[styles.heroSection, { backgroundColor: theme.surface, borderBottomColor: theme.border }]}>
+          <View style={styles.heroInner}>
+            <View style={[styles.tagBadge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
+              <Text style={styles.tagBadgeText}>OFFICIAL COMMUNICATIONS & LIAISON</Text>
+            </View>
+            <Text style={[styles.heroTitle, { color: theme.textPrimary }]}>Departmental Contact & Support</Text>
+            <Text style={[styles.heroSubtitle, { color: theme.textSecondary }]}>
+              Connect with the LegalBridge-AI technical coordination desk, judicial liaison officers, and public assistance divisions for support or platform inquiries.
+            </Text>
+          </View>
         </View>
-        <Text style={styles.heroTitle}>Get in Touch</Text>
-        <Text style={styles.heroSubtitle}>
-          Have questions, feedback, or just want to say hello? We're here to help you navigate the legal landscape.
-        </Text>
-      </LinearGradient>
 
-      {/* Contact Details Section */}
-      <View style={styles.contactDetailsSection}>
-        <Text style={styles.sectionTitle}>Contact Information</Text>
-        <View style={styles.contactDetails}>
-          <View style={styles.contactItem}>
-            <LinearGradient
-              colors={['#0047AB', '#6B46C1']}
-              style={styles.contactIconBackground}
-            >
-              <Ionicons name="mail" size={24} color="#ffffff" />
-            </LinearGradient>
-            <View style={styles.contactTextContainer}>
-              <Text style={styles.contactLabel}>Email</Text>
-              <Text style={styles.contactText}>code.a.cola.01@gmail.com</Text>
-            </View>
-          </View>
-          <View style={styles.contactItem}>
-            <LinearGradient
-              colors={['#0047AB', '#6B46C1']}
-              style={styles.contactIconBackground}
-            >
-              <Ionicons name="call" size={24} color="#ffffff" />
-            </LinearGradient>
-            <View style={styles.contactTextContainer}>
-              <Text style={styles.contactLabel}>Phone</Text>
-              <Text style={styles.contactText}>+91-123-456-7890</Text>
-            </View>
-          </View>
-          <View style={styles.contactItem}>
-            <LinearGradient
-              colors={['#0047AB', '#6B46C1']}
-              style={styles.contactIconBackground}
-            >
-              <Ionicons name="location" size={24} color="#ffffff" />
-            </LinearGradient>
-            <View style={styles.contactTextContainer}>
-              <Text style={styles.contactLabel}>Address</Text>
-              <Text style={styles.contactText}>Ministry of Law & Justice, Madhya Pradesh, India</Text>
-            </View>
-          </View>
-        </View>
-      </View>
+        {/* Main Content Layout */}
+        <View style={styles.contentWrapper}>
+          <View style={[styles.mainRow, isCompact && styles.mainRowCompact]}>
+            {/* Contact Information Cards */}
+            <View style={[styles.infoColumn, isCompact && styles.columnFull]}>
+              <View style={[styles.infoCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
+                <Text style={[styles.cardHeaderTitle, { color: theme.textPrimary }]}>Official Contact Details</Text>
+                <Text style={[styles.cardHeaderSubtitle, { color: theme.textMuted }]}>
+                  Directorate of Legal Affairs & Technical Operations
+                </Text>
 
-      {/* Contact Form Section */}
-      <View style={styles.formSection}>
-        <Text style={styles.sectionTitle}>Send us a Message</Text>
-        <View style={styles.formField}>
-          <Text style={styles.label}>Name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Your Name"
-            placeholderTextColor="#9CA3AF"
-            value={formData.name}
-            onChangeText={(text) => handleInputChange('name', text)}
-          />
+                <View style={styles.contactItemList}>
+                  <View style={[styles.contactItem, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
+                    <View style={[styles.iconCircle, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+                      <Ionicons name="mail-outline" size={20} color={COLORS.navyGov} />
+                    </View>
+                    <View style={styles.contactTextContainer}>
+                      <Text style={styles.contactLabel}>Official Email Desk</Text>
+                      <Text style={[styles.contactValue, { color: theme.textPrimary }]}>code.a.cola.01@gmail.com</Text>
+                      <Text style={[styles.contactNote, { color: theme.textMuted }]}>Monitored Mon-Sat, 09:30 - 18:00 IST</Text>
+                    </View>
+                  </View>
+
+                  <View style={[styles.contactItem, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
+                    <View style={[styles.iconCircle, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+                      <Ionicons name="call-outline" size={20} color={COLORS.navyGov} />
+                    </View>
+                    <View style={styles.contactTextContainer}>
+                      <Text style={styles.contactLabel}>Institutional Helpline</Text>
+                      <Text style={[styles.contactValue, { color: theme.textPrimary }]}>+91-123-456-7890</Text>
+                      <Text style={[styles.contactNote, { color: theme.textMuted }]}>Toll-free judicial portal assistance</Text>
+                    </View>
+                  </View>
+
+                  <View style={[styles.contactItem, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
+                    <View style={[styles.iconCircle, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+                      <Ionicons name="location-outline" size={20} color={COLORS.navyGov} />
+                    </View>
+                    <View style={styles.contactTextContainer}>
+                      <Text style={styles.contactLabel}>Secretariat Address</Text>
+                      <Text style={[styles.contactValue, { color: theme.textPrimary }]}>
+                        Ministry of Law & Justice, Madhya Pradesh, India
+                      </Text>
+                      <Text style={[styles.contactNote, { color: theme.textMuted }]}>National Law Enforcement Portal Cell</Text>
+                    </View>
+                  </View>
+                </View>
+
+                <View style={[styles.disclaimerNotice, { backgroundColor: theme.surfaceMuted }]}>
+                  <Text style={[styles.disclaimerNoticeText, { color: theme.textSecondary }]}>
+                    Note: For urgent criminal emergency assistance, dial 112 directly. This portal is for statutory assistance, technical support, and administrative liaison.
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+            {/* Official Message Submission Form */}
+            <View style={[styles.formColumn, isCompact && styles.columnFull]}>
+              <View style={[styles.formCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
+                <Text style={[styles.cardHeaderTitle, { color: theme.textPrimary }]}>Submit an Official Communication</Text>
+                <Text style={[styles.cardHeaderSubtitle, { color: theme.textMuted }]}>
+                  All submissions are logged with reference timestamps for audit compliance.
+                </Text>
+
+                <View style={styles.formField}>
+                  <Text style={[styles.label, { color: theme.textPrimary }]}>
+                    Full Name / Designation <Text style={styles.requiredMark}>*</Text>
+                  </Text>
+                  <TextInput
+                    style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
+                    placeholder="Enter your name or official designation"
+                    placeholderTextColor={theme.textMuted}
+                    value={formData.name}
+                    onChangeText={(text) => handleInputChange('name', text)}
+                  />
+                </View>
+
+                <View style={styles.formField}>
+                  <Text style={[styles.label, { color: theme.textPrimary }]}>
+                    Official Email Address <Text style={styles.requiredMark}>*</Text>
+                  </Text>
+                  <TextInput
+                    style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
+                    placeholder="name@gov.in or email address"
+                    placeholderTextColor={theme.textMuted}
+                    value={formData.email}
+                    onChangeText={(text) => handleInputChange('email', text)}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                  />
+                </View>
+
+                <View style={styles.formField}>
+                  <Text style={[styles.label, { color: theme.textPrimary }]}>
+                    Matter / Query Particulars <Text style={styles.requiredMark}>*</Text>
+                  </Text>
+                  <TextInput
+                    style={[styles.textArea, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
+                    placeholder="Provide detailed description of your legal inquiry, system feedback, or verification request..."
+                    placeholderTextColor={theme.textMuted}
+                    value={formData.message}
+                    onChangeText={(text) => handleInputChange('message', text)}
+                    multiline
+                    numberOfLines={5}
+                    textAlignVertical="top"
+                  />
+                </View>
+
+                <TouchableOpacity
+                  style={styles.submitBtn}
+                  onPress={handleSubmit}
+                  activeOpacity={0.85}
+                >
+                  <Ionicons name="paper-plane-outline" size={17} color={COLORS.white} />
+                  <Text style={styles.submitBtnText}>Submit Communication</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
         </View>
-        <View style={styles.formField}>
-          <Text style={styles.label}>Email</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="youremail@example.com"
-            placeholderTextColor="#9CA3AF"
-            value={formData.email}
-            onChangeText={(text) => handleInputChange('email', text)}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-        </View>
-        <View style={styles.formField}>
-          <Text style={styles.label}>Message</Text>
-          <TextInput
-            style={styles.textArea}
-            placeholder="Your message here..."
-            placeholderTextColor="#9CA3AF"
-            value={formData.message}
-            onChangeText={(text) => handleInputChange('message', text)}
-            multiline
-            textAlignVertical="top"
-          />
-        </View>
-        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <LinearGradient
-            colors={['#0047AB', '#6B46C1']}
-            style={styles.submitButtonGradient}
-          >
-            <Ionicons name="send" size={20} color="#ffffff" />
-            <Text style={styles.submitButtonText}>Send Message</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+
+        <Footer />
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: COLORS.surfaceLight,
   },
-  hero: {
-    paddingVertical: 60,
+  scrollContainer: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
+  heroSection: {
+    backgroundColor: COLORS.white,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    paddingVertical: 44,
     paddingHorizontal: 20,
     alignItems: 'center',
-    justifyContent: 'center',
   },
-  contactIconContainer: {
-    marginBottom: 16,
+  heroInner: {
+    maxWidth: 820,
+    width: '100%',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  tagBadge: {
+    backgroundColor: COLORS.surfaceMuted,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.sm,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginBottom: 14,
+  },
+  tagBadgeText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: COLORS.navyGov,
+    letterSpacing: 0.8,
   },
   heroTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#ffffff',
+    fontSize: 30,
+    fontWeight: '800',
+    color: COLORS.navyDark,
     textAlign: 'center',
+    lineHeight: 38,
     marginBottom: 12,
   },
   heroSubtitle: {
-    fontSize: 16,
-    color: '#E0E7FF',
-    textAlign: 'center',
+    fontSize: 15,
     lineHeight: 24,
-    maxWidth: 300,
-  },
-  contactDetailsSection: {
-    paddingVertical: 40,
-    paddingHorizontal: 20,
-    backgroundColor: '#ffffff',
-    marginHorizontal: 16,
-    marginTop: -20,
-    borderRadius: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1F2937',
+    color: COLORS.textSecondary,
     textAlign: 'center',
-    marginBottom: 24,
+    maxWidth: 680,
   },
-  contactDetails: {
+  contentWrapper: {
+    maxWidth: 1100,
     width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 36,
+  },
+  mainRow: {
+    flexDirection: 'row',
+    gap: 24,
+    alignItems: 'flex-start',
+  },
+  mainRowCompact: {
+    flexDirection: 'column',
+  },
+  infoColumn: {
+    flex: 1,
+    width: '100%',
+  },
+  formColumn: {
+    flex: 1.2,
+    width: '100%',
+  },
+  columnFull: {
+    width: '100%',
+  },
+  infoCard: {
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.xl,
+    padding: 24,
+    ...SHADOWS.subtle,
+  },
+  formCard: {
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.xl,
+    padding: 24,
+    ...SHADOWS.subtle,
+  },
+  cardHeaderTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: COLORS.navyDark,
+    marginBottom: 4,
+  },
+  cardHeaderSubtitle: {
+    fontSize: 12,
+    color: COLORS.textMuted,
+    marginBottom: 20,
+  },
+  contactItemList: {
+    gap: 16,
+    marginBottom: 20,
   },
   contactItem: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-    backgroundColor: '#F9FAFB',
-    padding: 16,
-    borderRadius: 12,
+    alignItems: 'flex-start',
+    backgroundColor: COLORS.surfaceLight,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.md,
+    padding: 14,
+    gap: 14,
   },
-  contactIconBackground: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    alignItems: 'center',
+  iconCircle: {
+    width: 38,
+    height: 38,
+    borderRadius: RADIUS.sm,
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
     justifyContent: 'center',
-    marginRight: 16,
+    alignItems: 'center',
   },
   contactTextContainer: {
     flex: 1,
   },
   contactLabel: {
-    fontSize: 12,
-    color: '#6B7280',
-    fontWeight: '600',
-    textTransform: 'uppercase',
+    fontSize: 10,
+    fontWeight: '700',
+    color: COLORS.accentGoldDark,
     letterSpacing: 0.5,
-    marginBottom: 4,
+    marginBottom: 2,
   },
-  contactText: {
-    fontSize: 16,
-    color: '#1F2937',
-    fontWeight: '500',
+  contactValue: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: COLORS.navyDark,
+    marginBottom: 2,
   },
-  formSection: {
-    paddingVertical: 40,
-    paddingHorizontal: 20,
-    backgroundColor: '#ffffff',
-    marginHorizontal: 16,
-    marginTop: 20,
-    marginBottom: 20,
-    borderRadius: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
+  contactNote: {
+    fontSize: 11,
+    color: COLORS.textMuted,
+  },
+  disclaimerNotice: {
+    backgroundColor: COLORS.surfaceMuted,
+    borderLeftWidth: 3,
+    borderLeftColor: COLORS.navyGov,
+    padding: 12,
+    borderRadius: RADIUS.sm,
+  },
+  disclaimerNoticeText: {
+    fontSize: 11,
+    color: COLORS.textSecondary,
+    lineHeight: 16,
   },
   formField: {
-    marginBottom: 20,
+    marginBottom: 16,
   },
   label: {
-    fontSize: 16,
+    fontSize: 13,
     fontWeight: '600',
-    color: '#374151',
-    marginBottom: 8,
+    color: COLORS.navyDark,
+    marginBottom: 6,
+  },
+  requiredMark: {
+    color: COLORS.statusAlert,
   },
   input: {
-    backgroundColor: '#F9FAFB',
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    borderRadius: 12,
+    backgroundColor: COLORS.surfaceLight,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
-    fontSize: 16,
-    color: '#1F2937',
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.md,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    fontSize: 14,
+    color: COLORS.navyDark,
   },
   textArea: {
-    backgroundColor: '#F9FAFB',
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    borderRadius: 12,
+    backgroundColor: COLORS.surfaceLight,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
-    fontSize: 16,
-    color: '#1F2937',
-    height: 120,
-    textAlignVertical: 'top',
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.md,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    fontSize: 14,
+    color: COLORS.navyDark,
+    minHeight: 120,
   },
-  submitButton: {
-    marginTop: 8,
-    borderRadius: 12,
-    overflow: 'hidden',
-  },
-  submitButtonGradient: {
+  submitBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 16,
-    paddingHorizontal: 24,
+    gap: 8,
+    backgroundColor: COLORS.navyGov,
+    paddingVertical: 13,
+    paddingHorizontal: 20,
+    borderRadius: RADIUS.md,
+    marginTop: 8,
+    borderWidth: 1,
+    borderColor: COLORS.navyMuted,
+    ...SHADOWS.subtle,
   },
-  submitButtonText: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: '600',
-    marginLeft: 8,
+  submitBtnText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: COLORS.white,
+    letterSpacing: 0.3,
   },
 });
 

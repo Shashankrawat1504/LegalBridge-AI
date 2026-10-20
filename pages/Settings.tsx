@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, StyleSheet, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import OfficialNavbar from '../components/OfficialNavbar';
+import Footer from '../components/Footer';
+import { useTheme } from '../context/ThemeContext';
 
 // Import settings components
 import {
@@ -30,8 +33,9 @@ const Settings: React.FC = () => {
   const [biometricAuth, setBiometricAuth] = useState<boolean>(true);
   const [sessionTimeout, setSessionTimeout] = useState<string>('15');
 
-  // Appearance Settings
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const { isDark, toggleTheme, theme } = useTheme();
+
+  // Appearance Settings (dark mode is now managed by ThemeContext)
   const [highContrast, setHighContrast] = useState<boolean>(false);
   const [fontSize, setFontSize] = useState<string>('medium');
 
@@ -93,7 +97,7 @@ const Settings: React.FC = () => {
             setIs2FAEnabled(false);
             setBiometricAuth(true);
             setSessionTimeout('15');
-            setDarkMode(false);
+            if (isDark) toggleTheme(); // reset dark mode to light via ThemeContext
             setHighContrast(false);
             setFontSize('medium');
             setDataSharing(false);
@@ -110,12 +114,15 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <SettingsHeader
-        title="Settings"
-        subtitle="Customize your app experience and manage your account"
-        iconName="settings"
-      />
+    <View style={[styles.mainWrapper, { backgroundColor: theme.background }]}>
+      <OfficialNavbar />
+
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <SettingsHeader
+          title="Portal Settings & Security Controls"
+          subtitle="Configure authentication preferences, biometric access, and system display parameters."
+          iconName="settings-outline"
+        />
 
       {/* Account & Profile Section */}
       <SettingsSection
@@ -234,9 +241,9 @@ const Settings: React.FC = () => {
       >
         <SettingsToggle
           title="Dark Mode"
-          subtitle="Switch to dark theme for better visibility in low light"
-          value={darkMode}
-          onValueChange={setDarkMode}
+          subtitle="Switch to dark theme — applies to the entire portal and persists on next launch"
+          value={isDark}
+          onValueChange={toggleTheme}
         />
         <SettingsToggle
           title="High Contrast"
@@ -333,7 +340,7 @@ const Settings: React.FC = () => {
           subtitle="App version, terms, and privacy policy"
           iconName="information-circle-outline"
           iconColor="#6b7280"
-          onPress={() => (navigation as any).navigate('About')}
+          onPress={() => (navigation as any).navigate('Vision')}
           showArrow
         />
         <SettingsItem
@@ -341,18 +348,23 @@ const Settings: React.FC = () => {
           subtitle="Get help and contact support"
           iconName="help-circle-outline"
           iconColor="#3b82f6"
-          onPress={() => (navigation as any).navigate('Help')}
+          onPress={() => (navigation as any).navigate('Contact')}
           showArrow
         />
       </SettingsSection>
+      <Footer />
     </ScrollView>
-  );
+  </View>
+);
 };
 
 const styles = StyleSheet.create({
-  container: {
+  mainWrapper: {
     flex: 1,
     backgroundColor: '#f8fafc',
+  },
+  container: {
+    flex: 1,
   },
   logActions: {
     marginTop: 16,

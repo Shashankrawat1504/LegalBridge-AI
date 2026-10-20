@@ -1,7 +1,7 @@
-# 🏛️ LawAI Mobile
+# 🏛️ LegalBridge-AI Mobile
 
 <div align="center">
-  <img src="./assets/icon.png" alt="LawAI Logo" width="120" height="120">
+  <img src="./assets/icon.png" alt="LegalBridge-AI Logo" width="120" height="120">
   
   **Your AI-Powered Legal Assistant on Mobile**
   
@@ -14,9 +14,9 @@
 
 ---
 
-## 📱 About LawAI Mobile
+## 📱 About LegalBridge-AI Mobile
 
-LawAI Mobile is the revolutionary mobile application developed for **Smart India Hackathon (SIH) 2024** finals. This cutting-edge legal technology solution brings the power of artificial intelligence to your fingertips, making legal assistance accessible, affordable, and available 24/7.
+LegalBridge-AI Mobile is the revolutionary mobile application developed for **Smart India Hackathon (SIH) 2024** finals. This cutting-edge legal technology solution brings the power of artificial intelligence to your fingertips, making legal assistance accessible, affordable, and available 24/7.
 
 Our mission is to democratize legal knowledge and provide instant legal guidance to citizens, legal professionals, and students across India.
 
@@ -101,8 +101,8 @@ Our mission is to democratize legal knowledge and provide instant legal guidance
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/LawAI-Mobile.git
-   cd LawAI-Mobile
+   git clone https://github.com/your-username/LegalBridge-AI.git
+   cd LegalBridge-AI
    ```
 
 2. **Install dependencies**
@@ -145,7 +145,7 @@ Our mission is to democratize legal knowledge and provide instant legal guidance
 ## 🏗️ Project Structure
 
 ```
-LawAI-Mobile/
+LegalBridge-AI/
 ├── 📁 android/              # Android-specific files
 ├── 📁 assets/               # App assets (images, icons)
 ├── 📁 components/           # Reusable React components
@@ -217,8 +217,8 @@ The `app.json` file contains Expo-specific configuration:
 ```json
 {
   "expo": {
-    "name": "LawAI",
-    "slug": "LawAI",
+    "name": "LegalBridge-AI",
+    "slug": "legalbridge-ai",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

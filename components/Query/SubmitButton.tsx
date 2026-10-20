@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { COLORS, RADIUS, SHADOWS } from '../../constants/theme';
 
 interface SubmitButtonProps {
   onPress: () => void;
@@ -10,7 +11,7 @@ interface SubmitButtonProps {
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
   onPress,
-  title = "Analyze Query",
+  title = "Analyze Statutory Query",
   disabled = false
 }) => {
   return (
@@ -18,8 +19,9 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
       style={[styles.button, disabled && styles.disabled]}
       onPress={onPress}
       disabled={disabled}
+      activeOpacity={0.85}
     >
-      <Ionicons name="search" size={20} color="#fff" />
+      <Ionicons name="search-outline" size={18} color={COLORS.white} />
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
@@ -27,28 +29,29 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#2563EB',
-    borderRadius: 12,
-    padding: 16,
+    backgroundColor: COLORS.navyGov,
+    borderRadius: RADIUS.md,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#2563EB',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
+    borderWidth: 1,
+    borderColor: COLORS.navyMuted,
+    ...SHADOWS.subtle,
   },
   disabled: {
-    backgroundColor: '#9CA3AF',
-    shadowOpacity: 0,
+    backgroundColor: '#CBD5E1',
+    borderColor: '#E2E8F0',
     elevation: 0,
+    shadowOpacity: 0,
   },
   text: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    color: COLORS.white,
+    fontSize: 14,
+    fontWeight: '700',
     marginLeft: 8,
+    letterSpacing: 0.3,
   },
 });
 
