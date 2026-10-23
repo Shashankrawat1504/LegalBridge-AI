@@ -12,6 +12,7 @@ import {
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
@@ -22,6 +23,121 @@ import { COLORS, RADIUS, SHADOWS } from '../constants/theme';
 import { useTheme } from '../context/ThemeContext';
 
 const STORAGE_KEY = '@lawai_user_documents';
+
+// ── Generate demo document content for viewable demo docs ──────────────
+const generateDemoContent = (docId: string): string => {
+  switch (docId) {
+    case 'demo-1':
+      return `FIRST INFORMATION REPORT
+
+Case No. 456/2026
+Police Station: Connaught Place, Delhi
+Date: 15 Oct 2026
+
+Complainant: Rahul Sharma, S/o Shri Mohan Sharma, R/o Block A, Janpath, New Delhi
+Age: 32 years, Occupation: Businessman
+
+Offence: Theft of mobile phone and wallet
+Place: Connaught Place, New Delhi
+Time: Between 14:30-15:00 hours on 15 Oct 2026
+
+Description:
+The complainant alleges that while walking near the Metro Station exit at Connaught Place, unknown accused snatched his mobile phone (iPhone 14, Black) and leather wallet containing ₹15,000 in cash, debit cards, and ID proofs. The accused fled towards the inner circle direction. The complainant immediately raised an alarm and approached the police booth.
+
+Prayer:
+It is prayed that an FIR be registered under appropriate sections of BNS 2023 and investigation be initiated to apprehend the accused and recover the stolen property.
+
+Signature: _________________
+Complainant
+Date: 15 Oct 2026`;
+
+    case 'demo-2':
+      return `AFFIDAVIT FOR BAIL
+
+IN THE COURT OF SESSIONS JUDGE, SAKET COURTS, NEW DELHI
+
+CASE: Bail Application in FIR No. 123/2026
+POLICE STATION: Central District, Delhi
+
+I, Amit Verma, S/o Shri Rajesh Verma, R/o Flat 402, Tower B, Rohini Sector 16, New Delhi, do hereby solemnly affirm and declare as follows:
+
+1. That I am the accused in the above-referenced case FIR No. 123/2026 registered under sections 318(4) and 324 of BNS 2023.
+
+2. That I am a law-abiding citizen with no criminal antecedents. I am a software engineer by profession, aged 28 years.
+
+3. That I have deep roots in the society as my family resides at the above address for the last 25 years. I am not a flight risk and shall cooperate fully with the investigation.
+
+4. That the allegations against me are false and motivated. I have been falsely implicated due to a property dispute with the complainant.
+
+5. That I am ready to furnish any surety or bail bond as directed by this Hon'ble Court.
+
+DEPONENT
+VERIFICATION
+Verified at New Delhi on this 20th day of October 2026 that the contents of this affidavit are true to my knowledge.
+
+(Sd/-) Amit Verma
+DEPONENT`;
+
+    case 'demo-3':
+      return `HIGH COURT OF DELHI AT NEW DELHI
+
+WRIT PETITION (CRIMINAL) No. 881/2026
+
+IN THE MATTER OF:
+Shri Sunil Kumar ... Petitioner
+Vs.
+Union of India & Others ... Respondents
+
+ORDER PASSED ON: 12 Oct 2026
+
+NOTICE OF MOTION heard on 10 Oct 2026.
+
+Facts:
+The petitioner is the owner of property bearing No. A-45, Rajouri Garden, New Delhi. The respondent authorities issued a demolition notice dated 01 Sep 2026 alleging unauthorised construction. The petitioner contends that the construction is fully authorised as per approved building plan dated 15 Mar 2020.
+
+Issue:
+Whether the demolition notice is contrary to the principles of natural justice and whether the petitioner should be granted a stay pending final adjudication.
+
+Held:
+Issue notice to the respondents. Pending adjudication of the writ petition, operation of the demolition notice dated 01 Sep 2026 is hereby stayed. Respondents shall maintain status quo.
+
+Let copies of this order be supplied to the parties.
+
+(Sd/-) Hon'ble Justice XYZ
+JUDGE, HIGH COURT OF DELHI`;
+
+    case 'demo-4':
+      return `RENT AGREEMENT
+
+THIS RENT AGREEMENT is made on this 1st day of November 2026
+
+BETWEEN
+
+Shri Rajesh Gupta, S/o Shri Kedar Nath Gupta, R/o Flat 201, Saraswati Vihar, New Delhi-110092 (hereinafter called the "Landlord")
+
+AND
+
+Shri Priyansh Sharma, S/o Shri Ramesh Sharma, R/o Village & Post Office, District Meerut, Uttar Pradesh (hereinafter called the "Tenant")
+
+1. The Landlord agrees to let and the Tenant agrees to take on rent the residential premises Flat No. 101, Building A, Sector 62, Noida, Uttar Pradesh (hereinafter called the "Demised Premises").
+
+2. The term of this agreement shall be for a period of 11 (eleven) months commencing from 1st November 2026 and ending on 31st October 2027.
+
+3. The monthly rent shall be ₹18,000 (Rupees Eighteen Thousand Only) payable on or before the 5th day of each month.
+
+4. The Tenant shall pay a security deposit of ₹54,000 (Rupees Fifty-Four Thousand Only) at the time of signing this agreement, refundable without interest at the time of vacating the premises.
+
+5. The Tenant shall use the premises for residential purposes only and shall not sublet without prior written consent of the Landlord.
+
+IN WITNESS WHEREOF, the parties have executed this agreement on the date first above written.
+
+Sd/- LANDLAND          Sd/- TENANT
+Rajesh Gupta            Priyansh Sharma`;
+
+    default:
+      return 'Demo document content';
+  }
+};
 
 // ── Demo seed: shown on first launch so the library isn't empty ──────────────
 const DEMO_SEED: UserDocument[] = [
@@ -54,6 +170,16 @@ const DEMO_SEED: UserDocument[] = [
     category: 'Court Order',
     addedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
     notes: 'Delhi HC — W.P. (Crl.) 881/2026, stay on demolition',
+  },
+  {
+    id: 'demo-4',
+    name: 'Rent_Agreement_Noida_Nov2026.pdf',
+    uri: '',
+    mimeType: 'application/pdf',
+    size: 128000,
+    category: 'Agreement',
+    addedAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(),
+    notes: 'Residential rent, ₹18,000/month, 11 months',
   },
 ];
 
@@ -89,6 +215,7 @@ function timeAgo(dateString: string) {
 }
 
 const OriginalDocuments: React.FC = () => {
+  const navigation = useNavigation();
   const { theme, isDark } = useTheme();
   const [documents, setDocuments] = useState<UserDocument[]>([]);
   const [filteredDocs, setFilteredDocs] = useState<UserDocument[]>([]);
@@ -214,11 +341,43 @@ const OriginalDocuments: React.FC = () => {
 
   // ── Share / Download ───────────────────────────────────────────────────────
   const handleShare = async (doc: UserDocument) => {
+    // For demo docs without real URI, generate content on-the-fly
+    if (!doc.uri || doc.uri === '') {
+      const content = generateDemoContent(doc.id);
+      
+      if (Platform.OS === 'web') {
+        // Web: create blob and open/download
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = doc.name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        Alert.alert('Document Downloaded', `${doc.name} has been downloaded.`);
+        return;
+      } else {
+        // Native: create temp file and share
+        const tempUri = `${FileSystem.documentDirectory}${doc.name}`;
+        await FileSystem.writeAsStringAsync(tempUri, content);
+        if (await Sharing.isAvailableAsync()) {
+          await Sharing.shareAsync(tempUri, {
+            mimeType: 'text/plain',
+            dialogTitle: 'Share Document',
+          });
+        } else {
+          Alert.alert('Sharing not available on this device.');
+        }
+        return;
+      }
+    }
+
+    // For user-uploaded docs with real URI
     if (Platform.OS === 'web') {
       window.open(doc.uri, '_blank');
-      return;
-    }
-    if (await Sharing.isAvailableAsync()) {
+    } else if (await Sharing.isAvailableAsync()) {
       await Sharing.shareAsync(doc.uri);
     } else {
       Alert.alert('Sharing not available on this device.');
@@ -282,6 +441,15 @@ const OriginalDocuments: React.FC = () => {
         {/* Header */}
         <View style={[styles.header, { backgroundColor: theme.surface, borderBottomColor: theme.border }]}>
           <View style={styles.headerContent}>
+            <TouchableOpacity
+              style={[styles.backBtn, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
+              onPress={() => (navigation as any).navigate('Utilities')}
+              activeOpacity={0.7}
+            >
+              <Ionicons name="arrow-back-outline" size={18} color={isDark ? '#60A5FA' : COLORS.navyGov} />
+              <Text style={[styles.backBtnText, { color: isDark ? '#60A5FA' : COLORS.navyGov }]}>Back to Tools</Text>
+            </TouchableOpacity>
+
             <View style={[styles.badge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
               <Text style={styles.badgeText}>PERSONAL DOCUMENT VAULT</Text>
             </View>
@@ -497,6 +665,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerContent: { maxWidth: 960, width: '100%' },
+  backBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: RADIUS.sm,
+    borderWidth: 1,
+    marginBottom: 12,
+    alignSelf: 'flex-start',
+  },
+  backBtnText: { fontSize: 13, fontWeight: '600' },
   badge: {
     backgroundColor: COLORS.surfaceMuted,
     borderWidth: 1,
