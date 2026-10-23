@@ -5,42 +5,43 @@ interface StatusBadgeProps {
   status: string;
 }
 
-const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'assigned': return '#10B981'; // green
-      case 'closed': return '#EF4444'; // red
-      case 'under-investigation': return '#F59E0B'; // amber
-      default: return '#6B7280'; // gray
-    }
-  };
+const STATUS_MAP: Record<string, { bg: string; text: string; label: string }> = {
+  decided:              { bg: '#DCFCE7', text: '#166534', label: 'Decided' },
+  assigned:             { bg: '#DBEAFE', text: '#1E40AF', label: 'Assigned' },
+  closed:               { bg: '#FEE2E2', text: '#991B1B', label: 'Closed' },
+  'under-investigation':{ bg: '#FEF3C7', text: '#92400E', label: 'Under Investigation' },
+  pending:              { bg: '#F3F4F6', text: '#374151', label: 'Pending' },
+  appealed:             { bg: '#EDE9FE', text: '#5B21B6', label: 'Appealed' },
+};
 
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'under-investigation': return 'Under Investigation';
-      default: return status.charAt(0).toUpperCase() + status.slice(1);
-    }
+const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
+  const key = status.toLowerCase().trim();
+  const config = STATUS_MAP[key] ?? {
+    bg: '#F1F5F9',
+    text: '#334155',
+    label: status.charAt(0).toUpperCase() + status.slice(1),
   };
 
   return (
-    <View style={[styles.badge, { backgroundColor: getStatusColor(status) }]}>
-      <Text style={styles.badgeText}>{getStatusText(status)}</Text>
+    <View style={[styles.badge, { backgroundColor: config.bg, borderColor: config.text + '33' }]}>
+      <Text style={[styles.badgeText, { color: config.text }]}>{config.label}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   badge: {
-    paddingVertical: 4,
-    paddingHorizontal: 12,
+    paddingVertical: 3,
+    paddingHorizontal: 10,
     borderRadius: 20,
+    borderWidth: 1,
     alignSelf: 'flex-start',
   },
   badgeText: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: '600',
+    fontSize: 11,
+    fontWeight: '700',
     textAlign: 'center',
+    letterSpacing: 0.3,
   },
 });
 

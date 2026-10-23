@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, RADIUS, SHADOWS } from '../constants/theme';
+import { API_CONFIG } from '../constants/api';
 import { useTheme } from '../context/ThemeContext';
 import VoiceDictation from './VoiceDictation';
 
@@ -35,6 +36,7 @@ interface DraftingCoPilotProps {
   onInsertSection?: (section: string) => void;
   mode?: 'fir' | 'query' | 'general';
   compact?: boolean;
+  showMic?: boolean;
   metadata?: {
     date?: string;
     time?: string;
@@ -403,6 +405,7 @@ export const DraftingCoPilot: React.FC<DraftingCoPilotProps> = ({
   onInsertSection,
   mode = 'general',
   compact = false,
+  showMic = true,
   metadata,
   onRequestAutoFill,
 }) => {
@@ -427,7 +430,7 @@ export const DraftingCoPilot: React.FC<DraftingCoPilotProps> = ({
     }
 
     const trimmed = text.trim();
-    if (trimmed.length < 20) {
+    if (trimmed.length < 3) {
       setSuggestion(null);
       setIsAnalyzing(false);
       return;
@@ -442,7 +445,7 @@ export const DraftingCoPilot: React.FC<DraftingCoPilotProps> = ({
 
     debounceTimer.current = setTimeout(() => {
       fetchSuggestions(trimmed);
-    }, 750);
+    }, 350); // Reduced from 750ms for faster responsiveness
 
     return () => {
       if (debounceTimer.current) clearTimeout(debounceTimer.current);
@@ -455,11 +458,16 @@ export const DraftingCoPilot: React.FC<DraftingCoPilotProps> = ({
 
     try {
       const prompt = buildCoPilotPrompt(content, mode);
-      const res = await fetch('https://sih-backend-881i.onrender.com/encode/', {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.TIMEOUT_MS);
+
+      const res = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.ENCODE}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: prompt }),
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
 
       const data = await res.json();
       const rawText: string =
@@ -563,7 +571,7 @@ export const DraftingCoPilot: React.FC<DraftingCoPilotProps> = ({
     );
   }
 
-  const hasContent = Boolean(suggestion && text.trim().length >= 20);
+  const hasContent = Boolean(suggestion && text.trim().length >= 3);
 
   return (
     <View
@@ -613,8 +621,8 @@ export const DraftingCoPilot: React.FC<DraftingCoPilotProps> = ({
         </TouchableOpacity>
 
         <View style={styles.headerRightActions}>
-          {/* Compact Dictation Pill */}
-          {(mode === 'fir' || mode === 'query') && (
+          {/* Compact Dictation Pill - only shown if showMic is true */}
+          {showMic && (mode === 'fir' || mode === 'query') && (
             <VoiceDictation
               compact
               onTranscript={(spokenText, isFinal) => {

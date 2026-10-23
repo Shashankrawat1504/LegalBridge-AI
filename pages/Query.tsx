@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Alert, ScrollView } from 'react-native';
-import SpeechToText from 'react-native-voice';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, StyleSheet, Alert, ScrollView, TouchableOpacity, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import OfficialNavbar from '../components/OfficialNavbar';
 import Footer from '../components/Footer';
 import QueryHeader from '../components/Query/QueryHeader';
@@ -9,8 +9,10 @@ import QueryResponse from '../components/Query/QueryResponse';
 import SubmitButton from '../components/Query/SubmitButton';
 import CasePopup from '../components/Query/CasePopup';
 import CaseModal from '../components/Query/CaseModal';
-import { COLORS } from '../constants/theme';
+import { COLORS, RADIUS } from '../constants/theme';
+import { API_CONFIG } from '../constants/api';
 import { useTheme } from '../context/ThemeContext';
+import { generateFallbackCoPilot } from '../components/DraftingCoPilot';
 
 interface CaseDetails {
   caseHeading: string;
@@ -24,6 +26,10 @@ interface ResponseData {
   acts?: Record<string, string>;
   description?: string;
   error?: string;
+  possibleOffences?: string[];
+  essentialIngredients?: string[];
+  firChecklist?: string[];
+  disclaimer?: string;
   [key: string]: any;
 }
 
@@ -31,7 +37,6 @@ const Query: React.FC = () => {
   const { theme } = useTheme();
   const [query, setQuery] = useState<string>('');
   const [response, setResponse] = useState<ResponseData | string>('Response will appear here...');
-  const [isListening, setIsListening] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -45,56 +50,20 @@ const Query: React.FC = () => {
     caseStatus: 'closed',
   });
 
-  // ── Voice Search: bind result listener so spoken text fills the input ─────
-  useEffect(() => {
-    SpeechToText.onSpeechResults = (e: any) => {
-      const spoken = e?.value?.[0];
-      if (spoken) setQuery(spoken);
-      setIsListening(false);
-    };
-    SpeechToText.onSpeechError = () => setIsListening(false);
+  // Response cache for instant repeat demos
+  const responseCache = useRef<Map<string, ResponseData>>(new Map());
 
-    return () => {
-      SpeechToText.onSpeechResults = undefined as any;
-      SpeechToText.onSpeechError = undefined as any;
-    };
-  }, []);
-
-  const handleMicClick = async (): Promise<void> => {
-    // Web Speech API fallback for Chrome / Edge browser
-    if (
-      typeof window !== 'undefined' &&
-      ((window as any).webkitSpeechRecognition || (window as any).SpeechRecognition)
-    ) {
-      const SR = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
-      const recognition = new SR();
-      recognition.lang = 'en-IN';
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-      setIsListening(true);
-      recognition.onresult = (event: any) => {
-        setQuery(event.results[0][0].transcript);
-        setIsListening(false);
-      };
-      recognition.onerror = () => setIsListening(false);
-      recognition.onend = () => setIsListening(false);
-      recognition.start();
-      return;
-    }
-
-    // Native mobile voice via react-native-voice
-    try {
-      if (isListening) {
-        await SpeechToText.stopListening();
-        setIsListening(false);
-      } else {
-        await SpeechToText.startListening();
-        setIsListening(true);
-      }
-    } catch {
-      setIsListening(false);
-    }
-  };
+  // Example query chips for quick demo
+  const EXAMPLE_QUERIES = [
+    'Theft of mobile',
+    'Snatching',
+    'House burglary',
+    'Cheating / fraud',
+    'Assault / hurt',
+    'Criminal intimidation',
+    'Cyber fraud (UPI)',
+    'Trespass',
+  ];
 
   const handleQuerySubmit = async (): Promise<void> => {
     if (!query.trim()) return;
@@ -103,37 +72,96 @@ const Query: React.FC = () => {
     setError('');
     setResponse('');
 
+    // Check cache first for instant response
+    const cacheKey = query.trim().toLowerCase();
+    if (responseCache.current.has(cacheKey)) {
+      const cached = responseCache.current.get(cacheKey)!;
+      setResponse(cached);
+      setCaseDetails({
+        caseHeading: 'New Case Identified',
+        userQuery: query,
+        tags: 'legal query, BNS, investigation',
+        description: cached.description || 'Detailed case description here.',
+        caseStatus: 'under investigation',
+      });
+      setShowPopup(true);
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const res = await fetch('https://sih-backend-881i.onrender.com/encode/', {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
+      const res = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.ENCODE}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query }),
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
 
       const data: ResponseData = await res.json();
 
       // Detect backend-level failures even when HTTP status is 200
       if (data.error || (!data.acts && !data.description)) {
-        setError(
-          'The AI legal reasoning engine is currently unreachable. The backend database server is offline — please try again later.'
-        );
+        // Auto-run local fallback instead of showing error
+        handleUseLocalAnalysis();
         return;
       }
+
+      // Cache successful response (limit to last 10)
+      if (responseCache.current.size >= 10) {
+        const firstKey = responseCache.current.keys().next().value;
+        if (firstKey) {
+          responseCache.current.delete(firstKey);
+        }
+      }
+      responseCache.current.set(cacheKey, data);
 
       setResponse(data);
       setCaseDetails({
         caseHeading: 'New Case Identified',
         userQuery: query,
-        tags: 'legal query, IPC, investigation',
+        tags: 'legal query, BNS, investigation',
         description: data.description || 'Detailed case description here.',
         caseStatus: 'under investigation',
       });
       setShowPopup(true);
-    } catch {
-      setError('Network error — unable to reach the AI legal server. Please check your internet connection.');
+    } catch (err: any) {
+      // Auto-run local fallback on any network error/timeout
+      handleUseLocalAnalysis();
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleUseLocalAnalysis = (): void => {
+    setError('');
+    const fallback = generateFallbackCoPilot(query, 'query');
+    const actsObj: Record<string, string> = {};
+    fallback.detailedSections.forEach((ds) => {
+      actsObj[ds.section] = `${ds.reason} (Confidence: ${ds.confidence}%)`;
+    });
+
+    const structuredResponse: ResponseData = {
+      acts: actsObj,
+      description: fallback.improvedPhrasing,
+      possibleOffences: [fallback.detectedOffenceType || 'Cognizable Criminal Offence'],
+      essentialIngredients: fallback.detailedSections.map(ds => ds.reason),
+      firChecklist: fallback.missingElements,
+      disclaimer: 'Guidance only — not a substitute for IO / legal determination.',
+    };
+
+    setResponse(structuredResponse);
+    setCaseDetails({
+      caseHeading: fallback.detectedOffenceType || 'Legal Intelligence Analysis',
+      userQuery: query,
+      tags: `${fallback.detectedOffenceType || 'legal'}, BNS, BNSS`,
+      description: fallback.improvedPhrasing,
+      caseStatus: 'under review',
+    });
+    setShowPopup(true);
   };
 
   const handleSaveCase = async (): Promise<void> => {
@@ -148,7 +176,7 @@ const Query: React.FC = () => {
     };
 
     try {
-      await fetch('https://sih-backend-881i.onrender.com/case_save/', {
+      await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.CASE_SAVE}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -176,13 +204,37 @@ const Query: React.FC = () => {
         <QueryHeader />
 
         <View style={styles.content}>
-          <QueryResponse response={response} isLoading={isLoading} error={error} />
+          <QueryResponse
+            response={response}
+            isLoading={isLoading}
+            error={error}
+            onRetry={handleQuerySubmit}
+            onUseLocalFallback={handleUseLocalAnalysis}
+          />
+
+          {/* Example Query Chips */}
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.chipsContainer}
+          >
+            {EXAMPLE_QUERIES.map((example) => (
+              <TouchableOpacity
+                key={example}
+                style={[styles.chip, { backgroundColor: theme.surface, borderColor: theme.border }]}
+                onPress={() => setQuery(example)}
+                activeOpacity={0.7}
+              >
+                <Ionicons name="flash-outline" size={12} color={theme.textMuted} />
+                <Text style={[styles.chipText, { color: theme.textSecondary }]}>{example}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
 
           <QueryInput
             value={query}
             onChangeText={setQuery}
-            onMicPress={handleMicClick}
-            isListening={isListening}
+            showMic={false}
           />
 
           <SubmitButton onPress={handleQuerySubmit} disabled={!query.trim() || isLoading} />
@@ -220,6 +272,25 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingHorizontal: 20,
     paddingVertical: 24,
+  },
+  chipsContainer: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 12,
+    paddingHorizontal: 2,
+  },
+  chip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: RADIUS.full ?? 99,
+    borderWidth: 1,
+  },
+  chipText: {
+    fontSize: 12,
+    fontWeight: '600',
   },
 });
 

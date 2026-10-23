@@ -88,6 +88,114 @@ const EMPTY_FORM: Omit<CaseEntry, "id" | "createdAt" | "updatedAt"> = {
   nextHearing: "",
 };
 
+// ── DEMO_CASE_TRACKER_CASES: professional Indian police/investigation cases ─────────────
+const DEMO_CASE_TRACKER_CASES: CaseEntry[] = [
+  {
+    id: "demo-1",
+    caseNumber: "FIR/2026/0142",
+    title: "Mobile Phone Snatching – Andheri West",
+    description: "Accused snatched mobile phone from complainant near Andheri railway station. Suspect identified through CCTV footage. IO pursuing arrest.",
+    status: "Under Investigation",
+    priority: "Medium",
+    section: "BNS 303(2), 309",
+    court: "Andheri Police Station",
+    nextHearing: "2026-11-15",
+    createdAt: "2026-10-15T08:30:00Z",
+    updatedAt: "2026-10-20T14:22:00Z",
+  },
+  {
+    id: "demo-2",
+    caseNumber: "FIR/2026/0098",
+    title: "House Burglary – Pune City",
+    description: "Burglary in residential apartment during daytime. Gold ornaments and cash stolen. Accused arrested; charge sheet submitted to court.",
+    status: "Chargesheet Filed",
+    priority: "Medium",
+    section: "BNS 312, 380",
+    court: "Sessions Court, Pune",
+    nextHearing: "2026-11-08",
+    createdAt: "2026-09-20T10:15:00Z",
+    updatedAt: "2026-10-18T11:45:00Z",
+  },
+  {
+    id: "demo-3",
+    caseNumber: "FIR/2026/0156",
+    title: "Cyber Fraud – UPI Phishing",
+    description: "Complainant lost ₹85,000 via UPI phishing link. Multiple transactions traced to accounts in different states. Cyber cell investigating.",
+    status: "Open",
+    priority: "High",
+    section: "BNS 318, 66C, 66D",
+    court: "Cyber Crime Cell, Bengaluru",
+    nextHearing: "2026-11-20",
+    createdAt: "2026-10-18T16:40:00Z",
+    updatedAt: "2026-10-18T16:40:00Z",
+  },
+  {
+    id: "demo-4",
+    caseNumber: "FIR/2026/0123",
+    title: "Domestic Violence Complaint",
+    description: "Wife alleged physical abuse and dowry demands by husband and in-laws. Medical examination completed. Statements recorded under Section 164.",
+    status: "Under Investigation",
+    priority: "High",
+    section: "BNS 85, 86, DV Act 2005",
+    court: "Mahila Thana, Lucknow",
+    nextHearing: "2026-11-12",
+    createdAt: "2026-10-10T09:00:00Z",
+    updatedAt: "2026-10-19T13:30:00Z",
+  },
+  {
+    id: "demo-5",
+    caseNumber: "FIR/2026/0085",
+    title: "Vehicle Theft – Scooter Recovered",
+    description: "Two-wheeler stolen from parking lot. Vehicle recovered from nearby district after 3 days. Accused arrested during investigation.",
+    status: "Closed",
+    priority: "Low",
+    section: "BNS 305",
+    court: "Traffic Police, Jaipur",
+    nextHearing: "",
+    createdAt: "2026-09-05T14:20:00Z",
+    updatedAt: "2026-10-12T10:00:00Z",
+  },
+  {
+    id: "demo-6",
+    caseNumber: "FIR/2026/0110",
+    title: "Simple Assault – Neighbour Dispute",
+    description: "Altercation over parking led to simple assault. Both parties received medical treatment. Charge sheet filed; court proceedings ongoing.",
+    status: "Chargesheet Filed",
+    priority: "Low",
+    section: "BNS 323, 324",
+    court: "Judicial Magistrate First Class, Kochi",
+    nextHearing: "2026-11-05",
+    createdAt: "2026-09-28T11:10:00Z",
+    updatedAt: "2026-10-14T15:55:00Z",
+  },
+  {
+    id: "demo-7",
+    caseNumber: "FIR/2026/0158",
+    title: "Missing Person – 16-year-old Girl",
+    description: "Minor girl missing from residence since 3 days. Last seen near school. Alert issued to neighbouring districts. Investigation ongoing.",
+    status: "Open",
+    priority: "High",
+    section: "BNS 361, 363",
+    court: "City Police Station, Hyderabad",
+    nextHearing: "2026-11-18",
+    createdAt: "2026-10-19T08:00:00Z",
+    updatedAt: "2026-10-19T08:00:00Z",
+  },
+  {
+    id: "demo-8",
+    caseNumber: "FIR/2026/0134",
+    title: "Chain Snatching – Busy Market Area",
+    description: "Accused snatched gold chain from elderly woman in market. Identified through CCTV and informers. IO filed charges for evidence collection.",
+    status: "Under Investigation",
+    priority: "Medium",
+    section: "BNS 303(2), 307",
+    court: "Civil Lines Police Station, Delhi",
+    nextHearing: "2026-11-22",
+    createdAt: "2026-10-12T17:30:00Z",
+    updatedAt: "2026-10-17T12:15:00Z",
+  },
+];
+
 // ── Component ─────────────────────────────────────────────────────────────────
 const CaseTracker: React.FC = () => {
   const { theme, isDark } = useTheme();
@@ -103,7 +211,13 @@ const CaseTracker: React.FC = () => {
 
   useEffect(() => {
     AsyncStorage.getItem(STORAGE_KEY).then((stored) => {
-      if (stored) setCases(JSON.parse(stored));
+      if (stored) {
+        setCases(JSON.parse(stored));
+      } else {
+        // Seed demo cases on first load
+        setCases(DEMO_CASE_TRACKER_CASES);
+        AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(DEMO_CASE_TRACKER_CASES));
+      }
     }).catch(() => {});
   }, []);
 

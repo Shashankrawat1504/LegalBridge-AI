@@ -38,6 +38,7 @@ interface FIRDraftsModalProps {
   onRollbackVersion: (draft: FIRDraftRecord, version: FIRDraftVersion) => void;
   onStartNewDraft: () => void;
   onRefreshDrafts: () => void;
+  onDraftDeleted?: (deletedId: string) => void;
 }
 
 export const FIRDraftsModal: React.FC<FIRDraftsModalProps> = ({
@@ -49,6 +50,7 @@ export const FIRDraftsModal: React.FC<FIRDraftsModalProps> = ({
   onRollbackVersion,
   onStartNewDraft,
   onRefreshDrafts,
+  onDraftDeleted,
 }) => {
   const { theme, isDark } = useTheme();
 
@@ -69,6 +71,10 @@ export const FIRDraftsModal: React.FC<FIRDraftsModalProps> = ({
           onPress: async () => {
             await deleteDraftRecord(draft.id);
             onRefreshDrafts();
+            // Notify parent if the deleted draft was active
+            if (draft.id === currentDraftId && onDraftDeleted) {
+              onDraftDeleted(draft.id);
+            }
           },
         },
       ]

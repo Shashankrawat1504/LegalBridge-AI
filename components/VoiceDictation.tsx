@@ -1,17 +1,14 @@
 /**
- * VoiceDictation.tsx  (v2 – hardened)
+ * VoiceDictation.tsx  (v3 – Gemini-powered)
  *
  * Cross-platform voice dictation for LegalBridge-AI.
  *
- * Hardening changes in v2:
- *  - isMountedRef guards all async setState calls after unmount
- *  - stoppedRef prevents web-speech onend double-firing on manual stop
- *  - stopListening stored in ref so cleanup effect always calls latest version
- *  - handleLanguageToggle passes explicit next-lang to startListening to avoid stale closure
- *  - detectCapability wrapped in try/catch for SSR safety
- *  - NativeVoice singleton reset on destroy to allow clean re-init
- *  - Error code 7 (no-match) handled gracefully on native
- *  - Full permission-denied Alert on native
+ * v3 changes:
+ *  - Primary: MediaRecorder + Gemini API transcription (works in Chrome/Edge web)
+ *  - Fallback: Web Speech API if Gemini fails or not configured
+ *  - Native: react-native-voice for mobile (unchanged)
+ *  - States: idle | requesting | recording | processing | error
+ *  - Better error messages for API key, permissions, empty recordings
  */
 
 import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
@@ -22,6 +19,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, RADIUS } from '../constants/theme';
 import { useTheme } from '../context/ThemeContext';
+import { transcribeAudio, blobToBase64, checkMicrophoneAvailability } from '../services/geminiTranscribe';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -37,17 +35,18 @@ export interface VoiceDictationProps {
   compact?: boolean;
 }
 
-type RecordingState = 'idle' | 'requesting' | 'listening' | 'processing' | 'error';
+type RecordingState = 'idle' | 'requesting' | 'recording' | 'processing' | 'error';
 
 // ── Platform capability ────────────────────────────────────────────────────────
 
-type Capability = 'web-speech' | 'native' | 'none';
+type Capability = 'media-recorder' | 'native' | 'none';
 
 function detectCapability(): Capability {
   try {
     if (Platform.OS === 'web') {
       const w = window as any;
-      return (w.SpeechRecognition || w.webkitSpeechRecognition) ? 'web-speech' : 'none';
+      // Only MediaRecorder + Gemini for web
+      return (w.MediaRecorder && w.navigator?.mediaDevices?.getUserMedia) ? 'media-recorder' : 'none';
     }
     return 'native';
   } catch {
@@ -55,65 +54,132 @@ function detectCapability(): Capability {
   }
 }
 
-// ── Web Speech API wrapper ─────────────────────────────────────────────────────
+// ── MediaRecorder + Gemini Engine ─────────────────────────────────────────────
 
-class WebSpeechEngine {
-  private recognition: any = null;
-  private manualStop = false;
+class MediaRecorderEngine {
+  private mediaRecorder: MediaRecorder | null = null;
+  private audioChunks: Blob[] = [];
+  private stream: MediaStream | null = null;
+  private startTime: number = 0;
+  private selectedMimeType: string = '';
 
   constructor(
-    private lang: string,
-    private onPartial: (t: string) => void,
-    private onFinal: (t: string) => void,
-    private onEnd: () => void,
-    private onErr: (msg: string) => void,
+    private onTranscribe: (audioBase64: string, mimeType: string) => Promise<void>,
+    private onError: (msg: string) => void,
   ) {}
 
-  start() {
-    const w = window as any;
-    const SR = w.SpeechRecognition || w.webkitSpeechRecognition;
-    if (!SR) { this.onErr('Speech recognition not supported in this browser.'); return; }
+  async start() {
+    try {
+      this.audioChunks = [];
+      this.startTime = Date.now();
 
-    this.manualStop = false;
-    this.recognition = new SR();
-    this.recognition.continuous = true;
-    this.recognition.interimResults = true;
-    this.recognition.lang = this.lang;
-    this.recognition.maxAlternatives = 1;
+      console.log('[MediaRecorder] Requesting microphone access...');
+      // Request microphone access
+      this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      console.log('[MediaRecorder] Microphone access granted');
 
-    this.recognition.onresult = (event: any) => {
-      let interim = '';
-      let finalText = '';
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        const t = event.results[i][0].transcript;
-        if (event.results[i].isFinal) finalText += t;
-        else interim += t;
+      // Check supported MIME types - save selection before creating recorder
+      const types = [
+        'audio/webm',
+        'audio/webm;codecs=opus',
+        'audio/mp4',
+        'audio/ogg;codecs=opus',
+        'audio/wav',
+      ];
+
+      let selectedType = '';
+      for (const type of types) {
+        if (MediaRecorder.isTypeSupported(type)) {
+          selectedType = type;
+          break;
+        }
       }
-      if (interim) this.onPartial(interim);
-      if (finalText) this.onFinal(finalText);
-    };
 
-    this.recognition.onerror = (e: any) => {
-      if (this.manualStop) return; // Suppress errors from deliberate stop
-      const code: string = e.error || '';
-      if (code === 'no-speech') { this.onEnd(); return; } // Treat as natural end
-      const msg = code === 'not-allowed'
-        ? 'Microphone access denied. Please allow microphone in browser settings.'
-        : `Speech recognition error: ${code || 'unknown'}`;
-      this.onErr(msg);
-    };
+      if (!selectedType) {
+        throw new Error('No supported audio format found');
+      }
 
-    this.recognition.onend = () => {
-      if (!this.manualStop) this.onEnd();
-    };
+      this.selectedMimeType = selectedType;
+      console.log('[MediaRecorder] Using MIME type:', this.selectedMimeType);
+      this.mediaRecorder = new MediaRecorder(this.stream, { mimeType: this.selectedMimeType });
 
-    this.recognition.start();
+      this.mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          this.audioChunks.push(event.data);
+        }
+      };
+
+      this.mediaRecorder.start(100); // Collect chunks every 100ms
+      console.log('[MediaRecorder] Recording started');
+    } catch (error: any) {
+      console.error('[MediaRecorder] Start error:', error);
+      this.onError(error.message || 'Failed to start recording');
+      this.cleanup();
+    }
   }
 
-  stop() {
-    this.manualStop = true;
-    try { this.recognition?.stop(); } catch {}
-    this.recognition = null;
+  async stop(): Promise<void> {
+    if (!this.mediaRecorder) return;
+
+    return new Promise((resolve) => {
+      this.mediaRecorder!.onstop = async () => {
+        const duration = Date.now() - this.startTime;
+        console.log('[MediaRecorder] Recording stopped, duration:', duration, 'ms, chunks:', this.audioChunks.length);
+
+        if (this.audioChunks.length === 0) {
+          console.log('[MediaRecorder] No audio chunks recorded');
+          this.cleanup();
+          this.onError('No audio data recorded. Please try again.');
+          resolve();
+          return;
+        }
+
+        // Use stored mimeType instead of reading from recorder (which may be null)
+        const blob = new Blob(this.audioChunks, { type: this.selectedMimeType });
+        console.log('[MediaRecorder] Blob created, size:', blob.size, 'bytes, type:', blob.type);
+
+        // Check if recording is too short (< 2KB or < 800ms)
+        if (blob.size < 2000 || duration < 800) {
+          console.log('[MediaRecorder] Recording too short:', blob.size, 'bytes, duration:', duration, 'ms');
+          this.cleanup();
+          this.onError('Recording too short. Please speak for at least 1 second.');
+          resolve();
+          return;
+        }
+
+        const base64 = await blobToBase64(blob);
+        console.log('[MediaRecorder] Base64 converted, length:', base64.length, 'chars');
+
+        this.cleanup();
+
+        // Call the transcription callback with the audio data
+        this.onTranscribe(base64, this.selectedMimeType)
+          .then(() => {
+            resolve();
+          })
+          .catch((error: any) => {
+            console.error('[MediaRecorder] Transcription callback error:', error);
+            this.onError(error.message || 'Transcription failed');
+            resolve();
+          });
+      };
+
+      this.mediaRecorder.stop();
+    });
+  }
+
+  private cleanup() {
+    if (this.stream) {
+      this.stream.getTracks().forEach(track => track.stop());
+      this.stream = null;
+    }
+    this.mediaRecorder = null;
+    this.audioChunks = [];
+    this.selectedMimeType = '';
+  }
+
+  isRecording(): boolean {
+    return this.mediaRecorder?.state === 'recording';
   }
 }
 
@@ -148,21 +214,18 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
   const [capability] = useState<Capability>(detectCapability);
   const [recordingState, setRecordingState] = useState<RecordingState>('idle');
   const [currentLang, setCurrentLang] = useState<DictationLanguage>(language);
-  const [partialText, setPartialText] = useState('');
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [debugInfo, setDebugInfo] = useState<string>('');
 
   const pulseAnim = useRef(new Animated.Value(1)).current;
   const pulseLoopRef = useRef<Animated.CompositeAnimation | null>(null);
-  const webEngineRef = useRef<WebSpeechEngine | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorderEngine | null>(null);
   const isMountedRef = useRef(true);
-
-  // Stable ref to stop so the cleanup effect never goes stale
-  const stopListeningRef = useRef<() => Promise<void>>(async () => {});
 
   // ── Pulse animation ───────────────────────────────────────────────────────────
 
   useEffect(() => {
-    if (recordingState === 'listening') {
+    if (recordingState === 'recording') {
       pulseLoopRef.current = Animated.loop(
         Animated.sequence([
           Animated.timing(pulseAnim, { toValue: 1.35, duration: 550, easing: Easing.out(Easing.ease), useNativeDriver: true }),
@@ -182,7 +245,7 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
     isMountedRef.current = true;
     return () => {
       isMountedRef.current = false;
-      stopListeningRef.current();
+      mediaRecorderRef.current = null;
     };
   }, []);
 
@@ -192,32 +255,20 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
     (val: T | ((p: T) => T)) => { if (isMountedRef.current) setter(val as any); };
 
   const safeSetRecording = safeSetState(setRecordingState);
-  const safeSetPartial   = safeSetState(setPartialText);
   const safeSetError     = safeSetState(setErrorMsg);
 
   // ── Native listener wiring ────────────────────────────────────────────────────
 
   const setupNativeListeners = useCallback((Voice: any) => {
-    Voice.onSpeechPartialResults = (e: any) => {
-      const partial = (e?.value ?? [])[0] ?? '';
-      safeSetPartial(partial);
-      onTranscript(partial, false);
-    };
     Voice.onSpeechResults = (e: any) => {
       const result = (e?.value ?? [])[0] ?? '';
-      safeSetPartial('');
       if (result) onTranscript(result, true);
-    };
-    Voice.onSpeechEnd = () => {
-      safeSetRecording('processing');
-      setTimeout(() => safeSetRecording('idle'), 700);
+      safeSetRecording('idle');
     };
     Voice.onSpeechError = (e: any) => {
       const raw: string = String(e?.error?.message || e?.error || '');
-      // Error code 7 = no-match — treat as clean end, not a crash
       if (raw.includes('7') || raw.toLowerCase().includes('no match') || raw.toLowerCase().includes('nomatch')) {
         safeSetRecording('idle');
-        safeSetPartial('');
         return;
       }
       safeSetError(raw || 'Recognition failed');
@@ -225,28 +276,50 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
     };
   }, [onTranscript]);
 
-  // ── Start Listening ───────────────────────────────────────────────────────────
+  // ── Start Recording/Listening ─────────────────────────────────────────────────
 
-  const startListening = useCallback(async (langOverride?: DictationLanguage) => {
-    const lang = langOverride ?? currentLang;
+  const startRecording = useCallback(async () => {
     safeSetError(null);
-    safeSetPartial('');
     safeSetRecording('requesting');
 
-    // ─ Web Speech API ─────────────────────────────────────────────────────────
-    if (capability === 'web-speech') {
-      const engine = new WebSpeechEngine(
-        lang,
-        (p) => { safeSetPartial(p); onTranscript(p, false); },
-        (f) => { safeSetPartial(''); onTranscript(f, true); },
-        ()  => { safeSetRecording('idle'); safeSetPartial(''); },
-        (e) => { safeSetError(e); safeSetRecording('error'); }
-      );
-      webEngineRef.current = engine;
-      engine.start();
-      safeSetRecording('listening');
+    // ─ MediaRecorder + Gemini (primary for web) ───────────────────────────────
+    if (capability === 'media-recorder') {
+      const handleTranscribe = async (audioBase64: string, mimeType: string) => {
+        safeSetRecording('processing');
+        setDebugInfo(`Processing... (${(audioBase64.length / 1024).toFixed(1)}KB)`);
+
+        const result = await transcribeAudio({
+          base64Audio: audioBase64,
+          mimeType,
+        });
+
+        if (result.success && result.transcript) {
+          console.log('[VoiceDictation] Transcription success, transcript length:', result.transcript.length, 'chars');
+          console.log('[VoiceDictation] Calling onTranscript with', result.transcript.length, 'chars');
+          setDebugInfo(`Success: "${result.transcript.substring(0, 30)}..."`);
+          onTranscript(result.transcript, true);
+          safeSetRecording('idle');
+          setTimeout(() => setDebugInfo(''), 3000);
+        } else {
+          console.error('[VoiceDictation] Transcription failed:', result.error);
+          setDebugInfo(`Error: ${result.error?.substring(0, 50)}...`);
+          safeSetError(result.error || 'Transcription failed');
+          safeSetRecording('error');
+        }
+      };
+
+      const handleError = (msg: string) => {
+        safeSetError(msg);
+        safeSetRecording('error');
+      };
+
+      mediaRecorderRef.current = new MediaRecorderEngine(handleTranscribe, handleError);
+      await mediaRecorderRef.current.start();
+      safeSetRecording('recording');
       return;
     }
+
+
 
     // ─ Native Voice ───────────────────────────────────────────────────────────
     if (capability === 'native') {
@@ -258,8 +331,8 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
       }
       setupNativeListeners(Voice);
       try {
-        await Voice.start(lang);
-        safeSetRecording('listening');
+        await Voice.start(currentLang);
+        safeSetRecording('recording');
       } catch (err: any) {
         const msg: string = err?.message || 'Failed to start speech recognition.';
         if (msg.toLowerCase().includes('permission') || msg.toLowerCase().includes('denied')) {
@@ -271,7 +344,7 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
         }
         safeSetError(msg);
         safeSetRecording('error');
-        resetNativeVoiceCache(); // Force re-init on next attempt
+        resetNativeVoiceCache();
       }
       return;
     }
@@ -280,16 +353,18 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
     safeSetRecording('error');
   }, [capability, currentLang, onTranscript, setupNativeListeners]);
 
-  // ── Stop Listening ────────────────────────────────────────────────────────────
+  // ── Stop Recording/Listening ─────────────────────────────────────────────────
 
-  const stopListening = useCallback(async () => {
-    if (capability === 'web-speech') {
-      webEngineRef.current?.stop();
-      webEngineRef.current = null;
-      safeSetRecording('idle');
-      safeSetPartial('');
+  const stopRecording = useCallback(async () => {
+    if (capability === 'media-recorder') {
+      // MediaRecorderEngine handles validation and transcription internally
+      // Just stop recording - errors will be reported via handleError callback
+      await mediaRecorderRef.current?.stop();
+      // Set processing state while transcription happens
+      safeSetRecording('processing');
       return;
     }
+
     if (capability === 'native') {
       const Voice = await getNativeVoice();
       try {
@@ -297,44 +372,40 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
         await Voice?.destroy();
       } catch {}
       Voice?.removeAllListeners?.();
-      resetNativeVoiceCache(); // Allow fresh re-init on next start
+      resetNativeVoiceCache();
       safeSetRecording('processing');
       setTimeout(() => safeSetRecording('idle'), 500);
     }
   }, [capability]);
 
-  // Keep ref in sync
-  useEffect(() => { stopListeningRef.current = stopListening; }, [stopListening]);
-
   // ── Toggle handlers ───────────────────────────────────────────────────────────
 
   const handleMicPress = useCallback(() => {
-    if (recordingState === 'listening') {
-      stopListening();
+    if (recordingState === 'recording') {
+      stopRecording();
     } else if (recordingState === 'idle' || recordingState === 'error') {
-      startListening();
+      startRecording();
     }
-  }, [recordingState, startListening, stopListening]);
+  }, [recordingState, startRecording, stopRecording]);
 
   const handleLanguageToggle = useCallback(async () => {
     const next: DictationLanguage = currentLang === 'en-IN' ? 'hi-IN' : 'en-IN';
     setCurrentLang(next);
     onLanguageChange?.(next);
-    if (recordingState === 'listening') {
-      await stopListening();
-      // Pass next lang explicitly so startListening doesn't use stale closure
-      setTimeout(() => startListening(next), 300);
+    if (recordingState === 'recording') {
+      await stopRecording();
+      setTimeout(() => startRecording(), 300);
     }
-  }, [currentLang, recordingState, startListening, stopListening, onLanguageChange]);
+  }, [currentLang, recordingState, startRecording, stopRecording, onLanguageChange]);
 
   if (disabled) return null;
 
   // ── Derived display values ────────────────────────────────────────────────────
 
-  const isListening  = recordingState === 'listening';
+  const isRecording = recordingState === 'recording';
   const isProcessing = recordingState === 'processing' || recordingState === 'requesting';
 
-  const micIconColor = isListening
+  const micIconColor = isRecording
     ? (isDark ? '#F87171' : '#DC2626')
     : isProcessing
     ? (isDark ? '#FBBF24' : '#B45309')
@@ -354,28 +425,33 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
           style={[
             styles.compactMicBtn,
             {
-              backgroundColor: isListening ? micBgActive : micBgIdle,
-              borderColor:     isListening ? micBorderActive : micBorderIdle,
+              backgroundColor: isRecording ? micBgActive : micBgIdle,
+              borderColor:     isRecording ? micBorderActive : micBorderIdle,
             },
           ]}
           onPress={handleMicPress}
           activeOpacity={0.75}
+          disabled={isProcessing}
         >
           <Animated.View style={{ transform: [{ scale: pulseAnim }] }}>
             <Ionicons
-              name={isListening ? 'mic' : 'mic-outline'}
+              name={isRecording ? 'mic' : 'mic-outline'}
               size={13}
               color={micIconColor}
             />
           </Animated.View>
           <Text style={[styles.compactLabel, { color: micIconColor }]}>
-            {isListening ? 'Stop' : isProcessing ? '…' : 'Dictate'}
+            {isRecording ? 'Stop' : isProcessing ? '…' : 'Dictate'}
           </Text>
         </TouchableOpacity>
 
-        {isListening && partialText ? (
-          <Text style={[styles.compactPartial, { color: theme.textMuted }]} numberOfLines={1}>
-            "{partialText}"
+        {isRecording ? (
+          <Text style={[styles.compactPartial, { color: theme.textMuted }]}>
+            Recording… tap to stop
+          </Text>
+        ) : isProcessing ? (
+          <Text style={[styles.compactPartial, { color: theme.textMuted }]}>
+            Processing…
           </Text>
         ) : null}
       </View>
@@ -389,7 +465,7 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
       style={[
         styles.wrapper,
         {
-          borderColor:     isListening ? (isDark ? '#3B82F6' : COLORS.navyGov) : 'transparent',
+          borderColor:     isRecording ? (isDark ? '#3B82F6' : COLORS.navyGov) : 'transparent',
           backgroundColor: isDark ? '#0F172A' : '#EEF4FF',
         },
       ]}
@@ -400,16 +476,17 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
           style={[
             styles.micBtn,
             {
-              backgroundColor: isListening ? micBgActive : micBgIdle,
-              borderColor:     isListening ? micBorderActive : micBorderIdle,
+              backgroundColor: isRecording ? micBgActive : micBgIdle,
+              borderColor:     isRecording ? micBorderActive : micBorderIdle,
             },
           ]}
           onPress={handleMicPress}
           activeOpacity={0.8}
+          disabled={isProcessing}
         >
           <Animated.View style={{ transform: [{ scale: pulseAnim }] }}>
             <Ionicons
-              name={isListening ? 'mic' : isProcessing ? 'hourglass-outline' : 'mic-outline'}
+              name={isRecording ? 'mic' : isProcessing ? 'hourglass-outline' : 'mic-outline'}
               size={20}
               color={micIconColor}
             />
@@ -422,40 +499,44 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
             style={[
               styles.statusLabel,
               {
-                color: isListening
+                color: isRecording
                   ? '#DC2626'
                   : isProcessing
                   ? '#B45309'
                   : recordingState === 'error'
                   ? '#DC2626'
+                  : capability === 'none'
+                  ? '#DC2626'
                   : theme.textSecondary,
               },
             ]}
           >
-            {isListening
-              ? '● Listening…'
+            {isRecording
+              ? '● Recording… tap to stop'
               : isProcessing
-              ? '⏳ Processing…'
+              ? '⏳ Processing audio…'
               : recordingState === 'error'
-              ? '⚠ Mic unavailable — tap to retry'
-              : 'Tap mic to dictate narrative'}
+              ? '⚠ Error — tap to retry'
+              : capability === 'none'
+              ? '⚠ Speech-to-text not available in this browser'
+              : 'Tap mic to dictate (EN/हिंदी)'}
           </Text>
 
-          {!isListening && !isProcessing && recordingState !== 'error' && (
+          {!isRecording && !isProcessing && recordingState !== 'error' && (
             <Text style={[styles.statusHint, { color: theme.textMuted }]}>
-              Co‑Pilot activates automatically after speech · EN / हिंदी
+              Powered by Gemini AI · EN / हिंदी
             </Text>
           )}
-
-          {partialText ? (
-            <Text style={[styles.partialText, { color: theme.textSecondary }]} numberOfLines={2}>
-              "{partialText}"
-            </Text>
-          ) : null}
 
           {errorMsg ? (
             <Text style={styles.errorText} numberOfLines={2}>
               {errorMsg}
+            </Text>
+          ) : null}
+
+          {debugInfo ? (
+            <Text style={styles.debugText} numberOfLines={2}>
+              🔍 {debugInfo}
             </Text>
           ) : null}
         </View>
@@ -465,6 +546,7 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
           style={[styles.langBtn, { backgroundColor: micBgIdle, borderColor: micBorderIdle }]}
           onPress={handleLanguageToggle}
           activeOpacity={0.75}
+          disabled={isProcessing}
         >
           <Text style={[styles.langBtnText, { color: isDark ? '#60A5FA' : COLORS.navyGov }]}>
             {currentLang === 'en-IN' ? 'EN' : 'हि'}
@@ -472,8 +554,8 @@ const VoiceDictation: React.FC<VoiceDictationProps> = ({
         </TouchableOpacity>
       </View>
 
-      {/* Animated waveform bars while listening */}
-      {isListening && (
+      {/* Animated waveform bars while recording */}
+      {isRecording && (
         <View style={styles.waveRow}>
           {[0.35, 0.65, 1, 0.55, 0.85, 0.45, 0.95, 0.7, 0.4, 0.8].map((h, i) => (
             <WaveBar key={i} heightRatio={h} isDark={isDark} index={i} />
@@ -491,7 +573,7 @@ const WaveBar: React.FC<{ heightRatio: number; isDark: boolean; index: number }>
     const anim = useRef(new Animated.Value(heightRatio)).current;
 
     useEffect(() => {
-      const stagger = index * 60; // stagger each bar slightly
+      const stagger = index * 60;
       let loop: Animated.CompositeAnimation;
       const timer = setTimeout(() => {
         loop = Animated.loop(
@@ -563,17 +645,18 @@ const styles = StyleSheet.create({
     fontSize: 11,
     lineHeight: 15,
   },
-  partialText: {
-    fontSize: 12,
-    fontStyle: 'italic',
-    lineHeight: 16,
-    marginTop: 2,
-  },
   errorText: {
     fontSize: 11,
     lineHeight: 15,
     marginTop: 2,
     color: '#DC2626',
+  },
+  debugText: {
+    fontSize: 10,
+    lineHeight: 14,
+    marginTop: 2,
+    color: '#6B7280',
+    fontFamily: Platform.OS === 'web' ? 'monospace' : undefined,
   },
   langBtn: {
     paddingHorizontal: 10,

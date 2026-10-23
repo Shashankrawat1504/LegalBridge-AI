@@ -30,30 +30,50 @@ interface CaseItem {
   tags?: string;
 }
 
-// ── Offline fallback: landmark Indian Supreme Court judgments ────────────────
-const OFFLINE_CASES: CaseItem[] = [
+// ── DEMO_CASES: landmark Indian Supreme Court judgments ───────────────────────
+const DEMO_CASES: CaseItem[] = [
   {
     id: 1,
     caseHeading: 'Kesavananda Bharati v. State of Kerala',
     query: 'Can Parliament amend the Basic Structure of the Constitution?',
-    applicableArticle: 'Article 368',
+    applicableArticle: 'Articles 13, 14, 19, 21, 32, 368 — Basic Structure Doctrine',
     description:
       'The Supreme Court held that Parliament can amend the Constitution but cannot alter its "basic structure" — which includes the supremacy of the Constitution, rule of law, judicial review, separation of powers, and fundamental rights. This 13-judge bench judgment (1973) remains the cornerstone of Indian constitutional law.',
     status: 'Decided',
-    tags: 'Constitutional, Basic Structure, Fundamental Rights',
+    tags: 'Constitutional, Basic Structure, Fundamental Rights, Judicial Review',
   },
   {
     id: 2,
-    caseHeading: 'Maneka Gandhi v. Union of India',
-    query: 'Is personal liberty limited to mere protection from arbitrary arrest?',
-    applicableArticle: 'Article 21',
+    caseHeading: 'Indira Nehru Gandhi v. Raj Narain',
+    query: 'Can Parliament amend election laws retrospectively to protect a specific election?',
+    applicableArticle: 'Articles 14, 19, 21, 329, 368 — Basic Structure',
     description:
-      'The Supreme Court expanded Article 21 ("right to life and personal liberty") to encompass all rights that make life meaningful. The procedure to deprive a person of life or liberty must be fair, just, and reasonable — not merely legally valid. Overruled the narrow A.K. Gopalan interpretation.',
+      'The Supreme Court struck down the 39th Constitutional Amendment that sought to retrospectively validate the election of the Prime Minister. The Court held that judicial review is part of the basic structure and Parliament cannot amend the Constitution to exclude judicial review in election disputes.',
     status: 'Decided',
-    tags: 'Constitutional, Fundamental Rights, Article 21',
+    tags: 'Constitutional, Basic Structure, Fundamental Rights, Judicial Review',
   },
   {
     id: 3,
+    caseHeading: 'Minerva Mills v. Union of India',
+    query: 'Can Parliament expand its amending power without judicial scrutiny?',
+    applicableArticle: 'Articles 14, 19, 31C, 368 — Basic Structure',
+    description:
+      'The Supreme Court struck down clauses of the 42nd Amendment that gave Parliament unlimited power to amend and excluded judicial review. The Court held that balance between fundamental rights and directive principles is part of the basic structure, and judicial review cannot be excluded.',
+    status: 'Decided',
+    tags: 'Constitutional, Basic Structure, Fundamental Rights, Judicial Review',
+  },
+  {
+    id: 4,
+    caseHeading: 'Maneka Gandhi v. Union of India',
+    query: 'Is personal liberty limited to mere protection from arbitrary arrest?',
+    applicableArticle: 'Article 21, Articles 14, 19',
+    description:
+      'The Supreme Court expanded Article 21 ("right to life and personal liberty") to encompass all rights that make life meaningful. The procedure to deprive a person of life or liberty must be fair, just, and reasonable — not merely legally valid. Overruled the narrow A.K. Gopalan interpretation.',
+    status: 'Decided',
+    tags: 'Constitutional, Fundamental Rights, Article 21, Due Process',
+  },
+  {
+    id: 5,
     caseHeading: 'Justice K.S. Puttaswamy v. Union of India',
     query: 'Is privacy a fundamental right under the Indian Constitution?',
     applicableArticle: 'Article 21, Article 14, Article 19',
@@ -63,58 +83,121 @@ const OFFLINE_CASES: CaseItem[] = [
     tags: 'Constitutional, Privacy, Fundamental Rights, Aadhaar',
   },
   {
-    id: 4,
+    id: 6,
+    caseHeading: 'Shreya Singhal v. Union of India',
+    query: 'Are Section 66A of IT Act restrictions on free speech constitutional?',
+    applicableArticle: 'Article 19(1)(a), Article 14, Article 21',
+    description:
+      'The Supreme Court struck down Section 66A of the IT Act as unconstitutional, holding it violated the right to free speech under Article 19(1)(a). The provision was vague, overbroad, and not saved by reasonable restrictions under Article 19(2). A landmark judgment for internet freedom.',
+    status: 'Decided',
+    tags: 'Constitutional, Fundamental Rights, Free Speech, IT Act',
+  },
+  {
+    id: 7,
     caseHeading: 'Vishaka v. State of Rajasthan',
     query: 'What are the obligations of employers regarding sexual harassment at the workplace?',
-    applicableArticle: 'Article 14, 19, 21 — POSH Act 2013',
+    applicableArticle: 'Articles 14, 15, 21 — POSH Act 2013',
     description:
       'In the absence of enacted legislation, the Supreme Court laid down binding guidelines (the Vishaka Guidelines) against sexual harassment of women at the workplace, treating such harassment as a violation of fundamental rights. These guidelines were later codified in the POSH Act 2013.',
     status: 'Decided',
     tags: 'Women Rights, Workplace, Sexual Harassment, POSH',
   },
   {
-    id: 5,
+    id: 8,
+    caseHeading: 'Joseph Shine v. Union of India',
+    query: 'Is the offence of adultery under Section 497 IPC constitutional?',
+    applicableArticle: 'Article 14, Article 15, Article 21',
+    description:
+      'The Supreme Court struck down Section 497 IPC as unconstitutional, holding it treated women as property of their husbands and violated equality under Articles 14 and 15. The judgment decriminalised adultery and recognised the autonomy and dignity of women.',
+    status: 'Decided',
+    tags: 'Women Rights, Constitutional, Article 21, Equality',
+  },
+  {
+    id: 9,
+    caseHeading: 'Shayara Bano v. Union of India',
+    query: 'Is the practice of triple talaq (talaq-e-biddat) constitutional?',
+    applicableArticle: 'Article 14, Article 15, Article 21, Article 25',
+    description:
+      'The Supreme Court declared triple talaq unconstitutional by a 3:2 majority. The practice was held to violate the fundamental rights to equality and dignity under Articles 14, 15, and 21. The judgment led to the Muslim Women (Protection of Rights on Marriage) Act 2019.',
+    status: 'Decided',
+    tags: 'Women Rights, Constitutional, Article 21, Personal Law',
+  },
+  {
+    id: 10,
     caseHeading: 'Navtej Singh Johar v. Union of India',
     query: 'Is Section 377 IPC unconstitutional to the extent it criminalises consensual same-sex relations?',
-    applicableArticle: 'Section 377 IPC, Article 14, 15, 19, 21',
+    applicableArticle: 'Section 377 IPC, Articles 14, 15, 19, 21',
     description:
       'A 5-judge Constitutional Bench read down Section 377 IPC, decriminalising consensual same-sex relations between adults. The Court held that sexual orientation is a protected characteristic under Articles 14, 15, and 21, and that criminalising consensual adult sexual conduct violated dignity and autonomy.',
     status: 'Decided',
     tags: 'Constitutional, LGBTQ, Article 21, Section 377 IPC',
   },
   {
-    id: 6,
+    id: 11,
     caseHeading: 'Lalita Kumari v. Government of Uttar Pradesh',
     query: 'Is registration of FIR mandatory on receipt of information disclosing a cognisable offence?',
-    applicableArticle: 'Section 154 CrPC',
+    applicableArticle: 'Section 154 CrPC, Section 41A BNSS',
     description:
       'A 5-judge bench held that registration of FIR under Section 154 CrPC is mandatory when information received discloses a cognisable offence. Police have no discretion to not register an FIR at this stage. The judgment also laid down categories of cases where preliminary inquiry may precede registration.',
     status: 'Decided',
-    tags: 'Criminal, FIR, CrPC, Police',
+    tags: 'Criminal, FIR, CrPC, Police, Procedure',
   },
   {
-    id: 7,
+    id: 12,
     caseHeading: 'D.K. Basu v. State of West Bengal',
     query: 'What are the rights of an arrested person and obligations on police during arrest?',
-    applicableArticle: 'Article 21, Article 22',
+    applicableArticle: 'Article 21, Article 22, Section 50 BNSS',
     description:
       'The Supreme Court issued binding guidelines to prevent custodial torture and deaths. Key requirements: police must identify themselves with name-tags during arrest, prepare a memo of arrest, inform relatives, allow medical examination, and produce the arrestee before a Magistrate within 24 hours.',
     status: 'Decided',
-    tags: 'Criminal, Arrest, Custodial Rights, Article 21',
+    tags: 'Criminal, Arrest, Custodial Rights, Article 21, Procedure',
   },
   {
-    id: 8,
+    id: 13,
     caseHeading: 'State of Rajasthan v. Balchand @ Baliay',
     query: 'What is the guiding principle for grant of bail in criminal cases?',
-    applicableArticle: 'Section 437, 439 CrPC',
+    applicableArticle: 'Section 437, 439 CrPC, Section 482 BNSS',
     description:
       'The Supreme Court laid down that "bail is the rule and jail is the exception". Accused persons should ordinarily be released on bail unless there are specific grounds for detention. The personal liberty of the accused must be respected except where there is risk of flight, tampering of evidence, or danger to witnesses.',
     status: 'Decided',
-    tags: 'Criminal, Bail, CrPC, Personal Liberty',
+    tags: 'Criminal, Bail, CrPC, Personal Liberty, Procedure',
+  },
+  {
+    id: 14,
+    caseHeading: 'M.C. Mehta v. Union of India (Oleum Gas Leak)',
+    query: 'What is the principle of absolute liability for hazardous industries?',
+    applicableArticle: 'Article 21, Article 32, Article 47',
+    description:
+      'The Supreme Court evolved the principle of "absolute liability" for industries engaged in hazardous activities. Unlike strict liability, there is no defence of "act of God" or "act of stranger". This judgment transformed environmental jurisprudence and corporate accountability in India.',
+    status: 'Decided',
+    tags: 'PIL, Environmental, Corporate, Article 21',
+  },
+  {
+    id: 15,
+    caseHeading: 'Hussainara Khatoon v. State of Bihar',
+    query: 'What are the rights of undertrial prisoners regarding speedy trial?',
+    applicableArticle: 'Article 21, Article 14, Article 22',
+    description:
+      'The Supreme Court held that speedy trial is a fundamental right under Article 21. The Court ordered release of undertrial prisoners who had been detained longer than the maximum sentence for their offences. This judgment established that right to speedy trial is part of right to life and liberty.',
+    status: 'Decided',
+    tags: 'PIL, Criminal, Article 21, Speedy Trial, Procedure',
   },
 ];
 
-const FILTER_TAGS = ['All', 'Constitutional', 'Criminal', 'Fundamental Rights', 'Women Rights'];
+const FILTER_TAGS = [
+  'All',
+  'Constitutional',
+  'Criminal',
+  'Fundamental Rights',
+  'Women Rights',
+  'Civil',
+  'Property',
+  'Labour',
+  'Corporate',
+  'PIL',
+  'Evidence',
+  'Bail & Procedure',
+];
 
 const Database = () => {
   const { theme, isDark } = useTheme();
@@ -145,11 +228,11 @@ const Database = () => {
         return;
       }
     } catch {
-      // Fall through to offline data
+      // Fall through to demo data
     }
-    // Offline fallback with landmark judgments
-    setCases(OFFLINE_CASES);
-    setFilteredCases(OFFLINE_CASES);
+    // Demo fallback with landmark judgments
+    setCases(DEMO_CASES);
+    setFilteredCases(DEMO_CASES);
   };
 
   useEffect(() => {

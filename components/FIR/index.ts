@@ -25,8 +25,8 @@ export {
   duplicateDraftRecord,
   renameDraftRecord,
   getLastActiveDraft,
-  setActiveDraftId,
   generateNewDraftId,
+  setActiveDraftId,
 } from './FIRDraftManager';
 export type {
   FIRDraftRecord,

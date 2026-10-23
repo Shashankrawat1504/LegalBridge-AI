@@ -1,8 +1,18 @@
 import React from 'react';
-import { View, Text, TextInput, Modal, ScrollView, TouchableOpacity, Button, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Modal,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import TagList from './TagList';
 import StatusBadge from './StatusBadge';
+import { useTheme } from '../../context/ThemeContext';
+import { COLORS, RADIUS } from '../../constants/theme';
 
 interface CaseItem {
   id: number;
@@ -37,19 +47,25 @@ const CaseModal: React.FC<CaseModalProps> = ({
   onInputChange,
   onRemoveTag,
 }) => {
+  const { theme, isDark } = useTheme();
+
   if (!caseItem) return null;
 
+  /** Render article list — handles both comma-separated plain text and **bold** markdown */
   const renderApplicableArticles = () => {
     if (!caseItem.applicableArticle) return null;
 
-    const articles = caseItem.applicableArticle
-      .split('**')
-      .filter((part, index) => index % 2 !== 0);
+    const raw = caseItem.applicableArticle;
+    // Try markdown bold format first (** wrapped)
+    const boldParts = raw.split('**').filter((_, i) => i % 2 !== 0);
+    const articles = boldParts.length > 0
+      ? boldParts
+      : raw.split(/[,，]/).map((a) => a.trim()).filter(Boolean);
 
     return (
-      <View style={styles.articlesContainer}>
+      <View style={[styles.articlesContainer, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
         {articles.map((article, index) => (
-          <Text key={index} style={styles.articleText}>
+          <Text key={index} style={[styles.articleText, { color: theme.textSecondary }]}>
             • {article.trim()}
           </Text>
         ))}
@@ -60,105 +76,129 @@ const CaseModal: React.FC<CaseModalProps> = ({
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <View style={styles.overlay}>
-        <View style={styles.modalContent}>
+        <View style={[styles.modalContent, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
+
+          {/* Close Button */}
           <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <Ionicons name="close" size={24} color="#6B7280" />
+            <View style={[styles.closeIconWrap, { backgroundColor: theme.surfaceMuted }]}>
+              <Ionicons name="close" size={20} color={theme.textSecondary} />
+            </View>
           </TouchableOpacity>
 
           <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.header}>
-              <Text style={styles.title}>
-                {isEditing ? 'Edit Case' : 'Case Details'}
-              </Text>
-              <StatusBadge status={caseItem.status} />
+            {/* Header */}
+            <View style={[styles.modalHeader, { borderBottomColor: theme.border }]}>
+              <View style={[styles.modalIconWrap, { backgroundColor: isDark ? '#1E3A5F22' : '#EFF6FF' }]}>
+                <Ionicons name="library-outline" size={22} color={isDark ? '#60A5FA' : COLORS.navyGov} />
+              </View>
+              <View style={styles.headerTextCol}>
+                <Text style={[styles.modalLabel, { color: theme.textMuted }]}>
+                  {isEditing ? 'EDITING CASE' : 'CASE DETAILS'}
+                </Text>
+                <StatusBadge status={caseItem.status} />
+              </View>
             </View>
 
+            {/* Case Heading */}
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Case Heading</Text>
+              <Text style={[styles.sectionTitle, { color: theme.textMuted }]}>CASE HEADING</Text>
               {isEditing ? (
                 <TextInput
                   value={editedData.caseHeading || ''}
                   onChangeText={(text) => onInputChange('caseHeading', text)}
-                  style={styles.input}
+                  style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
                   placeholder="Enter case heading"
+                  placeholderTextColor={theme.textMuted}
                 />
               ) : (
-                <Text style={styles.valueText}>{caseItem.caseHeading}</Text>
+                <Text style={[styles.headingText, { color: theme.textPrimary }]}>{caseItem.caseHeading}</Text>
               )}
             </View>
 
+            {/* Query */}
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Query</Text>
+              <Text style={[styles.sectionTitle, { color: theme.textMuted }]}>LEGAL QUESTION</Text>
               {isEditing ? (
                 <TextInput
                   value={editedData.query || ''}
                   onChangeText={(text) => onInputChange('query', text)}
-                  style={[styles.input, styles.multilineInput]}
+                  style={[styles.input, styles.multilineInput, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
                   multiline
                   placeholder="Enter case query"
+                  placeholderTextColor={theme.textMuted}
                 />
               ) : (
-                <Text style={styles.valueText}>{caseItem.query}</Text>
+                <Text style={[styles.valueText, { color: theme.textSecondary }]}>{caseItem.query}</Text>
               )}
             </View>
 
+            {/* Applicable Articles */}
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Tags</Text>
+              <Text style={[styles.sectionTitle, { color: theme.textMuted }]}>APPLICABLE ARTICLES / SECTIONS</Text>
               {isEditing ? (
-                <TagList
-                  tags={editedData.tags}
-                  editable
-                  onRemoveTag={onRemoveTag}
+                <TextInput
+                  value={editedData.applicableArticle || ''}
+                  onChangeText={(text) => onInputChange('applicableArticle', text)}
+                  style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
+                  placeholder="E.g. Article 21, Section 377 IPC"
+                  placeholderTextColor={theme.textMuted}
                 />
+              ) : (
+                renderApplicableArticles() || (
+                  <Text style={[styles.noDataText, { color: theme.textMuted }]}>No articles specified</Text>
+                )
+              )}
+            </View>
+
+            {/* Description */}
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { color: theme.textMuted }]}>JUDGMENT SUMMARY</Text>
+              <Text style={[styles.valueText, { color: theme.textSecondary }]}>{caseItem.description}</Text>
+            </View>
+
+            {/* Tags */}
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { color: theme.textMuted }]}>TAGS</Text>
+              {isEditing ? (
+                <TagList tags={editedData.tags} editable onRemoveTag={onRemoveTag} />
               ) : (
                 <TagList tags={caseItem.tags} />
               )}
             </View>
 
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Applicable Articles</Text>
-              {isEditing ? (
-                <TextInput
-                  value={editedData.applicableArticle || ''}
-                  onChangeText={(text) => onInputChange('applicableArticle', text)}
-                  style={styles.input}
-                  placeholder="Enter applicable articles"
-                />
-              ) : (
-                renderApplicableArticles() || (
-                  <Text style={styles.noDataText}>No applicable articles</Text>
-                )
-              )}
-            </View>
-
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Description</Text>
-              <Text style={styles.valueText}>{caseItem.description}</Text>
-            </View>
-
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Status</Text>
-              {isEditing ? (
+            {/* Status (edit only) */}
+            {isEditing && (
+              <View style={styles.section}>
+                <Text style={[styles.sectionTitle, { color: theme.textMuted }]}>STATUS</Text>
                 <TextInput
                   value={editedData.status || ''}
                   onChangeText={(text) => onInputChange('status', text)}
-                  style={styles.input}
-                  placeholder="Enter status"
+                  style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
+                  placeholder="E.g. Decided, Pending"
+                  placeholderTextColor={theme.textMuted}
                 />
-              ) : (
-                <Text style={styles.valueText}>{caseItem.status}</Text>
-              )}
-            </View>
+              </View>
+            )}
 
-            <View style={styles.actions}>
-              <TouchableOpacity onPress={onEditToggle} style={styles.editButton}>
-                <Text style={styles.editButtonText}>
-                  {isEditing ? 'Cancel Edit' : 'Edit Case'}
+            {/* Actions */}
+            <View style={[styles.actions, { borderTopColor: theme.border }]}>
+              <TouchableOpacity
+                onPress={onEditToggle}
+                style={[styles.editButton, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
+              >
+                <Ionicons
+                  name={isEditing ? 'close-outline' : 'create-outline'}
+                  size={16}
+                  color={theme.textSecondary}
+                />
+                <Text style={[styles.editButtonText, { color: theme.textSecondary }]}>
+                  {isEditing ? 'Cancel' : 'Edit Case'}
                 </Text>
               </TouchableOpacity>
 
               {isEditing && (
                 <TouchableOpacity onPress={onSave} style={styles.saveButton}>
+                  <Ionicons name="checkmark-outline" size={16} color="#fff" />
                   <Text style={styles.saveButtonText}>Save Changes</Text>
                 </TouchableOpacity>
               )}
@@ -175,113 +215,136 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.55)',
+    padding: 20,
   },
   modalContent: {
-    width: '90%',
-    maxWidth: 500,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 20,
-    maxHeight: '80%',
+    width: '100%',
+    maxWidth: 540,
+    borderRadius: RADIUS.xl,
+    padding: 24,
+    maxHeight: '88%',
+    borderWidth: 1,
     shadowColor: '#000',
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 5 },
-    elevation: 10,
+    shadowOpacity: 0.2,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 12,
   },
   closeButton: {
     position: 'absolute',
-    top: 10,
-    right: 10,
-    zIndex: 1,
+    top: 16,
+    right: 16,
+    zIndex: 10,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  closeIconWrap: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     alignItems: 'center',
-    marginBottom: 20,
-    paddingRight: 30, // Make room for close button
+    justifyContent: 'center',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#1e3a8a',
+  modalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginBottom: 20,
+    paddingBottom: 16,
+    borderBottomWidth: 1,
+    paddingRight: 40,
+  },
+  modalIconWrap: {
+    width: 44,
+    height: 44,
+    borderRadius: RADIUS.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerTextCol: {
     flex: 1,
+    gap: 4,
+  },
+  modalLabel: {
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 0.8,
   },
   section: {
     marginBottom: 20,
   },
   sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#374151',
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 0.8,
     marginBottom: 8,
   },
+  headingText: {
+    fontSize: 18,
+    fontWeight: '700',
+    lineHeight: 26,
+  },
   valueText: {
-    fontSize: 16,
-    color: '#4B5563',
-    lineHeight: 22,
+    fontSize: 15,
+    lineHeight: 23,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 8,
+    borderRadius: RADIUS.md,
     padding: 12,
-    fontSize: 16,
-    backgroundColor: '#F9FAFB',
+    fontSize: 15,
   },
   multilineInput: {
-    minHeight: 80,
+    minHeight: 90,
     textAlignVertical: 'top',
   },
   articlesContainer: {
-    backgroundColor: '#F3F4F6',
     padding: 12,
-    borderRadius: 8,
+    borderRadius: RADIUS.md,
+    borderWidth: 1,
+    gap: 4,
   },
   articleText: {
     fontSize: 14,
-    color: '#4B5563',
-    marginBottom: 4,
-    lineHeight: 20,
+    lineHeight: 21,
   },
   noDataText: {
     fontSize: 14,
-    color: '#9CA3AF',
     fontStyle: 'italic',
   },
   actions: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
-    gap: 12,
+    justifyContent: 'flex-end',
+    marginTop: 8,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    gap: 10,
   },
   editButton: {
-    flex: 1,
-    backgroundColor: '#F3F4F6',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
+    flexDirection: 'row',
     alignItems: 'center',
+    gap: 6,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: RADIUS.md,
+    borderWidth: 1,
   },
   editButtonText: {
-    color: '#374151',
-    fontSize: 16,
-    fontWeight: '500',
+    fontSize: 14,
+    fontWeight: '600',
   },
   saveButton: {
-    flex: 1,
-    backgroundColor: '#1e3a8a',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
+    flexDirection: 'row',
     alignItems: 'center',
+    gap: 6,
+    backgroundColor: COLORS.navyGov,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: RADIUS.md,
   },
   saveButtonText: {
     color: '#fff',
-    fontSize: 16,
-    fontWeight: '500',
+    fontSize: 14,
+    fontWeight: '600',
   },
 });
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
+import DatePickerField from './DatePickerField';
 
 interface ComplainantDetailsCardProps {
   formData: {
@@ -48,13 +49,11 @@ const ComplainantDetailsCard: React.FC<ComplainantDetailsCardProps> = ({ formDat
           />
         </View>
         <View style={styles.inputGroup}>
-          <Text style={[styles.inputLabel, { color: theme.textSecondary }]}>Date of Birth</Text>
-          <TextInput
-            style={[styles.input, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
-            placeholder="DD/MM/YYYY"
-            placeholderTextColor={theme.textMuted}
+          <DatePickerField
+            label="Date of Birth"
             value={formData.birthDate}
-            onChangeText={(value) => onChange('birthDate', value)}
+            placeholder="DD/MM/YYYY"
+            onChange={(value) => onChange('birthDate', value)}
           />
         </View>
       </View>
@@ -131,6 +130,7 @@ const styles = StyleSheet.create({
   inputGroup: {
     flex: 1,
     marginRight: 8,
+    marginBottom: 12,
   },
   inputLabel: {
     fontSize: 14,

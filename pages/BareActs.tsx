@@ -204,7 +204,7 @@ const BareActs = () => {
 
   if (loading) {
     return (
-      <View style={styles.loaderContainer}>
+      <View style={[styles.loaderContainer, { backgroundColor: theme.background }]}>
         <ActivityIndicator
           size="large"
           color={COLORS.navyGov}
@@ -215,8 +215,8 @@ const BareActs = () => {
 
   if (!bns || bns.length === 0) {
     return (
-      <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>
+      <View style={[styles.errorContainer, { backgroundColor: theme.background }]}>
+        <Text style={[styles.errorText, { color: COLORS.statusAlert }]}>
           No statutory records found or an error occurred.
         </Text>
       </View>
@@ -254,11 +254,11 @@ const BareActs = () => {
               activeOpacity={0.7}
             >
               <Ionicons name="arrow-back-outline" size={18} color={isDark ? '#60A5FA' : COLORS.navyGov} />
-              <Text style={[styles.backBtnText, isDark && { color: '#60A5FA' }]}>Back to Tools</Text>
+              <Text style={[styles.backBtnText, { color: isDark ? '#60A5FA' : COLORS.navyGov }]}>Back to Tools</Text>
             </TouchableOpacity>
 
             <View style={[styles.badge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
-              <Text style={styles.badgeText}>GAZETTED STATUTES REPOSITORY</Text>
+              <Text style={[styles.badgeText, { color: COLORS.accentGoldDark }]}>GAZETTED STATUTES REPOSITORY</Text>
             </View>
 
             <Text style={[styles.headerTitle, { color: theme.textPrimary }]}>Bare Acts & Legislative Codes</Text>
@@ -278,7 +278,7 @@ const BareActs = () => {
                 style={[
                   styles.sectionCard,
                   { backgroundColor: theme.cardBackground, borderColor: theme.border },
-                  activeSection === item && styles.sectionCardActive,
+                  activeSection === item && { backgroundColor: COLORS.navyGov, borderColor: COLORS.navyMuted },
                 ]}
                 onPress={() => toggleSection(item)}
                 activeOpacity={0.8}
@@ -287,7 +287,7 @@ const BareActs = () => {
                   style={[
                     styles.sectionCardText,
                     { color: theme.textPrimary },
-                    activeSection === item && styles.sectionCardTextActive,
+                    activeSection === item && { color: COLORS.white },
                   ]}
                 >
                   {item}
@@ -296,7 +296,7 @@ const BareActs = () => {
                   style={[
                     styles.sectionCardSub,
                     { color: theme.textMuted },
-                    activeSection === item && styles.sectionCardSubActive,
+                    activeSection === item && { color: '#CBD5E1' },
                   ]}
                 >
                   {item === 'BNS'
@@ -317,7 +317,7 @@ const BareActs = () => {
 
           {/* Bookmarks Toggle Tab */}
           <TouchableOpacity
-            style={[styles.bookmarkTab, { backgroundColor: theme.surface, borderColor: COLORS.accentGoldDark }, showBookmarks && styles.bookmarkTabActive]}
+            style={[styles.bookmarkTab, { backgroundColor: theme.surface, borderColor: COLORS.accentGoldDark }, showBookmarks && { backgroundColor: COLORS.accentGoldDark }]}
             onPress={() => { setShowBookmarks((b) => !b); setActiveSection(null); }}
             activeOpacity={0.7}
           >
@@ -326,7 +326,7 @@ const BareActs = () => {
               size={16}
               color={showBookmarks ? COLORS.white : COLORS.accentGoldDark}
             />
-            <Text style={[styles.bookmarkTabText, showBookmarks && styles.bookmarkTabTextActive]}>
+            <Text style={[styles.bookmarkTabText, { color: showBookmarks ? COLORS.white : COLORS.accentGoldDark }]}>
               Bookmarks ({bookmarks.size})
             </Text>
           </TouchableOpacity>
@@ -372,7 +372,7 @@ const BareActs = () => {
                           <Text style={[styles.sectionId, { color: COLORS.white }]}>{item.actKey}</Text>
                         </View>
                         <View style={[styles.sectionBadge, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
-                          <Text style={[styles.sectionId, isDark && { color: '#FDE68A' }]}>§ {item.section_id}</Text>
+                          <Text style={[styles.sectionId, { color: isDark ? '#FDE68A' : COLORS.accentGoldDark }]}>§ {item.section_id}</Text>
                         </View>
                       </View>
                       <TouchableOpacity
@@ -415,7 +415,7 @@ const BareActs = () => {
                   <View key={index} style={[styles.detailCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
                     <View style={[styles.sectionBadgeRow, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
                       <View style={[styles.sectionBadge, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
-                        <Text style={[styles.sectionId, isDark && { color: '#FDE68A' }]}>{item.actKey} § {item.section_id}</Text>
+                        <Text style={[styles.sectionId, { color: isDark ? '#FDE68A' : COLORS.accentGoldDark }]}>{item.actKey} § {item.section_id}</Text>
                       </View>
                       <TouchableOpacity onPress={() => toggleBookmark(item.actKey, item.section_id)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
                         <Ionicons name="bookmark" size={18} color={COLORS.accentGold} />
@@ -431,15 +431,18 @@ const BareActs = () => {
           )}
 
           {/* Per-Act Section Listing */}
-          {!showBookmarks && activeSection &&
-            {
+          {!showBookmarks && activeSection && (() => {
+            const actData: Record<string, SectionData[]> = {
               BNS: bns,
               IPC: ipc,
               CRPC: crpc,
               IEA: iea,
               CPC: cpc,
               MVA: mva,
-            }[activeSection] && (
+            };
+            const sections = actData[activeSection];
+            if (!sections) return null;
+            return (
               <View style={styles.detailsContainer}>
                 <View style={styles.resultsHeader}>
                   <Text style={[styles.resultsCount, { color: theme.textMuted }]}>
@@ -447,20 +450,11 @@ const BareActs = () => {
                   </Text>
                 </View>
 
-                {filterSections(
-                  {
-                    BNS: bns,
-                    IPC: ipc,
-                    CRPC: crpc,
-                    IEA: iea,
-                    CPC: cpc,
-                    MVA: mva,
-                  }[activeSection]
-                ).map((item, index) => (
+                {filterSections(sections).map((item, index) => (
                   <View key={index} style={[styles.detailCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
                     <View style={[styles.sectionBadgeRow, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
                       <View style={[styles.sectionBadge, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
-                        <Text style={[styles.sectionId, isDark && { color: '#FDE68A' }]}>SECTION {item.section_id}</Text>
+                        <Text style={[styles.sectionId, { color: isDark ? '#FDE68A' : COLORS.accentGoldDark }]}>SECTION {item.section_id}</Text>
                       </View>
                       <TouchableOpacity
                         onPress={() => toggleBookmark(activeSection!, item.section_id)}
@@ -479,7 +473,8 @@ const BareActs = () => {
                   </View>
                 ))}
               </View>
-            )}
+            );
+          })()}
 
         </View>
 
@@ -492,7 +487,6 @@ const BareActs = () => {
 const styles = StyleSheet.create({
   mainWrapper: {
     flex: 1,
-    backgroundColor: COLORS.surfaceLight,
   },
   scrollContainer: {
     flex: 1,
@@ -501,9 +495,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   header: {
-    backgroundColor: COLORS.white,
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
     paddingVertical: 28,
     paddingHorizontal: 20,
     alignItems: 'center',
@@ -519,21 +511,16 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: RADIUS.sm,
-    backgroundColor: COLORS.surfaceMuted,
     borderWidth: 1,
-    borderColor: COLORS.border,
     alignSelf: 'flex-start',
     marginBottom: 12,
   },
   backBtnText: {
     fontSize: 12,
     fontWeight: '600',
-    color: COLORS.navyGov,
   },
   badge: {
-    backgroundColor: COLORS.surfaceMuted,
     borderWidth: 1,
-    borderColor: COLORS.border,
     borderRadius: RADIUS.sm,
     paddingHorizontal: 8,
     paddingVertical: 3,
@@ -543,19 +530,16 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: 10,
     fontWeight: '700',
-    color: COLORS.accentGoldDark,
     letterSpacing: 0.6,
   },
   headerTitle: {
     fontSize: 26,
     fontWeight: '800',
-    color: COLORS.navyDark,
     marginBottom: 6,
     lineHeight: 34,
   },
   headerSubtitle: {
     fontSize: 14,
-    color: COLORS.textSecondary,
     lineHeight: 21,
   },
   contentWrapper: {
@@ -568,7 +552,6 @@ const styles = StyleSheet.create({
   selectionLabel: {
     fontSize: 11,
     fontWeight: '700',
-    color: COLORS.textMuted,
     letterSpacing: 0.8,
     marginBottom: 12,
   },
@@ -583,32 +566,18 @@ const styles = StyleSheet.create({
     minWidth: 130,
     height: 90,
     borderRadius: RADIUS.lg,
-    backgroundColor: COLORS.white,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: COLORS.border,
     ...SHADOWS.subtle,
-  },
-  sectionCardActive: {
-    backgroundColor: COLORS.navyGov,
-    borderColor: COLORS.navyMuted,
   },
   sectionCardText: {
     fontSize: 20,
     fontWeight: '800',
-    color: COLORS.navyDark,
-  },
-  sectionCardTextActive: {
-    color: COLORS.white,
   },
   sectionCardSub: {
     fontSize: 11,
-    color: COLORS.textMuted,
     marginTop: 2,
-  },
-  sectionCardSubActive: {
-    color: '#CBD5E1',
   },
   bookmarkTab: {
     flexDirection: 'row',
@@ -618,29 +587,18 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: RADIUS.md,
     borderWidth: 1,
-    borderColor: COLORS.accentGoldDark,
-    backgroundColor: COLORS.white,
     marginBottom: 16,
     gap: 6,
-  },
-  bookmarkTabActive: {
-    backgroundColor: COLORS.accentGoldDark,
   },
   bookmarkTabText: {
     fontSize: 13,
     fontWeight: '600',
-    color: COLORS.accentGoldDark,
-  },
-  bookmarkTabTextActive: {
-    color: COLORS.white,
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.white,
     borderRadius: RADIUS.md,
     borderWidth: 1,
-    borderColor: COLORS.border,
     paddingHorizontal: 14,
     marginBottom: 24,
     ...SHADOWS.subtle,
@@ -652,7 +610,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 48,
     fontSize: 14,
-    color: COLORS.navyDark,
   },
   detailsContainer: {
     paddingBottom: 20,
@@ -663,15 +620,12 @@ const styles = StyleSheet.create({
   resultsCount: {
     fontSize: 13,
     fontWeight: '600',
-    color: COLORS.textMuted,
   },
   detailCard: {
-    backgroundColor: COLORS.white,
     borderRadius: RADIUS.lg,
     padding: 20,
     marginBottom: 14,
     borderWidth: 1,
-    borderColor: COLORS.border,
     ...SHADOWS.subtle,
   },
   sectionBadgeRow: {
@@ -679,9 +633,7 @@ const styles = StyleSheet.create({
   },
   sectionBadge: {
     alignSelf: 'flex-start',
-    backgroundColor: COLORS.surfaceMuted,
     borderWidth: 1,
-    borderColor: COLORS.border,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: RADIUS.sm,
@@ -689,42 +641,35 @@ const styles = StyleSheet.create({
   sectionId: {
     fontSize: 11,
     fontWeight: '700',
-    color: COLORS.accentGoldDark,
     letterSpacing: 0.6,
   },
   sectionTitle: {
     fontSize: 17,
     fontWeight: '700',
-    color: COLORS.navyDark,
     marginBottom: 8,
     lineHeight: 23,
   },
   divider: {
     height: 1,
-    backgroundColor: COLORS.border,
     marginBottom: 12,
   },
   sectionDescription: {
     fontSize: 13,
     lineHeight: 21,
-    color: COLORS.textSecondary,
   },
   loaderContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.surfaceLight,
   },
   errorContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: COLORS.surfaceLight,
   },
   errorText: {
     fontSize: 14,
-    color: COLORS.statusAlert,
     fontWeight: '600',
   },
 });

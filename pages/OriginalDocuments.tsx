@@ -4,11 +4,11 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  FlatList,
   Alert,
   TextInput,
   ScrollView,
   ActivityIndicator,
+  Modal,
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -22,6 +22,40 @@ import { COLORS, RADIUS, SHADOWS } from '../constants/theme';
 import { useTheme } from '../context/ThemeContext';
 
 const STORAGE_KEY = '@lawai_user_documents';
+
+// ── Demo seed: shown on first launch so the library isn't empty ──────────────
+const DEMO_SEED: UserDocument[] = [
+  {
+    id: 'demo-1',
+    name: 'FIR_Case_2026_Delhi_Police.pdf',
+    uri: '',
+    mimeType: 'application/pdf',
+    size: 214032,
+    category: 'FIR',
+    addedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    notes: 'Case No. 456/2026 — Theft at Connaught Place',
+  },
+  {
+    id: 'demo-2',
+    name: 'Bail_Application_Affidavit.docx',
+    uri: '',
+    mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    size: 87440,
+    category: 'Affidavit',
+    addedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+    notes: 'Session Court, Saket — bail hearing 22 Oct 2026',
+  },
+  {
+    id: 'demo-3',
+    name: 'High_Court_Stay_Order_Oct2026.pdf',
+    uri: '',
+    mimeType: 'application/pdf',
+    size: 512000,
+    category: 'Court Order',
+    addedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+    notes: 'Delhi HC — W.P. (Crl.) 881/2026, stay on demolition',
+  },
+];
 
 type DocCategory = 'All' | 'FIR' | 'Affidavit' | 'Court Order' | 'Agreement' | 'Other';
 
@@ -92,9 +126,15 @@ const OriginalDocuments: React.FC = () => {
   const loadDocuments = async () => {
     try {
       const stored = await AsyncStorage.getItem(STORAGE_KEY);
-      if (stored) setDocuments(JSON.parse(stored));
+      if (stored) {
+        setDocuments(JSON.parse(stored));
+      } else {
+        // First launch — seed with demo documents
+        setDocuments(DEMO_SEED);
+        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(DEMO_SEED));
+      }
     } catch {
-      // First launch — nothing stored yet
+      setDocuments(DEMO_SEED);
     }
   };
 
@@ -382,19 +422,32 @@ const OriginalDocuments: React.FC = () => {
         <Footer />
       </ScrollView>
 
-      {/* Tag / Category Modal */}
-      {showTagModal && selectedDoc && (
+      {/* Tag / Category Modal — uses proper Modal so it works on web + native */}
+      <Modal
+        visible={showTagModal && !!selectedDoc}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowTagModal(false)}
+      >
         <View style={styles.modalOverlay}>
-          <View style={[styles.modalBox, { backgroundColor: theme.cardBackground }]}>
+          <View style={[styles.modalBox, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
             <Text style={[styles.modalTitle, { color: theme.textPrimary }]}>Edit Document Tags</Text>
-            <Text style={[styles.modalDocName, { color: theme.textMuted }]}>{selectedDoc.name}</Text>
+            {selectedDoc && (
+              <Text style={[styles.modalDocName, { color: theme.textMuted }]} numberOfLines={1}>
+                {selectedDoc.name}
+              </Text>
+            )}
 
-            <Text style={[styles.modalLabel, { color: theme.textMuted }]}>Category</Text>
+            <Text style={[styles.modalLabel, { color: theme.textMuted }]}>CATEGORY</Text>
             <View style={styles.modalChipsRow}>
               {(CATEGORIES.filter((c) => c !== 'All') as DocCategory[]).map((cat) => (
                 <TouchableOpacity
                   key={cat}
-                  style={[styles.chip, { backgroundColor: theme.surface, borderColor: theme.border }, editCategory === cat && styles.chipActive]}
+                  style={[
+                    styles.chip,
+                    { backgroundColor: theme.surface, borderColor: theme.border },
+                    editCategory === cat && styles.chipActive,
+                  ]}
                   onPress={() => setEditCategory(cat)}
                 >
                   <Text style={[styles.chipText, { color: theme.textSecondary }, editCategory === cat && styles.chipTextActive]}>
@@ -404,7 +457,7 @@ const OriginalDocuments: React.FC = () => {
               ))}
             </View>
 
-            <Text style={[styles.modalLabel, { color: theme.textMuted }]}>Notes</Text>
+            <Text style={[styles.modalLabel, { color: theme.textMuted }]}>NOTES</Text>
             <TextInput
               style={[styles.modalInput, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder, color: theme.textPrimary }]}
               placeholder="Add a short note (e.g. Case No. 12345/2026)"
@@ -415,7 +468,10 @@ const OriginalDocuments: React.FC = () => {
             />
 
             <View style={styles.modalActions}>
-              <TouchableOpacity style={[styles.modalCancel, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]} onPress={() => setShowTagModal(false)}>
+              <TouchableOpacity
+                style={[styles.modalCancel, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
+                onPress={() => setShowTagModal(false)}
+              >
                 <Text style={[styles.modalCancelText, { color: theme.textSecondary }]}>Cancel</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.modalSave} onPress={saveTags}>
@@ -424,7 +480,7 @@ const OriginalDocuments: React.FC = () => {
             </View>
           </View>
         </View>
-      )}
+      </Modal>
     </View>
   );
 };
@@ -551,20 +607,19 @@ const styles = StyleSheet.create({
   emptySubtitle: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'center' },
 
   modalOverlay: {
-    position: 'absolute',
-    top: 0, left: 0, right: 0, bottom: 0,
+    flex: 1,
     backgroundColor: 'rgba(15,23,42,0.55)',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
   },
   modalBox: {
-    backgroundColor: COLORS.white,
     borderRadius: RADIUS.lg,
     padding: 24,
     width: '100%',
     maxWidth: 480,
-    ...SHADOWS.subtle,
+    borderWidth: 1,
+    ...SHADOWS.elevated,
   },
   modalTitle: { fontSize: 18, fontWeight: '800', color: COLORS.navyDark, marginBottom: 4 },
   modalDocName: { fontSize: 13, color: COLORS.textMuted, marginBottom: 16 },

@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../../context/ThemeContext';
+import { COLORS, RADIUS, SHADOWS } from '../../constants/theme';
 
 interface PdfItem {
   id: number;
@@ -15,17 +17,19 @@ interface PdfCardProps {
 }
 
 const PdfCard: React.FC<PdfCardProps> = ({ pdf, onDownload, isDownloading = false }) => {
+  const { theme, isDark } = useTheme();
+
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
       <View style={styles.content}>
-        <View style={styles.iconContainer}>
-          <Ionicons name="document" size={20} color="#1e3a8a" />
+        <View style={[styles.iconContainer, { backgroundColor: isDark ? '#1E3A5F33' : '#EFF6FF', borderColor: isDark ? '#1E40AF44' : '#BFDBFE' }]}>
+          <Ionicons name="document-text-outline" size={20} color={isDark ? '#60A5FA' : COLORS.navyGov} />
         </View>
         <View style={styles.info}>
-          <Text style={styles.title} numberOfLines={2}>
+          <Text style={[styles.title, { color: isDark ? '#93C5FD' : COLORS.navyGov }]} numberOfLines={2}>
             {pdf.act_name}
           </Text>
-          <Text style={styles.description} numberOfLines={3}>
+          <Text style={[styles.description, { color: theme.textSecondary }]} numberOfLines={3}>
             {pdf.description}
           </Text>
         </View>
@@ -35,7 +39,13 @@ const PdfCard: React.FC<PdfCardProps> = ({ pdf, onDownload, isDownloading = fals
         style={[styles.downloadButton, isDownloading && styles.downloadingButton]}
         onPress={() => onDownload(pdf.id)}
         disabled={isDownloading}
+        activeOpacity={0.8}
       >
+        <Ionicons
+          name={isDownloading ? 'hourglass-outline' : 'download-outline'}
+          size={16}
+          color={isDownloading ? '#6B7280' : '#fff'}
+        />
         <Text style={[styles.downloadText, isDownloading && styles.downloadingText]}>
           {isDownloading ? 'Downloading...' : 'Download'}
         </Text>
@@ -46,61 +56,56 @@ const PdfCard: React.FC<PdfCardProps> = ({ pdf, onDownload, isDownloading = fals
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
+    borderRadius: RADIUS.xl,
     padding: 16,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    ...SHADOWS.card,
   },
   content: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 16,
+    marginBottom: 14,
+    gap: 12,
   },
   iconContainer: {
     width: 40,
     height: 40,
-    borderRadius: 8,
-    backgroundColor: '#EEF2FF',
+    borderRadius: RADIUS.md,
+    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
   },
   info: {
     flex: 1,
   },
   title: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1e3a8a',
-    marginBottom: 6,
-    lineHeight: 24,
+    fontSize: 16,
+    fontWeight: '700',
+    marginBottom: 5,
+    lineHeight: 22,
   },
   description: {
-    fontSize: 14,
-    color: '#6B7280',
-    lineHeight: 20,
+    fontSize: 13,
+    lineHeight: 19,
   },
   downloadButton: {
-    backgroundColor: '#1e3a8a',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    gap: 7,
+    backgroundColor: COLORS.navyGov,
+    paddingVertical: 9,
+    paddingHorizontal: 18,
+    borderRadius: RADIUS.md,
     alignSelf: 'flex-end',
   },
   downloadingButton: {
-    backgroundColor: '#9CA3AF',
+    backgroundColor: '#D1D5DB',
   },
   downloadText: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '600',
   },
   downloadingText: {
