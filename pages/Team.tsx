@@ -14,53 +14,13 @@ import { COLORS, RADIUS, SHADOWS } from "../constants/theme";
 
 const teamMembers = [
   {
-    name: "Ayush Agarwal",
+    name: "Shashank Rawat",
     role: "ML & Legal NLP Engineer",
     description:
       "Responsible for developing statutory NLP models, semantic act cross-referencing, and optimizing legal question-answering pipelines.",
     image:
       "https://media.licdn.com/dms/image/v2/D4E03AQEoRZxKRClhOg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1728018350887?e=1738195200&v=beta&t=9pYtSPhRuABUkyR-VTgAboDui_l4lh5pYoldreKvJx0",
-  },
-  {
-    name: "Debojit Roy",
-    role: "Backend Architecture Lead",
-    description:
-      "Architects secure server infrastructure, judicial case database indexing, and encrypted API integrations conforming to government standards.",
-    image:
-      "https://media.licdn.com/dms/image/v2/D5603AQGPRSfGjGir9Q/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1718236956013?e=1738195200&v=beta&t=pscvdlRST4EJhg3Suf5bI6z23YP-LaR_NaCSB2vuQJU",
-  },
-  {
-    name: "Anubhab Das",
-    role: "UI/UX & Accessibility Specialist",
-    description:
-      "Designs intuitive, accessible, and high-contrast user interfaces tailored for everyday citizens, students, and legal learners.",
-    image:
-      "https://media.licdn.com/dms/image/v2/D5603AQF5tXgTG8Qp4g/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1710860974456?e=1738195200&v=beta&t=6L3G6xbr5ZqwI_vNx0mwH2ujatNnFyHHyAZ2fIzB_b0",
-  },
-  {
-    name: "Anish Seth",
-    role: "Frontend Systems Engineer",
-    description:
-      "Implements cross-platform portal interfaces, responsive government layouts, and smooth form-generation pipelines.",
-    image:
-      "https://media.licdn.com/dms/image/v2/D5603AQEcOwOyX562Dg/profile-displayphoto-shrink_400_400/B56ZNu3TrUGgAg-/0/1732731813490?e=1738195200&v=beta&t=Y-SnPMfKVIN8-7tnNxNyjfme3bQdyrGW45fUTAyyZxI",
-  },
-  {
-    name: "Anushka Adak",
-    role: "Legal Research Analyst",
-    description:
-      "Conducts empirical research on Indian statutes, legal literacy barriers, and plain-language rights awareness for citizens.",
-    image:
-      "https://media.licdn.com/dms/image/v2/D5603AQHou2gK1ISDvA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1694421566208?e=1738195200&v=beta&t=WVinWjnia99PD9IrEEPjI6wG1rkvVRAqpfdBFVDoYTs",
-  },
-  {
-    name: "Tanisha Gupta",
-    role: "Product & Strategy Manager",
-    description:
-      "Provides strategic guidance and operational oversight, aligning technical deliverables with legal compliance standards.",
-    image:
-      "https://media.licdn.com/dms/image/v2/D4E03AQF0TX_e-_A-kA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1693753607824?e=1738195200&v=beta&t=LyZwC4tPpARgbD_dId2bqLRR6M-b59PYw_XyPXuJuFM",
-  },
+  }
 ];
 
 const Team = () => {
