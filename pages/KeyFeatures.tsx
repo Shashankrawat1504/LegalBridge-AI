@@ -27,46 +27,60 @@ const KeyFeatures = () => {
 
   const featuresList: FeatureItem[] = [
     {
-      icon: 'document-text-outline',
-      title: 'AI-Powered FIR Generation',
-      category: 'DOCUMENTATION',
-      description: 'Intelligent FIR document creation with statutory compliance, automated section mapping, and structured official formatting for police stations.',
-      complianceTag: 'BNSS Section 173 Compliant',
+      icon: 'chatbubbles-outline',
+      title: 'Legal Help Assistant',
+      category: 'ASK A QUESTION',
+      description: 'Ask everyday legal questions in plain language — rent deposit, salary delay, consumer fraud, neighbour disputes, and more. Get clear, actionable answers instantly.',
+      complianceTag: 'Plain Language Answers',
     },
     {
       icon: 'library-outline',
-      title: 'Comprehensive Legal Database',
-      category: 'STATUTORY REPOSITORY',
-      description: 'Instant lookup of active Indian penal codes, procedural laws, and judicial precedents searchable by section, legal topic, or keywords.',
-      complianceTag: 'BNS 2023 & IPC Cross-Referenced',
+      title: 'Know the Law (Simple)',
+      category: 'LEGAL EDUCATION',
+      description: 'Understand Indian laws in simple words. Browse key sections of BNS, IPC, and other acts — explained clearly for everyday life, not just lawyers.',
+      complianceTag: 'BNS 2023 & IPC Covered',
     },
     {
-      icon: 'chatbubbles-outline',
-      title: 'AI Legal Assistant',
-      category: 'INVESTIGATIVE INTELLIGENCE',
-      description: 'Precision question-answering assistant for investigating officers to query statutory interpretations, legal definitions, and court directives.',
-      complianceTag: 'Audited Legal NLP Engine',
+      icon: 'document-text-outline',
+      title: 'My Legal Document Library',
+      category: 'SECURE STORAGE',
+      description: 'Save and organise your personal legal documents on-device: rent agreements, notices, court papers, complaint copies, and ID documents. Your data stays on your phone.',
+      complianceTag: 'On-Device Storage',
+    },
+    {
+      icon: 'book-outline',
+      title: 'Citizen Action Guides',
+      category: 'STEP-BY-STEP HELP',
+      description: 'Step-by-step guidance for common legal situations: filing complaints, security deposit recovery, salary delays, consumer refunds, and cyber fraud reporting.',
+      complianceTag: '5 Practical Guides',
+    },
+    {
+      icon: 'mail-outline',
+      title: 'Ready-Made Letter Templates',
+      category: 'FILL & COPY',
+      description: 'Pre-drafted, polite formal letters with interactive placeholders: deposit refund notices, salary reminders, consumer defect complaints, and receiving receipts.',
+      complianceTag: 'Interactive Live Preview',
+    },
+    {
+      icon: 'call-outline',
+      title: 'Find Help (Helplines)',
+      category: 'PUBLIC DIRECTORY',
+      description: 'Direct telephone and portal links to verified public emergency numbers (112, 181, 1930, 1915), NALSA free legal aid, and citizen support helplines.',
+      complianceTag: 'Verified Public Contacts',
+    },
+    {
+      icon: 'scan-outline',
+      title: 'Check My Document',
+      category: 'DOCUMENT REVIEW',
+      description: 'Upload rent agreements, service contracts, or notices and get plain-language risk scores, highlighted risky clauses, and questions to ask before you sign.',
+      complianceTag: 'AI-Assisted Analysis',
     },
     {
       icon: 'shield-checkmark-outline',
-      title: 'Secure & Compliant Architecture',
-      category: 'DATA GOVERNANCE',
-      description: 'Government-grade data protection, role-based access control for authorized personnel, tamper-evident audit logs, and strict confidentiality.',
-      complianceTag: 'IT Act & ISO 27001 Ready',
-    },
-    {
-      icon: 'stats-chart-outline',
-      title: 'Case Analytics & Reporting',
-      category: 'OPERATIONAL OVERSIGHT',
-      description: 'High-level monitoring dashboards tracking case progress, pending chargesheets, FIR registration timelines, and jurisdiction analytics.',
-      complianceTag: 'Executive MIS Reports',
-    },
-    {
-      icon: 'people-outline',
-      title: 'Multi-Agency Collaboration',
-      category: 'INTER-AGENCY SYNC',
-      description: 'Secure data interchange between police precincts, prosecution branches, and judicial registries for unified case tracking without duplication.',
-      complianceTag: 'CCTNS Protocol Compatible',
+      title: 'Private & Educational',
+      category: 'PRIVACY FIRST',
+      description: 'All data stays on your device. No personal details are uploaded. This is an educational aid to help you understand your rights — always consult a lawyer for serious matters.',
+      complianceTag: 'Educational Aid Only',
     },
   ];
 
@@ -83,14 +97,14 @@ const KeyFeatures = () => {
         <View style={[styles.heroSection, { backgroundColor: theme.surface, borderBottomColor: theme.border }]}>
           <View style={styles.heroInner}>
             <View style={[styles.tagBadge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
-              <Text style={styles.tagBadgeText}>SYSTEM CAPABILITIES & ARCHITECTURE</Text>
+              <Text style={styles.tagBadgeText}>CITIZEN TOOLS & CAPABILITIES</Text>
             </View>
             <Text style={[styles.heroTitle, { color: theme.textPrimary }]}>
-              Features Built for Law Enforcement & Judiciary
+              Legal Help Designed for Everyday Citizens
             </Text>
             <Text style={[styles.heroSubtitle, { color: theme.textSecondary }]}>
-              A specialized suite of intelligent legal tools designed to accelerate investigation,
-              standardize official documentation, and uphold the rule of law across India.
+              Simple tools to understand your rights, ask legal questions in plain language,
+              review your documents, and know what famous court cases mean for you.
             </Text>
           </View>
         </View>
@@ -128,9 +142,9 @@ const KeyFeatures = () => {
         <View style={styles.ctaSection}>
           <View style={styles.ctaCard}>
             <View style={styles.ctaContent}>
-              <Text style={styles.ctaHeading}>Deploy LegalBridge-AI for Your Division or Unit</Text>
+              <Text style={styles.ctaHeading}>Start Using Your Legal Tools</Text>
               <Text style={styles.ctaSubtext}>
-                Empower your officers with vetted legal intelligence and verified statutory documentation tools.
+                Access legal help, understand your rights, review documents, and use ready-made letters — all in simple language, all on your device.
               </Text>
             </View>
             <View style={[styles.ctaButtonRow, isCompact && styles.ctaButtonRowCompact]}>

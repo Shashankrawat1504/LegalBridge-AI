@@ -52,7 +52,7 @@ const Settings: React.FC = () => {
   // Activity Log
   const [activityLog, setActivityLog] = useState<ActivityLogItem[]>([
     { action: 'Login', time: '2025-12-25 10:30 AM', icon: 'log-in' },
-    { action: 'Generated FIR Report', time: '2025-12-24 02:00 PM', icon: 'document-text' },
+    { action: 'Viewed Legal Help', time: '2025-12-24 02:00 PM', icon: 'document-text' },
     { action: 'Updated Profile', time: '2025-12-23 08:45 AM', icon: 'person' },
     { action: 'Changed Password', time: '2025-12-20 04:10 PM', icon: 'key' },
     { action: 'Enabled Biometric Auth', time: '2025-12-18 11:30 AM', icon: 'finger-print' },
@@ -119,40 +119,32 @@ const Settings: React.FC = () => {
 
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <SettingsHeader
-          title="Portal Settings & Security Controls"
-          subtitle="Configure authentication preferences, biometric access, and system display parameters."
+          title="App Settings"
+          subtitle="Customise your theme, notification preferences, document settings, and privacy options."
           iconName="settings-outline"
         />
 
       {/* Account & Profile Section */}
       <SettingsSection
-        title="Account & Profile"
-        description="Manage your account details and profile information"
+        title="Citizen Profile"
+        description="Manage your citizen account details and local profile"
         iconName="person"
         iconColor="#3b82f6"
       >
         <SettingsItem
-          title="Edit Profile"
-          subtitle="Update your personal information and preferences"
+          title="Citizen Profile"
+          subtitle="View or edit your local citizen name and details"
           iconName="person-outline"
           iconColor="#3b82f6"
-          onPress={() => (navigation as any).navigate('EditProfile')}
+          onPress={() => (navigation as any).navigate('Login')}
           showArrow
         />
         <SettingsItem
-          title="Change Password"
-          subtitle="Update your account password for security"
-          iconName="key-outline"
-          iconColor="#f59e0b"
-          onPress={() => (navigation as any).navigate('ChangePassword')}
-          showArrow
-        />
-        <SettingsItem
-          title="Account Verification"
-          subtitle="Verify your identity and account status"
-          iconName="checkmark-circle-outline"
+          title="Account Status"
+          subtitle="Local on-device storage • Privacy preserved"
+          iconName="shield-checkmark-outline"
           iconColor="#10b981"
-          onPress={() => (navigation as any).navigate('AccountVerification')}
+          onPress={() => Alert.alert('Citizen Profile', 'Your profile and documents are stored privately on your device.')}
           showArrow
         />
       </SettingsSection>
@@ -267,8 +259,8 @@ const Settings: React.FC = () => {
 
       {/* Legal & Documents Section */}
       <SettingsSection
-        title="Legal & Documents"
-        description="Configure settings related to legal documents and case management"
+        title="Personal Legal Documents"
+        description="Configure preferences for your on-device document library"
         iconName="document-text"
         iconColor="#059669"
       >
@@ -279,25 +271,17 @@ const Settings: React.FC = () => {
           onValueChange={setDocumentAutoSave}
         />
         <SettingsToggle
-          title="Automatic Backup"
-          subtitle="Regularly backup your documents and case data"
+          title="Automatic Local Backup"
+          subtitle="Regularly cache saved documents on your device"
           value={autoBackup}
           onValueChange={setAutoBackup}
         />
         <SettingsItem
-          title="Document Templates"
-          subtitle="Manage and customize document templates"
+          title="My Legal Document Library"
+          subtitle="Open your personal vault to view and manage saved files"
           iconName="folder-outline"
           iconColor="#059669"
-          onPress={() => (navigation as any).navigate('DocumentTemplates')}
-          showArrow
-        />
-        <SettingsItem
-          title="Export Data"
-          subtitle="Download all your data and documents"
-          iconName="download-outline"
-          iconColor="#059669"
-          onPress={() => (navigation as any).navigate('ExportData')}
+          onPress={() => (navigation as any).navigate('Original Documents')}
           showArrow
         />
       </SettingsSection>
@@ -305,7 +289,7 @@ const Settings: React.FC = () => {
       {/* Activity Log Section */}
       <SettingsSection
         title="Activity Log"
-        description="Review your recent account activities and security events"
+        description="Review your recent app activities on this device"
         iconName="list"
         iconColor="#6b7280"
       >

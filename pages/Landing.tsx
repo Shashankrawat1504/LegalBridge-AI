@@ -34,19 +34,18 @@ const Landing = () => {
             <View style={[styles.authorityPill, { backgroundColor: theme.badge, borderColor: theme.border }]}>
               <View style={styles.authorityDot} />
               <Text style={[styles.authorityPillText, isDark && { color: '#60A5FA' }]}>
-                MINISTRY OF LAW & JUSTICE • DIGITAL INITIATIVE
+                LEGAL HELP FOR EVERYONE • KNOW YOUR RIGHTS
               </Text>
             </View>
 
             {/* Main Headline */}
             <Text style={[styles.heroTitle, { color: theme.textPrimary }]}>
-              Empowering Law Enforcement with AI
+              Understand Your Rights in Simple Language
             </Text>
 
             {/* Subtitle / Core Brief */}
             <Text style={[styles.heroSubtitle, { color: theme.textSecondary }]}>
-              Revolutionize law enforcement with AI-powered tools. Streamline FIR filing, access legal
-              resources, and enhance operational efficiency with cutting-edge technology.
+              Get everyday legal help without the complexity. Ask questions, understand laws, save your documents, and know your rights as a citizen.
             </Text>
 
             {/* Call-to-Action Buttons */}
@@ -73,17 +72,17 @@ const Landing = () => {
             <View style={[styles.trustPillarsRow, isCompact && styles.trustPillarsRowCompact, { borderTopColor: theme.border }]}>
               <View style={styles.trustItem}>
                 <Ionicons name="shield-checkmark-outline" size={16} color={isDark ? '#60A5FA' : COLORS.navyGov} />
-                <Text style={[styles.trustText, { color: theme.textMuted }]}>Constitution Compliant</Text>
+                <Text style={[styles.trustText, { color: theme.textMuted }]}>Plain Language</Text>
               </View>
               <View style={[styles.trustDivider, { backgroundColor: theme.border }]} />
               <View style={styles.trustItem}>
                 <Ionicons name="document-text-outline" size={16} color={isDark ? '#60A5FA' : COLORS.navyGov} />
-                <Text style={[styles.trustText, { color: theme.textMuted }]}>BNS & BNSS Formats</Text>
+                <Text style={[styles.trustText, { color: theme.textMuted }]}>Based on Indian Law</Text>
               </View>
               <View style={[styles.trustDivider, { backgroundColor: theme.border }]} />
               <View style={styles.trustItem}>
                 <Ionicons name="lock-closed-outline" size={16} color={isDark ? '#60A5FA' : COLORS.navyGov} />
-                <Text style={[styles.trustText, { color: theme.textMuted }]}>Official Portal Security</Text>
+                <Text style={[styles.trustText, { color: theme.textMuted }]}>Your Data Stays On Device</Text>
               </View>
             </View>
           </View>
@@ -94,7 +93,7 @@ const Landing = () => {
           <View style={[styles.institutionalCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
             <View style={styles.imageWrapper}>
               <Image
-                source={require('../images/Landing.jpg')}
+                source={require('../assets/Landing.jpg')}
                 style={styles.landingImage}
                 resizeMode="cover"
               />
@@ -106,44 +105,83 @@ const Landing = () => {
             </View>
 
             <View style={styles.institutionalContent}>
-              <Text style={[styles.institutionalHeading, { color: theme.textPrimary }]}>National Legal Framework & Public Trust</Text>
+              <Text style={[styles.institutionalHeading, { color: theme.textPrimary }]}>Legal Help Made Simple</Text>
               <Text style={[styles.institutionalDescription, { color: theme.textSecondary }]}>
-                This initiative is designed to bring the power of technology to law enforcement agencies,
-                providing them with the resources they need to uphold justice and maintain public trust.
+                This app is designed to help everyday citizens understand their rights, ask legal questions in plain language, and organize important documents. Educational aid — not a substitute for professional legal advice.
               </Text>
 
-              {/* Quick portal links for legal personnel */}
+              {/* Quick portal links for citizens */}
               <View style={styles.quickAccessGrid}>
                 <TouchableOpacity
                   style={[styles.quickAccessTile, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
                   onPress={() => navigation.navigate('Query')}
                 >
-                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>AI Legal Intelligence</Text>
-                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>Ask queries on active Indian statutes</Text>
+                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>Legal Help Assistant</Text>
+                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>Ask everyday legal questions</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   style={[styles.quickAccessTile, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
                   onPress={() => navigation.navigate('Bare Acts')}
                 >
-                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>Bare Acts Reference</Text>
-                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>Updated BNS & procedural sections</Text>
+                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>Know the Law (Simple)</Text>
+                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>Understand laws in plain words</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   style={[styles.quickAccessTile, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
-                  onPress={() => navigation.navigate('FIR Download')}
+                  onPress={() => navigation.navigate('Original Documents')}
                 >
-                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>Official FIR Builder</Text>
-                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>Standard legal format generation</Text>
+                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>My Legal Document Library</Text>
+                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>Save your legal documents</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   style={[styles.quickAccessTile, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
-                  onPress={() => navigation.navigate('Database')}
+                  onPress={() => navigation.navigate('Guides')}
                 >
-                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>Precedent Database</Text>
-                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>High Court & Supreme Court references</Text>
+                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>Citizen Guides</Text>
+                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>Step-by-step action plans</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={[styles.quickAccessTile, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
+                  onPress={() => navigation.navigate('LetterTemplates')}
+                >
+                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>Letter Templates</Text>
+                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>Fill & copy ready-made letters</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={[styles.quickAccessTile, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
+                  onPress={() => navigation.navigate('Helplines')}
+                >
+                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>Find Help (Helplines)</Text>
+                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>Verified numbers & legal aid</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={[styles.quickAccessTile, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
+                  onPress={() => navigation.navigate('RightsBySituation')}
+                >
+                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>Rights by Situation</Text>
+                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>Tenant, worker, consumer rights</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={[styles.quickAccessTile, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
+                  onPress={() => navigation.navigate('ComplaintNotes')}
+                >
+                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>My Complaint Notes</Text>
+                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>Private on-device log</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={[styles.quickAccessTile, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
+                  onPress={() => navigation.navigate('Glossary')}
+                >
+                  <Text style={[styles.quickAccessTitle, { color: theme.textPrimary }]}>Legal Glossary (Simple)</Text>
+                  <Text style={[styles.quickAccessSub, { color: theme.textMuted }]}>Plain meanings of legal terms</Text>
                 </TouchableOpacity>
               </View>
             </View>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
@@ -11,6 +11,10 @@ import { COLORS, RADIUS, SHADOWS } from '../constants/theme';
 const OfficialFIRFormat = () => {
   const navigation = useNavigation();
   const [isDownloading, setIsDownloading] = useState(false);
+
+  useEffect(() => {
+    (navigation as any).replace('Utilities');
+  }, [navigation]);
 
   // Function to download and save the FIR .docx file
   const downloadDocx = async () => {

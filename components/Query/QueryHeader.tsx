@@ -12,11 +12,11 @@ interface QueryHeaderProps {
 }
 
 const QueryHeader: React.FC<QueryHeaderProps> = ({
-  title = "AI Legal Intelligence Assistant",
-  subtitle = "Query penal codes, statutory interpretations, and active Bharatiya Nyaya Sanhita (BNS) provisions."
+  title = "Legal Help Assistant",
+  subtitle = "Ask everyday legal questions in plain language: rent, salary, consumer fraud, neighbour disputes, notices, and more."
 }) => {
   const navigation = useNavigation();
-  const { theme } = useTheme();
+  const { theme, isDark } = useTheme();
 
   return (
     <View style={[styles.header, { backgroundColor: theme.surface, borderBottomColor: theme.border }]}>
@@ -24,14 +24,14 @@ const QueryHeader: React.FC<QueryHeaderProps> = ({
         <View style={styles.topRow}>
           <TouchableOpacity
             style={[styles.backBtn, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
-            onPress={() => navigation.goBack()}
+            onPress={() => (navigation as any).navigate('Utilities')}
             activeOpacity={0.7}
           >
-            <Ionicons name="arrow-back-outline" size={18} color={COLORS.navyGov} />
-            <Text style={styles.backBtnText}>Back</Text>
+            <Ionicons name="arrow-back-outline" size={18} color={isDark ? '#60A5FA' : COLORS.navyGov} />
+            <Text style={[styles.backBtnText, { color: isDark ? '#60A5FA' : COLORS.navyGov }]}>Back to Tools</Text>
           </TouchableOpacity>
           <View style={[styles.badge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
-            <Text style={styles.badgeText}>INVESTIGATIVE DESK</Text>
+            <Text style={styles.badgeText}>YOUR RIGHTS</Text>
           </View>
         </View>
 

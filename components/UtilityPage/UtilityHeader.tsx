@@ -9,8 +9,8 @@ interface UtilityHeaderProps {
 }
 
 const UtilityHeader: React.FC<UtilityHeaderProps> = ({
-  title = "Law Enforcement & Legal Tools Directory",
-  subtitle = "Official digital resources authorized for statutory verification, case documentation, and legal intelligence."
+  title = "Your Legal Help Tools",
+  subtitle = "Plain-language tools to understand your rights, ask legal questions, review documents, and use ready-made forms — all educational, all on your device."
 }) => {
   const { theme } = useTheme();
 
@@ -18,7 +18,7 @@ const UtilityHeader: React.FC<UtilityHeaderProps> = ({
     <View style={[styles.header, { backgroundColor: theme.surface, borderBottomColor: theme.border }]}>
       <View style={styles.headerContent}>
         <View style={[styles.badge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
-          <Text style={styles.badgeText}>OPERATIONAL MODULES</Text>
+          <Text style={styles.badgeText}>CITIZEN TOOLS</Text>
         </View>
         <Text style={[styles.headerTitle, { color: theme.textPrimary }]}>{title}</Text>
         <Text style={[styles.headerSubtitle, { color: theme.textSecondary }]}>{subtitle}</Text>

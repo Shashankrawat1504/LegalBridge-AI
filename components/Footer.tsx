@@ -25,12 +25,12 @@ const Footer: React.FC = () => {
         {/* Portal Summary */}
         <View style={[styles.sectionRow, isCompact && styles.sectionRowCompact]}>
           <View style={styles.portalInfoBlock}>
-            <Text style={styles.portalTitle}>LegalBridge-AI Portal</Text>
+            <Text style={styles.portalTitle}>LegalBridge-AI</Text>
             <Text style={styles.portalSubtitle}>
-              Government of India • Ministry of Law & Justice
+              Legal Help & Rights Awareness for Everyone
             </Text>
             <Text style={styles.disclaimerText}>
-              An official AI-assisted legal intelligence and case documentation platform designed for law enforcement officers, judiciary personnel, and legal professionals.
+              An educational aid to help citizens understand their rights, ask legal questions in plain language, and organize legal documents. Not a substitute for professional legal advice.
             </Text>
           </View>
 
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
                 style={styles.linkItem}
                 activeOpacity={0.7}
               >
-                <Text style={styles.linkText}></Text>
+                <Text style={styles.linkText}>Our Team</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
         {/* Bottom Metadata & Copyright */}
         <View style={[styles.bottomBar, isCompact && styles.bottomBarCompact]}>
           <Text style={styles.copyrightText}>
-            © {new Date().getFullYear()} LegalBridge-AI Portal. Developed under the Government of India Digital Initiative. All Rights Reserved.
+            © {new Date().getFullYear()} LegalBridge-AI. Legal help and rights awareness for everyone. All Rights Reserved.
           </Text>
           <Text style={styles.securityText}>
             Standard Security & Data Protection Compliant • IT Act, 2000

@@ -15,8 +15,8 @@ interface QueryInputProps {
 const QueryInput: React.FC<QueryInputProps> = ({
   value,
   onChangeText,
-  placeholder = "Type your statutory query, offence description, or section inquiry...",
-  showMic = true,
+  placeholder = "Describe your situation in your own words (e.g. My landlord refuses to refund my security deposit after I vacated...)",
+  showMic = false,
 }) => {
   const { theme, isDark } = useTheme();
 

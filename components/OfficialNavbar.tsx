@@ -75,10 +75,10 @@ export const OfficialNavbar: React.FC<OfficialNavbarProps> = ({ currentRoute }) 
           <Text style={[styles.authorityDivider, { color: theme.border }]}>|</Text>
           <Text style={[styles.authorityText, { color: theme.textSecondary }]}>Government of India</Text>
           <Text style={[styles.authorityDivider, { color: theme.border }]}>•</Text>
-          <Text style={[styles.authoritySubtext, { color: theme.textMuted }]}>Ministry of Law and Justice</Text>
+          <Text style={[styles.authoritySubtext, { color: theme.textMuted }]}>Legal Help & Rights Awareness</Text>
         </View>
         <View style={styles.authorityRight}>
-          <Text style={[styles.officialPortalTag, isDark && { color: '#60A5FA' }]}>OFFICIAL LEGAL PORTAL</Text>
+          <Text style={[styles.officialPortalTag, isDark && { color: '#60A5FA' }]}>EDUCATIONAL AID</Text>
         </View>
       </View>
 
@@ -91,7 +91,7 @@ export const OfficialNavbar: React.FC<OfficialNavbarProps> = ({ currentRoute }) 
           activeOpacity={0.8}
         >
           <Image
-            source={require('../images/indian-emblem.png')}
+            source={require('../assets/indian-emblem.png')}
             style={styles.emblem}
             resizeMode="contain"
           />
@@ -103,7 +103,7 @@ export const OfficialNavbar: React.FC<OfficialNavbarProps> = ({ currentRoute }) 
               </View>
             </View>
             <Text style={[styles.brandSubtitle, { color: theme.textMuted }]}>
-              National Legal Intelligence & Enforcement Platform
+              Legal Help and Rights Awareness for Everyone
             </Text>
           </View>
         </TouchableOpacity>
@@ -128,19 +128,19 @@ export const OfficialNavbar: React.FC<OfficialNavbarProps> = ({ currentRoute }) 
               );
             })}
 
-            {/* Officer Access / Login CTA */}
+            {/* User Access / Login CTA */}
             <TouchableOpacity
               style={styles.officerBtn}
               onPress={() => handleNavigate(isLoggedIn ? 'Settings' : 'Login')}
               activeOpacity={0.85}
             >
               <Ionicons
-                name={isLoggedIn ? 'shield-checkmark-outline' : 'person-outline'}
-                size={15}
+                name={isLoggedIn ? 'person-circle-outline' : 'person-outline'}
+                size={16}
                 color={COLORS.white}
               />
               <Text style={styles.officerBtnText}>
-                {isLoggedIn ? `Officer #${badgeNumber || 'Auth'}` : 'Officer Login'}
+                {isLoggedIn ? `Profile` : 'Login'}
               </Text>
             </TouchableOpacity>
           </View>
@@ -154,8 +154,8 @@ export const OfficialNavbar: React.FC<OfficialNavbarProps> = ({ currentRoute }) 
               onPress={() => handleNavigate(isLoggedIn ? 'Settings' : 'Login')}
             >
               <Ionicons
-                name={isLoggedIn ? 'shield-checkmark-outline' : 'person-outline'}
-                size={14}
+                name={isLoggedIn ? 'person-circle-outline' : 'person-outline'}
+                size={15}
                 color={isDark ? '#60A5FA' : COLORS.navyGov}
               />
               <Text style={[styles.mobileOfficerBtnText, isDark && { color: '#60A5FA' }]}>
@@ -208,12 +208,12 @@ export const OfficialNavbar: React.FC<OfficialNavbarProps> = ({ currentRoute }) 
             onPress={() => handleNavigate(isLoggedIn ? 'Settings' : 'Login')}
           >
             <Ionicons
-              name={isLoggedIn ? 'shield-checkmark-outline' : 'log-in-outline'}
+              name={isLoggedIn ? 'person-circle-outline' : 'log-in-outline'}
               size={18}
               color={isDark ? '#60A5FA' : COLORS.navyGov}
             />
             <Text style={[styles.mobileMenuOfficerActionText, isDark && { color: '#60A5FA' }]}>
-              {isLoggedIn ? `Logged in: ${officerName || 'Officer'}` : 'Officer Portal Login'}
+              {isLoggedIn ? `Profile: ${officerName || 'Citizen'}` : 'Login'}
             </Text>
           </TouchableOpacity>
         </View>

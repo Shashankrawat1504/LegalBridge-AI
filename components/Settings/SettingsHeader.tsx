@@ -14,11 +14,11 @@ interface SettingsHeaderProps {
 }
 
 const SettingsHeader: React.FC<SettingsHeaderProps> = ({
-  title = "Portal Settings & Officer Security",
-  subtitle = "Configure authentication preferences, security timeouts, and system notifications."
+  title = "App Settings",
+  subtitle = "Customize app preferences, theme, language, and accessibility options."
 }) => {
   const navigation = useNavigation();
-  const { theme } = useTheme();
+  const { theme, isDark } = useTheme();
 
   return (
     <View style={[styles.header, { backgroundColor: theme.surface, borderBottomColor: theme.border }]}>
@@ -26,14 +26,14 @@ const SettingsHeader: React.FC<SettingsHeaderProps> = ({
         <View style={styles.topRow}>
           <TouchableOpacity
             style={[styles.backBtn, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
-            onPress={() => navigation.goBack()}
+            onPress={() => (navigation as any).navigate('Utilities')}
             activeOpacity={0.7}
           >
-            <Ionicons name="arrow-back-outline" size={18} color={COLORS.navyGov} />
-            <Text style={styles.backBtnText}>Back</Text>
+            <Ionicons name="arrow-back-outline" size={18} color={isDark ? '#60A5FA' : COLORS.navyGov} />
+            <Text style={[styles.backBtnText, { color: isDark ? '#60A5FA' : COLORS.navyGov }]}>Back to Tools</Text>
           </TouchableOpacity>
           <View style={[styles.badge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
-            <Text style={styles.badgeText}>SECURITY & PREFERENCES</Text>
+            <Text style={styles.badgeText}>CITIZEN PREFERENCES</Text>
           </View>
         </View>
 

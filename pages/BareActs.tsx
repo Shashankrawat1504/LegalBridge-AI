@@ -28,6 +28,12 @@ const bns: SectionData[] = [
 ,{"id": 8, "section_id": "8", "section_title": "Amount of fine, liability in default of payment of fine, etc", "description": "IPC Section 63, 64, 65, 66, 67, 68, 69 & 70\nWhere no sum is expressed to which a fine may extend, the amount of fine to which the offender is liable is unlimited, but shall not be excessive.In every case of an offence,punishable with imprisonment as well as fine, in which the offender is sentenced to a fine, whether with or without imprisonment;punishable with imprisonment or fine, or with fine only, in which the offender is sentenced to a fine, it shall be competent to the Court which sentences such offender to direct by the sentence that, in default of payment of the fine, the offender shall suffer imprisonment for a certain term, in which imprisonment shall be in excess of any other imprisonment to which he may have been sentenced or to which he may be liable under a commutation of a sentence.The term for which the Court directs the offender to be imprisoned in default of payment of a fine shall not exceed one-fourth of the term of imprisonment which is the maximum fixed for the offence, if the offence be punishable with imprisonment as well as fine.The imprisonment which the Court imposes in default of payment of a fine or in default of community service may be of any description to which the offender might have been sentenced for the offence.If the offence is punishable with fine or community service, the imprisonment which the Court imposes in default of payment of the fine or in default of community service shall be simple, and the term for which the Court directs the offender to be imprisoned, in default of payment of fine or in default of community service, shall not exceed for any term not exceeding,two months when the amount of the fine shall not exceed five thousand rupees; andfour months when the amount of the fine shall not exceed ten thousand rupees, and for any term not exceeding one year in any other case.\u2014The imprisonment which is imposed in default of payment of a fine shall terminate whenever that fine is either paid or levied by process of law;If, before the expiration of the term of imprisonment fixed in default of payment, such a proportion of the fine be paid or levied that the term of imprisonment suffered in default of payment is not less than proportional to the part of the fine still unpaid, the imprisonment shall terminate.Illustration: A is sentenced to a fine of one thousand rupees and to four months\u2019 imprisonment in default of payment. Here, if seven hundred and fifty rupees of the fine be paid or levied before the expiration of one month of the imprisonment, A will be discharged as soon as the first month has expired. If seven hundred and fifty rupees be paid or levied at the time of the expiration of the first month, or at any later time while A continues in imprisonment, A will be immediately discharged. If five hundred rupees of the fine be paid or levied before the expiration of two months of the imprisonment. A will be discharged as soon as the two months are completed. If five hundred rupees be paid or levied at the time of the expiration of those two months, or at any later time while A continues in imprisonment, A will be immediately discharged.The fine, or any part thereof which remains unpaid, may be levied at any time within six years after the passing of the sentence, and if, under the sentence, the offender be liable to imprisonment for a longer period than six years, then at any time previous to the expiration of that period; and the death of the offender does not discharge from the liability any property which would, after his death, be legally liable for his debts.\npunishable with imprisonment as well as fine, in which the offender is sentenced to a fine, whether with or without imprisonment;punishable with imprisonment or fine, or with fine only, in which the offender is sentenced to a fine, it shall be competent to the Court which sentences such offender to direct by the sentence that, in default of payment of the fine, the offender shall suffer imprisonment for a certain term, in which imprisonment shall be in excess of any other imprisonment to which he may have been sentenced or to which he may be liable under a commutation of a sentence.\ntwo months when the amount of the fine shall not exceed five thousand rupees; andfour months when the amount of the fine shall not exceed ten thousand rupees, and for any term not exceeding one year in any other case.\nThe imprisonment which is imposed in default of payment of a fine shall terminate whenever that fine is either paid or levied by process of law;If, before the expiration of the term of imprisonment fixed in default of payment, such a proportion of the fine be paid or levied that the term of imprisonment suffered in default of payment is not less than proportional to the part of the fine still unpaid, the imprisonment shall terminate.Illustration: A is sentenced to a fine of one thousand rupees and to four months\u2019 imprisonment in default of payment. Here, if seven hundred and fifty rupees of the fine be paid or levied before the expiration of one month of the imprisonment, A will be discharged as soon as the first month has expired. If seven hundred and fifty rupees be paid or levied at the time of the expiration of the first month, or at any later time while A continues in imprisonment, A will be immediately discharged. If five hundred rupees of the fine be paid or levied before the expiration of two months of the imprisonment. A will be discharged as soon as the two months are completed. If five hundred rupees be paid or levied at the time of the expiration of those two months, or at any later time while A continues in imprisonment, A will be immediately discharged."}
 ,{"id": 9, "section_id": "9", "section_title": "Limit of punishment of offence made up of several offences", "description": "Where anything which is an offence is made up of parts, any of which parts is itself an offence, the offender shall not be punished with the punishment of more than one of such his offences, unless it be so expressly provided.\u2014Where anything is an offence falling within two or more separate definitions of any law in force for the time being by which offences are defined or punished; orWhere several acts, of which one or more than one would by itself or themselves constitute an offence, constitute, when combined, a different offence, the offender shall not be punished with a more severe punishment than the Court which tries him could award for any one of such offences.Illustrations:A gives Z fifty strokes with a stick. Here A may have committed the offence of voluntarily causing hurt to Z by the whole beating, and also by each of the blows which make up the whole beating. If A were liable to punishment for every blow, he might be imprisoned for fifty years, one for each blow. But he is liable only to one punishment for the whole beating.But, if, while A is beating Z, Y interferes, and A intentionally strikes Y, here, as the blow given to Y is no part of the act whereby A voluntarily causes hurt to Z, A is liable to one punishment for voluntarily causing hurt to Z, and to another for the blow given to Y.\nWhere anything is an offence falling within two or more separate definitions of any law in force for the time being by which offences are defined or punished; orWhere several acts, of which one or more than one would by itself or themselves constitute an offence, constitute, when combined, a different offence, the offender shall not be punished with a more severe punishment than the Court which tries him could award for any one of such offences.Illustrations:A gives Z fifty strokes with a stick. Here A may have committed the offence of voluntarily causing hurt to Z by the whole beating, and also by each of the blows which make up the whole beating. If A were liable to punishment for every blow, he might be imprisoned for fifty years, one for each blow. But he is liable only to one punishment for the whole beating.But, if, while A is beating Z, Y interferes, and A intentionally strikes Y, here, as the blow given to Y is no part of the act whereby A voluntarily causes hurt to Z, A is liable to one punishment for voluntarily causing hurt to Z, and to another for the blow given to Y.\nA gives Z fifty strokes with a stick. Here A may have committed the offence of voluntarily causing hurt to Z by the whole beating, and also by each of the blows which make up the whole beating. If A were liable to punishment for every blow, he might be imprisoned for fifty years, one for each blow. But he is liable only to one punishment for the whole beating.But, if, while A is beating Z, Y interferes, and A intentionally strikes Y, here, as the blow given to Y is no part of the act whereby A voluntarily causes hurt to Z, A is liable to one punishment for voluntarily causing hurt to Z, and to another for the blow given to Y."}
 ,{"id": 10, "section_id": "10", "section_title": "Punishment of person guilty of one of several offences, the judgment stating that it is doubtful of which", "description": "In all cases in which judgment is given that a person is guilty of one of several offences specified in the judgment, but that it is doubtful of which of these offences he is guilty, the offender shall be punished for the offence for which the lowest punishment is provided if the same punishment is not provided for all."}
+,{"id": 115, "section_id": "115", "section_title": "Voluntarily causing hurt", "description": "Whoever does any act with the intention of thereby causing hurt to any person, or with the knowledge that he is likely thereby to cause hurt to any person, and does thereby cause hurt to any person, is said voluntarily to cause hurt. Whoever voluntarily causes hurt shall be punished with imprisonment of either description for a term which may extend to one year, or with fine which may extend to ten thousand rupees, or with both."}
+,{"id": 117, "section_id": "117", "section_title": "Voluntarily causing grievous hurt", "description": "Whoever voluntarily causes hurt, if the hurt which he intends to cause or knows himself to be likely to cause is grievous hurt, and if the hurt which he causes is grievous hurt, is said voluntarily to cause grievous hurt. Whoever voluntarily causes grievous hurt shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine."}
+,{"id": 303, "section_id": "303", "section_title": "Theft and punishment for theft", "description": "Whoever, intending to take dishonestly any movable property out of the possession of any person without that person's consent, moves that property in order to such taking, is said to commit theft. Whoever commits theft shall be punished with imprisonment of either description for a term which may extend to three years, or with fine, or with both; and where the value of the stolen property is less than five thousand rupees, and the person is convicted for the first time, upon return of stolen property, the court may sentence the offender to community service."}
+,{"id": 318, "section_id": "318", "section_title": "Cheating and dishonestly inducing delivery of property", "description": "Whoever, by deceiving any person, fraudulently or dishonestly induces the person so deceived to deliver any property to any person, or to consent that any person shall retain any property, or intentionally induces the person so deceived to do or omit to do anything which he would not do or omit if he were not so deceived, is said to cheat. Whoever cheats and thereby dishonestly induces the person deceived to deliver any property, shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine."}
+,{"id": 329, "section_id": "329", "section_title": "Criminal trespass and house-trespass", "description": "Whoever enters into or upon property in the possession of another with intent to commit an offence or to intimidate, insult or annoy any person in possession of such property, or having lawfully entered, unlawfully remains there with such intent, commits criminal trespass. Whoever commits criminal trespass by entering into or remaining in any building, tent or vessel used as a human dwelling commits house-trespass."}
+,{"id": 351, "section_id": "351", "section_title": "Criminal intimidation and punishment", "description": "Whoever threatens another with any injury to his person, reputation or property, or to the person or reputation of any one in whom that person is interested, with intent to cause alarm to that person, or to cause that person to do any act which he is not legally bound to do, commits criminal intimidation. Punishable with imprisonment of either description for a term which may extend to two years, or with fine, or with both."}
 
 ];
 const ipc: SectionData[] = [
@@ -71,6 +77,13 @@ const ipc: SectionData[] = [
 ,{"id": 508, "section_id": "453", "section_title": "Punishment for lurking house-trespass or house-breaking", "description": "Whoever commits lurking house-trespass or house-breaking, shall be punished with imprisonment of either description for a term which may extend to two years, and shall also be liable to fine."}
 ,{"id": 509, "section_id": "454", "section_title": "Lurking house-trespass or house-breaking in order to commit offence punishable with imprisonment", "description": "Whoever commits lurking house-trespass or house-breaking, in order to the committing of any offence punishable with imprisonment, shall be punished with imprisonment of either description for a term which may extend to three years, and shall also be liable to fine; and if the offence intended to be committed is theft, the term of the imprisonment may be extended to ten years."}
 ,{"id": 510, "section_id": "455", "section_title": "Lurking house-trespass or house-breaking after preparation for hurt, assault or wrongful restraint", "description": "Whoever commits lurking house-trespass, or house-breaking, having made preparation for causing hurt to any person, or for assaulting any person, or for wrongfully restraining any person, or for putting any person in fear of hurt or of assault or of wrongful restraint, shall be punished with imprisonment of either description or a term which may extend to ten years, and shall also be liable to fine."}
+,{"id": 323, "section_id": "323", "section_title": "Punishment for voluntarily causing hurt", "description": "Whoever, except in the case provided for by section 334, voluntarily causes hurt, shall be punished with imprisonment of either description for a term which may extend to one year, or with fine which may extend to one thousand rupees, or with both."}
+,{"id": 378, "section_id": "378", "section_title": "Theft", "description": "Whoever, intending to take dishonestly any movable property out of the possession of any person without that person's consent, moves that property in order to such taking, is said to commit theft."}
+,{"id": 379, "section_id": "379", "section_title": "Punishment for theft", "description": "Whoever commits theft shall be punished with imprisonment of either description for a term which may extend to three years, or with fine, or with both."}
+,{"id": 415, "section_id": "415", "section_title": "Cheating", "description": "Whoever, by deceiving any person, fraudulently or dishonestly induces the person so deceived to deliver any property to any person, or to consent that any person shall retain any property, or intentionally induces the person so deceived to do or omit to do anything which he would not do or omit if he were not so deceived, and which act or omission causes or is likely to cause damage or harm to that person in body, mind, reputation or property, is said to cheat."}
+,{"id": 420, "section_id": "420", "section_title": "Cheating and dishonestly inducing delivery of property", "description": "Whoever cheats and thereby dishonestly induces the person deceived to deliver any property to any person, or to make, alter or destroy the whole or any part of a valuable security, or anything which is signed or sealed, and which is capable of being converted into a valuable security, shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine."}
+,{"id": 503, "section_id": "503", "section_title": "Criminal intimidation", "description": "Whoever threatens another with any injury to his person, reputation or property, or to the person or reputation of any one in whom that person is interested, with intent to cause alarm to that person, or to cause that person to do any act which he is not legally bound to do, or to omit to do any act which that person is legally entitled to do, as the means of avoiding the execution of such threat, commits criminal intimidation."}
+,{"id": 506, "section_id": "506", "section_title": "Punishment for criminal intimidation", "description": "Whoever commits the offence of criminal intimidation shall be punished with imprisonment of either description for a term which may extend to two years, or with fine, or with both; and if the threat be to cause death or grievous hurt, or to cause destruction of property by fire, shall be punished with imprisonment of either description for a term which may extend to seven years, or with fine, or with both."}
 
 ]
 const crpc: SectionData[] =[
@@ -128,19 +141,88 @@ const mva: SectionData[] =[
   
 ]
 
+const POPULAR_CHIPS = [
+  { label: 'Theft', query: 'theft' },
+  { label: 'Cheating', query: 'cheating' },
+  { label: 'Hurt', query: 'hurt' },
+  { label: 'Criminal Intimidation', query: 'intimidation' },
+  { label: 'Trespass', query: 'trespass' },
+];
+
+const ACT_ITEMS = [
+  { key: 'BNS', label: 'BNS', subtitle: 'Primary (2023)', tag: 'NEW CRIMINAL CODE' },
+  { key: 'IPC', label: 'IPC', subtitle: 'Reference / legacy', tag: 'PENAL CODE 1860' },
+  { key: 'CRPC', label: 'CrPC', subtitle: 'Reference / legacy', tag: 'PROCEDURE 1973' },
+  { key: 'IEA', label: 'IEA', subtitle: 'Reference / legacy', tag: 'EVIDENCE 1872' },
+  { key: 'CPC', label: 'CPC', subtitle: 'Civil Procedure', tag: 'CIVIL SUITS 1908' },
+  { key: 'MVA', label: 'MVA', subtitle: 'Motor Vehicles', tag: 'ROAD SAFETY 1988' },
+];
+
+const getSimpleExplanation = (actKey: string, sectionId: string, title?: string): string | null => {
+  const normId = sectionId.trim().toUpperCase();
+  const act = actKey.toUpperCase();
+
+  // BNS
+  if (act === 'BNS') {
+    if (normId === '1') return "Sets the legal boundary and enforcement of the new Bharatiya Nyaya Sanhita across all Indian territory and to citizens abroad.";
+    if (normId === '2') return "Defines everyday criminal terms like 'dishonestly', 'fraudulently', 'injury', 'public servant', and clarifies that transgender persons are fully protected under law.";
+    if (normId === '4') return "Lists allowed penalties in India: imprisonment (rigorous or simple), fines, natural life terms, and new citizen community service for petty matters.";
+    if (normId === '115') return "Intentionally causing bodily pain, injury, or sickness to another person is punishable by up to 1 year in prison, a fine up to ₹10,000, or both.";
+    if (normId === '117') return "Inflicting grievous harm (bone fractures, loss of limb, sight, hearing, or permanent disfigurement) carries stringent punishment up to 7 to 10 years.";
+    if (normId === '303') return "Taking someone else's movable belongings without their consent with dishonest intention is theft, punishable by up to 3 years imprisonment or fine (or community service for first-time petty theft under ₹5,000 upon return).";
+    if (normId === '318') return "Tricking or deceiving someone through dishonest representation to hand over cash, bank transfers, or valuable assets is cheating, punishable by up to 7 years imprisonment.";
+    if (normId === '329') return "Entering someone's residential home or private compound unlawfully to threaten, insult, or commit an offence constitutes criminal trespass and house-trespass.";
+    if (normId === '351') return "Threatening a person with physical violence, damage to their reputation, or destruction of their property to terrorize or coerce them is criminal intimidation.";
+  }
+
+  // IPC
+  if (act === 'IPC') {
+    if (normId === '1' || normId === '2') return "Establishes that any person within India committing an offence under this code is liable to prosecution and penal sanctions.";
+    if (normId === '96' || normId === '97') return "You possess a lawful right to use reasonable force to defend your own life, another person's life, or property from violent assault, burglary, robbery, or mischief.";
+    if (normId === '99') return "Self-defence does not permit using more force than strictly necessary to protect yourself, nor where you have reasonable time to seek police assistance.";
+    if (normId === '323') return "Punishment for voluntarily causing ordinary bodily hurt (pain or wounds) without a dangerous weapon: up to one year imprisonment or a fine.";
+    if (normId === '325' || normId === '326') return "Causing grievous bodily hurt (fractures, weapon cuts, permanent damage) is a non-bailable serious crime with up to 7 to 10 years imprisonment.";
+    if (normId === '342') return "Wrongfully preventing a person from proceeding in any direction beyond set boundaries (illegal confinement) is an offence punishable by up to one year in prison.";
+    if (normId === '354A' || normId === '354D') return "Unsolicited sexual contact, demands for favours, voyeurism, or repeatedly following/monitoring a woman online or offline are severe offences with mandatory jail sentences.";
+    if (normId === '378' || normId === '379') return "Dishonestly moving someone else's movable property out of their possession without consent constitutes theft, punishable by up to 3 years in prison or fine.";
+    if (normId === '415' || normId === '420') return "Cheating: intentionally deceiving someone to deliver property or money, or to make/alter a valuable security. Section 420 carries up to 7 years in prison.";
+    if (normId === '448' || normId === '451' || normId === '452') return "House-trespass: entering an individual's dwelling without permission to commit a crime, assault, or create alarm. Carries up to 1 to 7 years in prison.";
+    if (normId === '503' || normId === '506') return "Criminal intimidation: threatening someone with injury to body, character, or property to cause alarm or force an action. Punishable with up to 2 to 7 years imprisonment.";
+  }
+
+  // CrPC
+  if (act === 'CRPC') {
+    if (normId === '2') return "Essential procedural definitions: distinguishes Cognizable crimes (where police must register an FIR and can arrest) from Non-Cognizable cases (requiring a Magistrate's order).";
+    if (normId === '6' || normId === '9') return "Defines the hierarchy of criminal courts in India: Sessions Courts, Chief Judicial Magistrates, and Executive Magistrates.";
+  }
+
+  // IEA
+  if (act === 'IEA') {
+    if (normId === '3') return "Explains what counts as legal Evidence in Indian courts: oral testimony from witnesses, physical documents, and verified electronic records.";
+    if (normId === '8') return "Shows how motive, preparation, and previous or subsequent behavior (such as absconding or making complaints) are relevant facts in proving guilt or innocence.";
+  }
+
+  // Fallback match on title keywords if exact ID not mapped
+  if (title) {
+    const t = title.toLowerCase();
+    if (t.includes('theft')) return "Taking someone's movable belongings dishonestly without their consent is theft.";
+    if (t.includes('cheating')) return "Deceiving someone by fraudulent representation to part with money or property.";
+    if (t.includes('grievous hurt')) return "Causing severe bodily injury like fractures, loss of limb, or cuts with weapons.";
+    if (t.includes('hurt')) return "Inflicting bodily injury, pain, or health harm intentionally on someone.";
+    if (t.includes('intimidation')) return "Issuing threats of bodily injury, property loss, or character harm to cause alarm.";
+    if (t.includes('trespass')) return "Unlawfully entering onto or into another person's property without authorization.";
+  }
+
+  return null;
+};
+
 const BareActs = () => {
   const navigation = useNavigation();
   const { theme, isDark } = useTheme();
   const [loading, setLoading] = useState<boolean>(true);
-  const [showIPC, setShowIPC] = useState<boolean>(false);
-  const [showCRPC, setShowCRPC] = useState<boolean>(false);
-  const [showIEA, setShowIEA] = useState<boolean>(false);
-  const [showCPC, setShowCPC] = useState<boolean>(false);
-  const [showMVA, setShowMVA] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [showBNS, setShowBNS] = useState<boolean>(false);
-  const [activeSection, setActiveSection] = useState<string | null>(null);
-  const [activeModal, setActiveModal] = useState<string | null>(null);
+  // Default to BNS as primary 2023 code
+  const [activeSection, setActiveSection] = useState<string | null>('BNS');
   // Bookmark state: Set of composite keys "ACT_SECTIONID"
   const [bookmarks, setBookmarks] = useState<Set<string>>(new Set());
   const [showBookmarks, setShowBookmarks] = useState<boolean>(false);
@@ -228,12 +310,13 @@ const BareActs = () => {
   };
 
   const filterSections = (sections: SectionData[]) => {
-    if (!searchQuery) return sections;
-    const q = searchQuery.toLowerCase();
+    if (!searchQuery || !searchQuery.trim()) return sections;
+    const q = searchQuery.trim().toLowerCase();
     return sections.filter(
       (item) =>
         item.section_id.toLowerCase().includes(q) ||
-        item.section_title.toLowerCase().includes(q)
+        item.section_title.toLowerCase().includes(q) ||
+        (item.description && item.description.toLowerCase().includes(q))
     );
   };
 
@@ -250,7 +333,7 @@ const BareActs = () => {
           <View style={styles.headerContent}>
             <TouchableOpacity
               style={[styles.backBtn, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}
-              onPress={() => navigation.goBack()}
+              onPress={() => (navigation as any).navigate('Utilities')}
               activeOpacity={0.7}
             >
               <Ionicons name="arrow-back-outline" size={18} color={isDark ? '#60A5FA' : COLORS.navyGov} />
@@ -258,67 +341,103 @@ const BareActs = () => {
             </TouchableOpacity>
 
             <View style={[styles.badge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
-              <Text style={[styles.badgeText, { color: COLORS.accentGoldDark }]}>GAZETTED STATUTES REPOSITORY</Text>
+              <Text style={[styles.badgeText, { color: COLORS.accentGoldDark }]}>CITIZEN LAW BROWSER</Text>
             </View>
 
-            <Text style={[styles.headerTitle, { color: theme.textPrimary }]}>Bare Acts & Legislative Codes</Text>
+            <Text style={[styles.headerTitle, { color: theme.textPrimary }]}>Know the Law (Simple)</Text>
             <Text style={[styles.headerSubtitle, { color: theme.textSecondary }]}>
-              Official legislative text for Bharatiya Nyaya Sanhita (BNS), IPC, CrPC, and Indian Evidence Act.
+              Selected sections for learning and citizen awareness. Understand key Indian criminal, civil, and procedure laws in simple plain language.
             </Text>
           </View>
         </View>
 
         <View style={styles.contentWrapper}>
+          {/* Educational Disclaimer Banner */}
+          <View style={[styles.disclaimerBanner, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+            <Ionicons name="information-circle-outline" size={20} color={isDark ? '#60A5FA' : COLORS.navyGov} />
+            <Text style={[styles.disclaimerBannerText, { color: theme.textSecondary }]}>
+              Simplified educational text. Always verify with official India Code / gazette or a lawyer before relying on a section.
+            </Text>
+          </View>
+
           {/* Section Selection Cards */}
           <Text style={[styles.selectionLabel, { color: theme.textMuted }]}>SELECT LEGISLATIVE ACT</Text>
           <View style={styles.cardContainer}>
-            {['BNS', 'IPC', 'CRPC', 'IEA', 'CPC', 'MVA'].map((item) => (
-              <TouchableOpacity
-                key={item}
-                style={[
-                  styles.sectionCard,
-                  { backgroundColor: theme.cardBackground, borderColor: theme.border },
-                  activeSection === item && { backgroundColor: COLORS.navyGov, borderColor: COLORS.navyMuted },
-                ]}
-                onPress={() => toggleSection(item)}
-                activeOpacity={0.8}
-              >
-                <Text
+            {ACT_ITEMS.map((item) => {
+              const active = activeSection === item.key && !showBookmarks;
+              return (
+                <TouchableOpacity
+                  key={item.key}
                   style={[
-                    styles.sectionCardText,
-                    { color: theme.textPrimary },
-                    activeSection === item && { color: COLORS.white },
+                    styles.sectionCard,
+                    { backgroundColor: theme.cardBackground, borderColor: theme.border },
+                    active && { backgroundColor: isDark ? '#1E3A8A' : COLORS.navyGov, borderColor: isDark ? '#3B82F6' : COLORS.navyMuted },
                   ]}
+                  onPress={() => {
+                    setShowBookmarks(false);
+                    toggleSection(item.key);
+                  }}
+                  activeOpacity={0.8}
                 >
-                  {item}
-                </Text>
-                <Text
-                  style={[
-                    styles.sectionCardSub,
-                    { color: theme.textMuted },
-                    activeSection === item && { color: '#CBD5E1' },
-                  ]}
-                >
-                  {item === 'BNS'
-                    ? '2023 Enactment'
-                    : item === 'IPC'
-                    ? '1860 Penal Code'
-                    : item === 'CRPC'
-                    ? 'Criminal Proc.'
-                    : item === 'IEA'
-                    ? 'Evidence Act'
-                    : item === 'CPC'
-                    ? 'Civil Proc.'
-                    : 'Motor Vehicles'}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <View style={styles.cardTopRow}>
+                    <Text
+                      style={[
+                        styles.sectionCardText,
+                        { color: theme.textPrimary },
+                        active && { color: COLORS.white },
+                      ]}
+                    >
+                      {item.label}
+                    </Text>
+                    <View
+                      style={[
+                        styles.actTagBadge,
+                        item.key === 'BNS'
+                          ? { backgroundColor: isDark ? '#064E3B' : '#DCFCE7', borderColor: isDark ? '#059669' : '#86EFAC' }
+                          : { backgroundColor: theme.surfaceMuted, borderColor: theme.border },
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          styles.actTagText,
+                          item.key === 'BNS'
+                            ? { color: isDark ? '#A7F3D0' : '#166534' }
+                            : { color: theme.textMuted },
+                        ]}
+                      >
+                        {item.subtitle}
+                      </Text>
+                    </View>
+                  </View>
+                  <Text
+                    style={[
+                      styles.sectionCardSub,
+                      { color: theme.textMuted },
+                      active && { color: '#CBD5E1' },
+                    ]}
+                  >
+                    {item.tag}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
 
           {/* Bookmarks Toggle Tab */}
           <TouchableOpacity
-            style={[styles.bookmarkTab, { backgroundColor: theme.surface, borderColor: COLORS.accentGoldDark }, showBookmarks && { backgroundColor: COLORS.accentGoldDark }]}
-            onPress={() => { setShowBookmarks((b) => !b); setActiveSection(null); }}
+            style={[
+              styles.bookmarkTab,
+              { backgroundColor: theme.surface, borderColor: COLORS.accentGoldDark },
+              showBookmarks && { backgroundColor: COLORS.accentGoldDark }
+            ]}
+            onPress={() => {
+              setShowBookmarks((b) => !b);
+              if (!showBookmarks) {
+                setActiveSection(null);
+              } else {
+                setActiveSection('BNS');
+              }
+            }}
             activeOpacity={0.7}
           >
             <Ionicons
@@ -331,12 +450,12 @@ const BareActs = () => {
             </Text>
           </TouchableOpacity>
 
-          {/* Search */}
+          {/* Search Box */}
           <View style={[styles.searchContainer, { backgroundColor: theme.inputBackground, borderColor: theme.inputBorder }]}>
             <Ionicons name="search-outline" size={18} color={theme.textMuted} style={styles.searchIcon} />
             <TextInput
               style={[styles.searchBar, { color: theme.textPrimary }]}
-              placeholder="Search sections across all acts (e.g. theft, bail, 302, 103)..."
+              placeholder="Search sections by name, number, or keyword (theft, cheating, hurt, 303)..."
               placeholderTextColor={theme.textMuted}
               value={searchQuery}
               onChangeText={setSearchQuery}
@@ -348,7 +467,46 @@ const BareActs = () => {
             )}
           </View>
 
-          {/* Cross-Act Global Search Results */}
+          {/* Popular Citizen Topics Chips */}
+          <View style={styles.popularContainer}>
+            <Text style={[styles.popularLabel, { color: theme.textMuted }]}>POPULAR TOPICS:</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.popularRow}>
+              {POPULAR_CHIPS.map((chip) => {
+                const active = searchQuery.trim().toLowerCase() === chip.query.toLowerCase();
+                return (
+                  <TouchableOpacity
+                    key={chip.label}
+                    style={[
+                      styles.popularChip,
+                      active
+                        ? [styles.popularChipActive, { backgroundColor: isDark ? '#1E3A8A' : COLORS.navyGov, borderColor: isDark ? '#3B82F6' : COLORS.navyGov }]
+                        : [styles.popularChipInactive, { backgroundColor: theme.surface, borderColor: theme.border }],
+                    ]}
+                    onPress={() => {
+                      if (active) {
+                        setSearchQuery('');
+                      } else {
+                        setSearchQuery(chip.query);
+                        setShowBookmarks(false);
+                      }
+                    }}
+                    activeOpacity={0.8}
+                  >
+                    <Text
+                      style={[
+                        styles.popularChipText,
+                        active ? styles.popularChipTextActive : [styles.popularChipTextInactive, { color: theme.textSecondary }],
+                      ]}
+                    >
+                      {chip.label}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+          </View>
+
+          {/* Cross-Act Global Search Results (Active when no single act is selected and a query exists) */}
           {!showBookmarks && !activeSection && searchQuery.trim().length > 0 && (
             <View style={styles.detailsContainer}>
               <View style={styles.resultsHeader}>
@@ -357,40 +515,56 @@ const BareActs = () => {
                 </Text>
               </View>
               {searchAcrossAllActs(searchQuery).length === 0 ? (
-                <View style={{ alignItems: 'center', paddingVertical: 40 }}>
-                  <Ionicons name="search" size={40} color={theme.textMuted} />
-                  <Text style={{ color: theme.textMuted, marginTop: 8, fontSize: 14 }}>
-                    No statutory sections found matching "{searchQuery}".
+                <View style={[styles.emptyState, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+                  <Ionicons name="search-outline" size={38} color={theme.textMuted} />
+                  <Text style={[styles.emptyStateTitle, { color: theme.textPrimary }]}>No Statutory Sections Found</Text>
+                  <Text style={[styles.emptyStateText, { color: theme.textSecondary }]}>
+                    No statutory sections found matching "{searchQuery}". Try another keyword or select an Act above.
                   </Text>
                 </View>
               ) : (
-                searchAcrossAllActs(searchQuery).map((item, index) => (
-                  <View key={index} style={[styles.detailCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
-                    <View style={[styles.sectionBadgeRow, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
-                      <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
-                        <View style={[styles.sectionBadge, { backgroundColor: COLORS.navyGov }]}>
-                          <Text style={[styles.sectionId, { color: COLORS.white }]}>{item.actKey}</Text>
+                searchAcrossAllActs(searchQuery).map((item, index) => {
+                  const simpleExpl = getSimpleExplanation(item.actKey, item.section_id, item.section_title);
+                  return (
+                    <View key={index} style={[styles.detailCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
+                      <View style={[styles.sectionBadgeRow, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+                        <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
+                          <View style={[styles.sectionBadge, { backgroundColor: COLORS.navyGov }]}>
+                            <Text style={[styles.sectionId, { color: COLORS.white }]}>{item.actKey}</Text>
+                          </View>
+                          <View style={[styles.sectionBadge, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
+                            <Text style={[styles.sectionId, { color: isDark ? '#FDE68A' : COLORS.accentGoldDark }]}>§ {item.section_id}</Text>
+                          </View>
                         </View>
-                        <View style={[styles.sectionBadge, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
-                          <Text style={[styles.sectionId, { color: isDark ? '#FDE68A' : COLORS.accentGoldDark }]}>§ {item.section_id}</Text>
-                        </View>
+                        <TouchableOpacity
+                          onPress={() => toggleBookmark(item.actKey, item.section_id)}
+                          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                        >
+                          <Ionicons
+                            name={bookmarks.has(`${item.actKey}_${item.section_id}`) ? 'bookmark' : 'bookmark-outline'}
+                            size={18}
+                            color={bookmarks.has(`${item.actKey}_${item.section_id}`) ? COLORS.accentGold : theme.textMuted}
+                          />
+                        </TouchableOpacity>
                       </View>
-                      <TouchableOpacity
-                        onPress={() => toggleBookmark(item.actKey, item.section_id)}
-                        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                      >
-                        <Ionicons
-                          name={bookmarks.has(`${item.actKey}_${item.section_id}`) ? 'bookmark' : 'bookmark-outline'}
-                          size={18}
-                          color={bookmarks.has(`${item.actKey}_${item.section_id}`) ? COLORS.accentGold : theme.textMuted}
-                        />
-                      </TouchableOpacity>
+                      <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{item.section_title}</Text>
+                      
+                      {/* In simple words citizen explanation */}
+                      {simpleExpl && (
+                        <View style={[styles.simpleBox, { backgroundColor: isDark ? 'rgba(217, 119, 6, 0.12)' : 'rgba(217, 119, 6, 0.08)', borderColor: isDark ? '#D97706' : '#F59E0B' }]}>
+                          <View style={styles.simpleBoxHeader}>
+                            <Ionicons name="bulb" size={13} color={isDark ? '#FDE68A' : '#B45309'} />
+                            <Text style={[styles.simpleBoxLabel, { color: isDark ? '#FDE68A' : '#B45309' }]}>IN SIMPLE WORDS</Text>
+                          </View>
+                          <Text style={[styles.simpleBoxText, { color: theme.textPrimary }]}>{simpleExpl}</Text>
+                        </View>
+                      )}
+
+                      <View style={[styles.divider, { backgroundColor: theme.border }]} />
+                      <Text style={[styles.sectionDescription, { color: theme.textSecondary }]}>{item.description}</Text>
                     </View>
-                    <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{item.section_title}</Text>
-                    <View style={[styles.divider, { backgroundColor: theme.border }]} />
-                    <Text style={[styles.sectionDescription, { color: theme.textSecondary }]}>{item.description}</Text>
-                  </View>
-                ))
+                  );
+                })
               )}
             </View>
           )}
@@ -404,28 +578,44 @@ const BareActs = () => {
                 </Text>
               </View>
               {getAllBookmarkedSections().length === 0 ? (
-                <View style={{ alignItems: 'center', paddingVertical: 40 }}>
+                <View style={[styles.emptyState, { backgroundColor: theme.surface, borderColor: theme.border }]}>
                   <Ionicons name="bookmark-outline" size={40} color={theme.textMuted} />
-                  <Text style={{ color: theme.textMuted, marginTop: 8, fontSize: 14 }}>
-                    No bookmarks yet. Tap the bookmark icon on any section.
+                  <Text style={[styles.emptyStateTitle, { color: theme.textPrimary }]}>No Bookmarks Saved</Text>
+                  <Text style={[styles.emptyStateText, { color: theme.textSecondary }]}>
+                    Tap the bookmark icon on any statutory section to save it here for offline reading.
                   </Text>
                 </View>
               ) : (
-                getAllBookmarkedSections().map((item, index) => (
-                  <View key={index} style={[styles.detailCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
-                    <View style={[styles.sectionBadgeRow, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
-                      <View style={[styles.sectionBadge, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
-                        <Text style={[styles.sectionId, { color: isDark ? '#FDE68A' : COLORS.accentGoldDark }]}>{item.actKey} § {item.section_id}</Text>
+                getAllBookmarkedSections().map((item, index) => {
+                  const simpleExpl = getSimpleExplanation(item.actKey, item.section_id, item.section_title);
+                  return (
+                    <View key={index} style={[styles.detailCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
+                      <View style={[styles.sectionBadgeRow, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+                        <View style={[styles.sectionBadge, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
+                          <Text style={[styles.sectionId, { color: isDark ? '#FDE68A' : COLORS.accentGoldDark }]}>{item.actKey} § {item.section_id}</Text>
+                        </View>
+                        <TouchableOpacity onPress={() => toggleBookmark(item.actKey, item.section_id)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                          <Ionicons name="bookmark" size={18} color={COLORS.accentGold} />
+                        </TouchableOpacity>
                       </View>
-                      <TouchableOpacity onPress={() => toggleBookmark(item.actKey, item.section_id)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-                        <Ionicons name="bookmark" size={18} color={COLORS.accentGold} />
-                      </TouchableOpacity>
+                      <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{item.section_title}</Text>
+                      
+                      {/* In simple words */}
+                      {simpleExpl && (
+                        <View style={[styles.simpleBox, { backgroundColor: isDark ? 'rgba(217, 119, 6, 0.12)' : 'rgba(217, 119, 6, 0.08)', borderColor: isDark ? '#D97706' : '#F59E0B' }]}>
+                          <View style={styles.simpleBoxHeader}>
+                            <Ionicons name="bulb" size={13} color={isDark ? '#FDE68A' : '#B45309'} />
+                            <Text style={[styles.simpleBoxLabel, { color: isDark ? '#FDE68A' : '#B45309' }]}>IN SIMPLE WORDS</Text>
+                          </View>
+                          <Text style={[styles.simpleBoxText, { color: theme.textPrimary }]}>{simpleExpl}</Text>
+                        </View>
+                      )}
+
+                      <View style={[styles.divider, { backgroundColor: theme.border }]} />
+                      <Text style={[styles.sectionDescription, { color: theme.textSecondary }]}>{item.description}</Text>
                     </View>
-                    <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{item.section_title}</Text>
-                    <View style={[styles.divider, { backgroundColor: theme.border }]} />
-                    <Text style={[styles.sectionDescription, { color: theme.textSecondary }]}>{item.description}</Text>
-                  </View>
-                ))
+                  );
+                })
               )}
             </View>
           )}
@@ -442,36 +632,64 @@ const BareActs = () => {
             };
             const sections = actData[activeSection];
             if (!sections) return null;
+            const filtered = filterSections(sections);
             return (
               <View style={styles.detailsContainer}>
                 <View style={styles.resultsHeader}>
                   <Text style={[styles.resultsCount, { color: theme.textMuted }]}>
-                    Displaying sections for {activeSection}
+                    Displaying {filtered.length} section(s) for {activeSection}
                   </Text>
                 </View>
 
-                {filterSections(sections).map((item, index) => (
-                  <View key={index} style={[styles.detailCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
-                    <View style={[styles.sectionBadgeRow, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
-                      <View style={[styles.sectionBadge, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
-                        <Text style={[styles.sectionId, { color: isDark ? '#FDE68A' : COLORS.accentGoldDark }]}>SECTION {item.section_id}</Text>
-                      </View>
-                      <TouchableOpacity
-                        onPress={() => toggleBookmark(activeSection!, item.section_id)}
-                        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                      >
-                        <Ionicons
-                          name={bookmarks.has(`${activeSection}_${item.section_id}`) ? 'bookmark' : 'bookmark-outline'}
-                          size={18}
-                          color={bookmarks.has(`${activeSection}_${item.section_id}`) ? COLORS.accentGold : theme.textMuted}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                    <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{item.section_title}</Text>
-                    <View style={[styles.divider, { backgroundColor: theme.border }]} />
-                    <Text style={[styles.sectionDescription, { color: theme.textSecondary }]}>{item.description}</Text>
+                {filtered.length === 0 ? (
+                  <View style={[styles.emptyState, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+                    <Ionicons name="search-outline" size={38} color={theme.textMuted} />
+                    <Text style={[styles.emptyStateTitle, { color: theme.textPrimary }]}>No Matching Sections</Text>
+                    <Text style={[styles.emptyStateText, { color: theme.textSecondary }]}>
+                      No sections in {activeSection} match "{searchQuery}". Try switching to IPC/CrPC or clearing the search.
+                    </Text>
                   </View>
-                ))}
+                ) : (
+                  filtered.map((item, index) => {
+                    const simpleExpl = getSimpleExplanation(activeSection, item.section_id, item.section_title);
+                    return (
+                      <View key={index} style={[styles.detailCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
+                        <View style={[styles.sectionBadgeRow, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+                          <View style={[styles.sectionBadge, { backgroundColor: theme.surfaceMuted, borderColor: theme.border }]}>
+                            <Text style={[styles.sectionId, { color: isDark ? '#FDE68A' : COLORS.accentGoldDark }]}>
+                              {activeSection} § {item.section_id}
+                            </Text>
+                          </View>
+                          <TouchableOpacity
+                            onPress={() => toggleBookmark(activeSection!, item.section_id)}
+                            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                          >
+                            <Ionicons
+                              name={bookmarks.has(`${activeSection}_${item.section_id}`) ? 'bookmark' : 'bookmark-outline'}
+                              size={18}
+                              color={bookmarks.has(`${activeSection}_${item.section_id}`) ? COLORS.accentGold : theme.textMuted}
+                            />
+                          </TouchableOpacity>
+                        </View>
+                        <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{item.section_title}</Text>
+                        
+                        {/* In simple words */}
+                        {simpleExpl && (
+                          <View style={[styles.simpleBox, { backgroundColor: isDark ? 'rgba(217, 119, 6, 0.12)' : 'rgba(217, 119, 6, 0.08)', borderColor: isDark ? '#D97706' : '#F59E0B' }]}>
+                            <View style={styles.simpleBoxHeader}>
+                              <Ionicons name="bulb" size={13} color={isDark ? '#FDE68A' : '#B45309'} />
+                              <Text style={[styles.simpleBoxLabel, { color: isDark ? '#FDE68A' : '#B45309' }]}>IN SIMPLE WORDS</Text>
+                            </View>
+                            <Text style={[styles.simpleBoxText, { color: theme.textPrimary }]}>{simpleExpl}</Text>
+                          </View>
+                        )}
+
+                        <View style={[styles.divider, { backgroundColor: theme.border }]} />
+                        <Text style={[styles.sectionDescription, { color: theme.textSecondary }]}>{item.description}</Text>
+                      </View>
+                    );
+                  })
+                )}
               </View>
             );
           })()}
@@ -548,6 +766,21 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingHorizontal: 20,
     paddingVertical: 28,
+  },
+  disclaimerBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    borderWidth: 1,
+    borderRadius: RADIUS.md,
+    padding: 14,
+    marginBottom: 20,
+    ...SHADOWS.subtle,
+  },
+  disclaimerBannerText: {
+    flex: 1,
+    fontSize: 13,
+    lineHeight: 19,
   },
   selectionLabel: {
     fontSize: 11,
@@ -671,6 +904,95 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 14,
     fontWeight: '600',
+  },
+  cardTopRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  actTagBadge: {
+    borderWidth: 1,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: RADIUS.sm,
+  },
+  actTagText: {
+    fontSize: 9,
+    fontWeight: '700',
+    letterSpacing: 0.4,
+  },
+  popularContainer: {
+    marginBottom: 20,
+  },
+  popularLabel: {
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.6,
+    marginBottom: 8,
+  },
+  popularRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  popularChip: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: RADIUS.full,
+    borderWidth: 1,
+  },
+  popularChipActive: {},
+  popularChipInactive: {},
+  popularChipText: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  popularChipTextActive: {
+    color: '#FFFFFF',
+  },
+  popularChipTextInactive: {},
+  simpleBox: {
+    borderLeftWidth: 3,
+    borderRadius: RADIUS.sm,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  simpleBoxHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginBottom: 3,
+  },
+  simpleBoxLabel: {
+    fontSize: 9,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+  },
+  simpleBoxText: {
+    fontSize: 12,
+    lineHeight: 18,
+    fontWeight: '500',
+  },
+  emptyState: {
+    width: '100%',
+    padding: 32,
+    borderWidth: 1,
+    borderRadius: RADIUS.lg,
+    alignItems: 'center',
+    marginTop: 8,
+    marginBottom: 16,
+  },
+  emptyStateTitle: {
+    fontSize: 15,
+    fontWeight: '700',
+    marginTop: 10,
+    marginBottom: 4,
+  },
+  emptyStateText: {
+    fontSize: 13,
+    textAlign: 'center',
+    lineHeight: 19,
+    maxWidth: 500,
   },
 });
 

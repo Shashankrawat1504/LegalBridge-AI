@@ -44,8 +44,8 @@ const Login = () => {
       Alert.alert('Authentication Failed', 'Please provide valid credentials.');
       return;
     }
-    const finalName = name.trim() || 'Officer In-Charge';
-    const finalBadge = badgeNumber.trim() || 'IND-8842';
+    const finalName = name.trim() || 'Citizen User';
+    const finalBadge = badgeNumber.trim() || 'CITIZEN-LOCAL';
 
     setUserId(email);
     setIsLoggedIn(true);
@@ -90,23 +90,23 @@ const Login = () => {
             <View style={styles.cardHeader}>
               <View style={styles.badgeBox}>
                 <Ionicons
-                  name={isLoggedIn ? "shield-checkmark-outline" : "lock-closed-outline"}
+                  name={isLoggedIn ? "person-circle-outline" : "person-outline"}
                   size={24}
                   color={COLORS.navyGov}
                 />
               </View>
-              <Text style={styles.portalTag}>OFFICIAL LAW ENFORCEMENT ACCESS</Text>
+              <Text style={styles.portalTag}>CITIZEN PROFILE & SIGN-IN</Text>
               <Text style={styles.cardTitle}>
                 {isLoggedIn
-                  ? 'Authenticated Officer Session'
+                  ? 'Citizen Profile'
                   : isSignup
-                  ? 'Officer Portal Registration'
-                  : 'Authorized Personnel Sign-In'}
+                  ? 'Create Citizen Profile'
+                  : 'Citizen Sign-In'}
               </Text>
               <Text style={styles.cardSubtitle}>
                 {isLoggedIn
-                  ? 'Your credentials are verified for accessing legal archives and case intelligence.'
-                  : 'Authorized login for police officers, public prosecutors, and judicial staff.'}
+                  ? 'Your profile is active. You can save legal queries, bookmark laws, and manage personal documents.'
+                  : 'Sign in to access your saved legal documents, bookmarked law sections, and legal assistant queries.'}
               </Text>
             </View>
 
@@ -115,25 +115,25 @@ const Login = () => {
             {isLoggedIn ? (
               <View style={styles.profileSection}>
                 <View style={styles.detailRow}>
-                  <Text style={styles.detailLabel}>OFFICER NAME</Text>
+                  <Text style={styles.detailLabel}>NAME</Text>
                   <Text style={styles.detailValue}>{name}</Text>
                 </View>
 
                 <View style={styles.detailRow}>
-                  <Text style={styles.detailLabel}>OFFICIAL EMAIL</Text>
+                  <Text style={styles.detailLabel}>EMAIL</Text>
                   <Text style={styles.detailValue}>{email}</Text>
                 </View>
 
                 <View style={styles.detailRow}>
-                  <Text style={styles.detailLabel}>BADGE / SERVICE ID</Text>
-                  <Text style={styles.detailValue}>{badgeNumber}</Text>
+                  <Text style={styles.detailLabel}>CITIZEN ID / MOBILE</Text>
+                  <Text style={styles.detailValue}>{badgeNumber || 'Local User'}</Text>
                 </View>
 
                 <View style={styles.detailRow}>
-                  <Text style={styles.detailLabel}>SESSION STATUS</Text>
+                  <Text style={styles.detailLabel}>STATUS</Text>
                   <View style={styles.sessionStatusPill}>
                     <View style={styles.activeDot} />
-                    <Text style={styles.sessionStatusText}>Active & Encrypted (TLS 1.3)</Text>
+                    <Text style={styles.sessionStatusText}>On-Device Active (Private)</Text>
                   </View>
                 </View>
 
@@ -143,7 +143,7 @@ const Login = () => {
                   activeOpacity={0.85}
                 >
                   <Ionicons name="log-out-outline" size={17} color={COLORS.statusAlert} />
-                  <Text style={styles.logoutBtnText}>Terminate Session & Logout</Text>
+                  <Text style={styles.logoutBtnText}>Sign Out of Profile</Text>
                 </TouchableOpacity>
               </View>
             ) : (
@@ -151,10 +151,10 @@ const Login = () => {
                 {isSignup && (
                   <>
                     <View style={styles.fieldGroup}>
-                      <Text style={styles.fieldLabel}>Full Name & Rank</Text>
+                      <Text style={styles.fieldLabel}>Full Name</Text>
                       <TextInput
                         style={styles.input}
-                        placeholder="e.g. Insp. Rajesh Sharma"
+                        placeholder="e.g. Rahul Sharma"
                         placeholderTextColor={COLORS.textMuted}
                         value={name}
                         onChangeText={setName}
@@ -162,10 +162,10 @@ const Login = () => {
                     </View>
 
                     <View style={styles.fieldGroup}>
-                      <Text style={styles.fieldLabel}>Police / Officer Badge Number</Text>
+                      <Text style={styles.fieldLabel}>Mobile Number / Citizen ID (Optional)</Text>
                       <TextInput
                         style={styles.input}
-                        placeholder="e.g. DL-POL-4412"
+                        placeholder="e.g. +91 98765 43210"
                         placeholderTextColor={COLORS.textMuted}
                         value={badgeNumber}
                         onChangeText={setBadgeNumber}
@@ -175,10 +175,10 @@ const Login = () => {
                 )}
 
                 <View style={styles.fieldGroup}>
-                  <Text style={styles.fieldLabel}>Official Email Address</Text>
+                  <Text style={styles.fieldLabel}>Email Address</Text>
                   <TextInput
                     style={styles.input}
-                    placeholder="officer@police.gov.in"
+                    placeholder="name@example.com"
                     placeholderTextColor={COLORS.textMuted}
                     value={email}
                     onChangeText={setEmail}
@@ -188,10 +188,10 @@ const Login = () => {
                 </View>
 
                 <View style={styles.fieldGroup}>
-                  <Text style={styles.fieldLabel}>Security Passcode</Text>
+                  <Text style={styles.fieldLabel}>Password</Text>
                   <TextInput
                     style={styles.input}
-                    placeholder="Enter official passcode"
+                    placeholder="Enter your password"
                     placeholderTextColor={COLORS.textMuted}
                     secureTextEntry
                     value={password}
@@ -204,9 +204,9 @@ const Login = () => {
                   onPress={handleLogin}
                   activeOpacity={0.85}
                 >
-                  <Ionicons name="key-outline" size={16} color={COLORS.white} />
+                  <Ionicons name="log-in-outline" size={16} color={COLORS.white} />
                   <Text style={styles.submitBtnText}>
-                    {isSignup ? 'Complete Registration' : 'Authenticate & Sign In'}
+                    {isSignup ? 'Create Profile' : 'Sign In'}
                   </Text>
                 </TouchableOpacity>
 
@@ -217,14 +217,14 @@ const Login = () => {
                 >
                   <Text style={styles.toggleText}>
                     {isSignup
-                      ? 'Already registered? Access Officer Sign In'
-                      : 'New department officer? Register for Access'}
+                      ? 'Already have a profile? Sign In'
+                      : 'New citizen user? Create a Profile'}
                   </Text>
                 </TouchableOpacity>
 
                 <View style={styles.legalNotice}>
                   <Text style={styles.legalNoticeText}>
-                    Notice: Unauthorized access to this government portal is punishable under Section 66 of the Information Technology Act, 2000.
+                    Privacy notice: Your personal data stays on your device. LegalBridge-AI operates with on-device security and local storage.
                   </Text>
                 </View>
               </View>

@@ -75,57 +75,78 @@ const MenuBar = () => {
             {/* Header */}
             <View style={styles.menuHeader}>
               <View style={styles.headerTitleGroup}>
-                <Text style={styles.menuTitle}>LegalBridge-AI Portal</Text>
-                <Text style={styles.menuSubtitle}>Ministry of Law & Justice</Text>
+                <Text style={styles.menuTitle}>LegalBridge-AI</Text>
+                <Text style={styles.menuSubtitle}>Legal Help & Rights Awareness</Text>
               </View>
               <TouchableOpacity onPress={closeMenu} style={styles.closeIconButton}>
                 <Ionicons name="close-outline" size={22} color={COLORS.textInverse} />
               </TouchableOpacity>
             </View>
 
-            {/* Officer Identification */}
+            {/* User Identification */}
             {isLoggedIn ? (
-              <View style={styles.officerCard}>
+              <TouchableOpacity
+                style={styles.officerCard}
+                onPress={() => handleNavigate('Settings')}
+              >
                 <View style={styles.officerBadgeIcon}>
-                  <Ionicons name="shield-checkmark-outline" size={20} color={COLORS.accentGold} />
+                  <Ionicons name="person-circle-outline" size={20} color={COLORS.accentGold} />
                 </View>
                 <View style={styles.officerDetails}>
-                  <Text style={styles.officerName}>{name}</Text>
-                  <Text style={styles.officerBadgeText}>Badge ID: {badgeNumber}</Text>
+                  <Text style={styles.officerName}>{name || 'Citizen'}</Text>
+                  <Text style={styles.officerBadgeText}>Citizen Profile</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             ) : (
               <TouchableOpacity
                 style={styles.guestCard}
                 onPress={() => handleNavigate('Login')}
               >
                 <Ionicons name="person-circle-outline" size={20} color="#94A3B8" />
-                <Text style={styles.guestText}>Authorized Officer Sign-in</Text>
+                <Text style={styles.guestText}>Sign In / My Profile</Text>
               </TouchableOpacity>
             )}
 
             {/* Navigation Menu Items */}
             <View style={styles.menuItems}>
               <TouchableOpacity onPress={() => handleNavigate('Home')} style={styles.menuItem}>
-                <Text style={styles.menuText}>Home Portal</Text>
+                <Text style={styles.menuText}>Home</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleNavigate('Query')} style={styles.menuItem}>
-                <Text style={styles.menuText}>AI Legal Intelligence</Text>
+                <Text style={styles.menuText}>Legal Help Assistant</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleNavigate('Bare Acts')} style={styles.menuItem}>
-                <Text style={styles.menuText}>Bare Acts Repository</Text>
+                <Text style={styles.menuText}>Know the Law (Simple)</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleNavigate('Database')} style={styles.menuItem}>
-                <Text style={styles.menuText}>Judicial Precedent Database</Text>
+              <TouchableOpacity onPress={() => handleNavigate('Guides')} style={styles.menuItem}>
+                <Text style={styles.menuText}>Citizen Guides</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleNavigate('FIR Download')} style={styles.menuItem}>
-                <Text style={styles.menuText}>Official FIR Builder</Text>
+              <TouchableOpacity onPress={() => handleNavigate('LetterTemplates')} style={styles.menuItem}>
+                <Text style={styles.menuText}>Letter Templates</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleNavigate('Helplines')} style={styles.menuItem}>
+                <Text style={styles.menuText}>Find Help (Helplines)</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleNavigate('RightsBySituation')} style={styles.menuItem}>
+                <Text style={styles.menuText}>Rights by Situation</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleNavigate('ComplaintNotes')} style={styles.menuItem}>
+                <Text style={styles.menuText}>My Complaint Notes</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleNavigate('Glossary')} style={styles.menuItem}>
+                <Text style={styles.menuText}>Legal Glossary (Simple)</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleNavigate('Original Documents')} style={styles.menuItem}>
+                <Text style={styles.menuText}>My Legal Document Library</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleNavigate('Document Analyzer')} style={styles.menuItem}>
+                <Text style={styles.menuText}>Check My Document</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleNavigate('Utilities')} style={styles.menuItem}>
-                <Text style={styles.menuText}>All Operational Tools</Text>
+                <Text style={styles.menuText}>All Tools</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleNavigate('Settings')} style={styles.menuItem}>
-                <Text style={styles.menuText}>Portal Settings</Text>
+                <Text style={styles.menuText}>App Settings</Text>
               </TouchableOpacity>
             </View>
           </Animated.View>

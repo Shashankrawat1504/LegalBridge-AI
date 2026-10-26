@@ -15,7 +15,6 @@ import Team from './pages/Team';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Accessibility from './pages/Accessibility';
 import TermsAndConditions from './pages/TermsAndConditions';
-import FIRDownload from './pages/FIRDownload';
 import UtilityPage from './pages/UtilityPage';
 import OriginalDocuments from './pages/OriginalDocuments'; // Import from /pages
 import OfficialFIRFormat from './pages/OfficialFIRFormat'; // Import from /pages
@@ -24,9 +23,12 @@ import Vision from './pages/Vision';
 import Contact from './pages/Contact';
 import ViewPDF from './pages/ViewPDF';
 import DocumentAnalyzer from './pages/DocumentAnalyzer';
-import CaseTracker from './pages/CaseTracker';
-import EvidenceTimeline from './pages/EvidenceTimeline';
-import CaseRiskAssessment from './pages/CaseRiskAssessment';
+import Guides from './pages/Guides';
+import LetterTemplates from './pages/LetterTemplates';
+import Helplines from './pages/Helplines';
+import RightsBySituation from './pages/RightsBySituation';
+import ComplaintNotes from './pages/ComplaintNotes';
+import Glossary from './pages/Glossary';
 // Create the stack navigator
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -46,7 +48,6 @@ function App() {
         <Stack.Screen name="Privacy Policy" component={PrivacyPolicy} />
         <Stack.Screen name="Accessibility" component={Accessibility} />
         <Stack.Screen name="Terms" component={TermsAndConditions} />
-        <Stack.Screen name="FIR Download" component={FIRDownload} />
         <Stack.Screen name="Utilities" component={UtilityPage} />
         <Stack.Screen name="Original Documents" component={OriginalDocuments} />
         <Stack.Screen name="Official FIR Format" component={OfficialFIRFormat} />
@@ -55,9 +56,12 @@ function App() {
         <Stack.Screen name="Contact" component={Contact} />
         <Stack.Screen name="ViewPDF" component={ViewPDF} />
         <Stack.Screen name="Document Analyzer" component={DocumentAnalyzer} />
-        <Stack.Screen name="Case Tracker" component={CaseTracker} />
-        <Stack.Screen name="Evidence Timeline" component={EvidenceTimeline} />
-        <Stack.Screen name="Case Risk Assessment" component={CaseRiskAssessment} />
+        <Stack.Screen name="Guides" component={Guides} />
+        <Stack.Screen name="LetterTemplates" component={LetterTemplates} />
+        <Stack.Screen name="Helplines" component={Helplines} />
+        <Stack.Screen name="RightsBySituation" component={RightsBySituation} />
+        <Stack.Screen name="ComplaintNotes" component={ComplaintNotes} />
+        <Stack.Screen name="Glossary" component={Glossary} />
         {/* If you want to add a fallback, do it as below */}
         <Stack.Screen
           name="NotFound"

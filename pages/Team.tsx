@@ -33,7 +33,7 @@ const teamMembers = [
     name: "Anubhab Das",
     role: "UI/UX & Accessibility Specialist",
     description:
-      "Designs intuitive, accessible, and high-contrast user interfaces tailored for investigating officers and judicial administrators.",
+      "Designs intuitive, accessible, and high-contrast user interfaces tailored for everyday citizens, students, and legal learners.",
     image:
       "https://media.licdn.com/dms/image/v2/D5603AQF5tXgTG8Qp4g/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1710860974456?e=1738195200&v=beta&t=6L3G6xbr5ZqwI_vNx0mwH2ujatNnFyHHyAZ2fIzB_b0",
   },
@@ -49,7 +49,7 @@ const teamMembers = [
     name: "Anushka Adak",
     role: "Legal Research Analyst",
     description:
-      "Conducts empirical research on Indian criminal statutes, procedural delays, and user requirements for police precinct deployments.",
+      "Conducts empirical research on Indian statutes, legal literacy barriers, and plain-language rights awareness for citizens.",
     image:
       "https://media.licdn.com/dms/image/v2/D5603AQHou2gK1ISDvA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1694421566208?e=1738195200&v=beta&t=WVinWjnia99PD9IrEEPjI6wG1rkvVRAqpfdBFVDoYTs",
   },
@@ -83,7 +83,7 @@ const Team = () => {
             </View>
             <Text style={styles.title}>Project Engineering Team</Text>
             <Text style={styles.subtitle}>
-              Technical developers, legal research analysts, and architects building the LegalBridge-AI national intelligence platform.
+              Technical developers, legal research analysts, and architects building the LegalBridge-AI citizen legal empowerment platform.
             </Text>
           </View>
         </View>

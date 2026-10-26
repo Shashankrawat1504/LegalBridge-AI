@@ -11,7 +11,7 @@ interface SubmitButtonProps {
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
   onPress,
-  title = "Analyze Statutory Query",
+  title = "Get guidance",
   disabled = false
 }) => {
   return (

@@ -33,8 +33,8 @@ const Contact = () => {
     console.log('Submitted Contact Query:', formData);
     setSubmitted(true);
     Alert.alert(
-      'Official Query Received',
-      'Your inquiry has been logged in the official legal grievance & assistance system. A representative will review your message.'
+      'Message Received',
+      'Thank you for reaching out. Your inquiry has been received by our citizen support team.'
     );
     setFormData({ name: '', email: '', message: '' });
   };
@@ -52,11 +52,11 @@ const Contact = () => {
         <View style={[styles.heroSection, { backgroundColor: theme.surface, borderBottomColor: theme.border }]}>
           <View style={styles.heroInner}>
             <View style={[styles.tagBadge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
-              <Text style={styles.tagBadgeText}>OFFICIAL COMMUNICATIONS & LIAISON</Text>
+              <Text style={styles.tagBadgeText}>CITIZEN SUPPORT & ASSISTANCE</Text>
             </View>
-            <Text style={[styles.heroTitle, { color: theme.textPrimary }]}>Departmental Contact & Support</Text>
+            <Text style={[styles.heroTitle, { color: theme.textPrimary }]}>Citizen Contact & Support</Text>
             <Text style={[styles.heroSubtitle, { color: theme.textSecondary }]}>
-              Connect with the LegalBridge-AI technical coordination desk, judicial liaison officers, and public assistance divisions for support or platform inquiries.
+              Have questions about your legal rights, using our tools, or feedback? Reach out to the LegalBridge-AI support team.
             </Text>
           </View>
         </View>
@@ -67,9 +67,9 @@ const Contact = () => {
             {/* Contact Information Cards */}
             <View style={[styles.infoColumn, isCompact && styles.columnFull]}>
               <View style={[styles.infoCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
-                <Text style={[styles.cardHeaderTitle, { color: theme.textPrimary }]}>Official Contact Details</Text>
+                <Text style={[styles.cardHeaderTitle, { color: theme.textPrimary }]}>Get in Touch</Text>
                 <Text style={[styles.cardHeaderSubtitle, { color: theme.textMuted }]}>
-                  Directorate of Legal Affairs & Technical Operations
+                  LegalBridge-AI Support & Help Desk
                 </Text>
 
                 <View style={styles.contactItemList}>
@@ -78,9 +78,9 @@ const Contact = () => {
                       <Ionicons name="mail-outline" size={20} color={COLORS.navyGov} />
                     </View>
                     <View style={styles.contactTextContainer}>
-                      <Text style={styles.contactLabel}>Official Email Desk</Text>
-                      <Text style={[styles.contactValue, { color: theme.textPrimary }]}>code.a.cola.01@gmail.com</Text>
-                      <Text style={[styles.contactNote, { color: theme.textMuted }]}>Monitored Mon-Sat, 09:30 - 18:00 IST</Text>
+                      <Text style={styles.contactLabel}>Support Email</Text>
+                      <Text style={[styles.contactValue, { color: theme.textPrimary }]}>code@gmail.com</Text>
+                      <Text style={[styles.contactNote, { color: theme.textMuted }]}>Monitored Mon-Sat, 07:00 - 20:00 IST</Text>
                     </View>
                   </View>
 
@@ -89,9 +89,9 @@ const Contact = () => {
                       <Ionicons name="call-outline" size={20} color={COLORS.navyGov} />
                     </View>
                     <View style={styles.contactTextContainer}>
-                      <Text style={styles.contactLabel}>Institutional Helpline</Text>
-                      <Text style={[styles.contactValue, { color: theme.textPrimary }]}>+91-123-456-7890</Text>
-                      <Text style={[styles.contactNote, { color: theme.textMuted }]}>Toll-free judicial portal assistance</Text>
+                      <Text style={styles.contactLabel}>Helpline</Text>
+                      <Text style={[styles.contactValue, { color: theme.textPrimary }]}>+91 1234567990</Text>
+                      <Text style={[styles.contactNote, { color: theme.textMuted }]}>Citizen assistance helpline</Text>
                     </View>
                   </View>
 
@@ -102,7 +102,7 @@ const Contact = () => {
                     <View style={styles.contactTextContainer}>
                       <Text style={styles.contactLabel}>Secretariat Address</Text>
                       <Text style={[styles.contactValue, { color: theme.textPrimary }]}>
-                        Ministry of Law & Justice, Madhya Pradesh, India
+                        Ministry of Law & Justice, India
                       </Text>
                       <Text style={[styles.contactNote, { color: theme.textMuted }]}>National Law Enforcement Portal Cell</Text>
                     </View>

@@ -27,27 +27,27 @@ const Vision = () => {
   const pillars: PillarItem[] = [
     {
       icon: 'shield-checkmark-outline',
-      title: 'Constitutional & Statutory Integrity',
+      title: 'Constitutional Accuracy',
       category: 'LEGAL FIDELITY',
-      description: 'Ensuring that every algorithm, recommendation, and document generation adheres strictly to the Constitution of India and updated statutory codes (BNS, BNSS, BSA).',
+      description: 'Every answer, summary, and document reference is grounded in the Constitution of India and updated statutory codes (BNS, BNSS, BSA), so citizens can trust what they read.',
     },
     {
       icon: 'people-outline',
-      title: 'Law Enforcement Empowerment',
-      category: 'OFFICER SUPPORT',
-      description: 'Equipping police officers and investigating personnel with automated legal drafting, precedent cross-referencing, and reduced procedural burdens in the field.',
+      title: 'Citizen Empowerment',
+      category: 'EVERYDAY ACCESS',
+      description: 'Helping tenants, workers, students, and consumers understand their rights without needing expensive legal consultations for basic information.',
     },
     {
       icon: 'ribbon-outline',
-      title: 'Equitable Justice & Transparency',
+      title: 'Equitable Access to Justice',
       category: 'PUBLIC SERVICE',
-      description: 'Fostering public trust through transparent, non-discriminatory, and accountable legal technology that accelerates case disposal across all judicial tiers.',
+      description: 'Bridging the gap between complex legal language and everyday understanding so that every citizen, regardless of background, can know and assert their rights.',
     },
     {
-      icon: 'analytics-outline',
-      title: 'Data-Driven Judicial Administration',
-      category: 'GOVERNANCE METRICS',
-      description: 'Providing policy makers and senior judicial officers with actionable insights, trend analysis, and comprehensive case monitoring tools.',
+      icon: 'lock-closed-outline',
+      title: 'Privacy by Design',
+      category: 'DATA PROTECTION',
+      description: 'All your documents and data stay on your device. Nothing is uploaded without your knowledge. Your privacy matters and is protected from the ground up.',
     },
   ];
 
@@ -65,15 +65,15 @@ const Vision = () => {
           <View style={styles.heroInner}>
             <View style={[styles.tagBadge, { backgroundColor: theme.badge, borderColor: theme.border }]}>
               <Text style={styles.tagBadgeText}>
-                INSTITUTIONAL DIRECTIVE • DIGITAL JUSTICE MISSION
+                OUR MISSION • LEGAL HELP FOR EVERYONE
               </Text>
             </View>
             <Text style={[styles.heroTitle, { color: theme.textPrimary }]}>
-              Strategic Vision for National Legal Empowerment
+              Making Legal Rights Accessible to Every Citizen
             </Text>
             <Text style={[styles.heroSubtitle, { color: theme.textSecondary }]}>
-              Fostering transparency, statutory accuracy, and ethical artificial intelligence in Indian
-              law enforcement and judicial administration.
+              Fostering transparency, plain-language understanding, and trustworthy AI tools to help
+              every Indian citizen know and exercise their legal rights.
             </Text>
           </View>
         </View>
@@ -83,13 +83,13 @@ const Vision = () => {
           <View style={[styles.missionCard, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
             <View style={styles.missionTagRow}>
               <View style={styles.saffronIndicator} />
-              <Text style={styles.missionTag}>DIRECTORATE MANDATE</Text>
+              <Text style={styles.missionTag}>OUR COMMITMENT</Text>
             </View>
-            <Text style={[styles.missionTitle, { color: theme.textPrimary }]}>Our National Mission</Text>
+            <Text style={[styles.missionTitle, { color: theme.textPrimary }]}>Our Mission</Text>
             <Text style={[styles.missionText, { color: theme.textSecondary }]}>
-              To revolutionize Indian law enforcement through ethical, high-precision artificial intelligence;
-              creating a modernized, transparent, and expedited legal ecosystem that upholds the rule of law
-              and serves all citizens with dignity and efficiency.
+              To make Indian legal rights accessible to everyone: helping citizens understand the laws
+              that protect them, ask questions in plain language, and make informed decisions about
+              their rights, documents, and legal situations — without requiring a law degree.
             </Text>
           </View>
         </View>
@@ -97,9 +97,9 @@ const Vision = () => {
         {/* Vision Pillars Grid */}
         <View style={styles.pillarsSection}>
           <View style={styles.sectionHeaderGroup}>
-            <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>Pillars of the Legal Intelligence Platform</Text>
+            <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>Pillars of LegalBridge-AI</Text>
             <Text style={[styles.sectionSubtitle, { color: theme.textMuted }]}>
-              Four core principles guiding the architecture, policy compliance, and deployment of LegalBridge-AI.
+              Four principles that guide how we build for citizens.
             </Text>
           </View>
 
@@ -127,9 +127,9 @@ const Vision = () => {
         {/* Call to Action */}
         <View style={styles.ctaSection}>
           <View style={styles.ctaCard}>
-            <Text style={styles.ctaHeading}>Partner with the LegalBridge-AI Initiative</Text>
+            <Text style={styles.ctaHeading}>Ready to Know Your Rights?</Text>
             <Text style={styles.ctaSubtext}>
-              Learn how your department, state police wing, or judicial academy can participate in platform integration.
+              Start with the Legal Help Assistant, explore citizen guides, or check a document you received — it's free and your data stays on your device.
             </Text>
             <View style={[styles.ctaButtonRow, isCompact && styles.ctaButtonRowCompact]}>
               <TouchableOpacity
@@ -144,7 +144,7 @@ const Vision = () => {
                 onPress={() => navigation.navigate('Contact')}
                 activeOpacity={0.85}
               >
-                <Text style={styles.secondaryBtnText}>Official Contact Desk</Text>
+                <Text style={styles.secondaryBtnText}>Contact Us</Text>
               </TouchableOpacity>
             </View>
           </View>

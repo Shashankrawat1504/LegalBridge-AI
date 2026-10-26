@@ -10,7 +10,6 @@ export type RootStackParamList = {
   'Privacy Policy': undefined;
   Accessibility: undefined;
   Terms: undefined;
-  'FIR Download': undefined;
   Utilities: undefined;
   'Original Documents': undefined;
   'Official FIR Format': undefined;
@@ -19,8 +18,11 @@ export type RootStackParamList = {
   Contact: undefined;
   ViewPDF: { filePath?: string; title?: string; htmlContent?: string };
   'Document Analyzer': undefined;
-  'Case Tracker': undefined;
-  'Evidence Timeline': undefined;
-  'Case Risk Assessment': undefined;
+  Guides: undefined;
+  LetterTemplates: undefined;
+  Helplines: undefined;
+  RightsBySituation: undefined;
+  ComplaintNotes: undefined;
+  Glossary: undefined;
   NotFound: undefined;
 };

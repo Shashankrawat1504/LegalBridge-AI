@@ -1,0 +1,72 @@
+FREELANCE SERVICE AGREEMENT
+
+This Agreement is entered into on 15 October 2026
+
+BETWEEN
+
+PixelCraft Digital Solutions Pvt. Ltd., having its registered office at
+401, Business Hub, Andheri East, Mumbai – 400069
+(hereinafter the “Company”)
+
+AND
+
+Mr. Karan Mehta, residing at 7, Koramangala 5th Block, Bengaluru – 560095
+(hereinafter the “Freelancer”)
+
+1. SERVICES
+The Freelancer shall provide UI/UX design and related digital services as assigned by the
+Company from time to time through email or project management tools (“Services”).
+
+2. TERM
+This Agreement starts on 15 October 2026 and continues until terminated. The Company may
+terminate immediately without notice or payment for convenience. The Freelancer must give
+60 days’ written notice to terminate and must complete all pending work without additional fee.
+
+3. FEES AND PAYMENT
+Fees shall be as stated in individual work orders. Payment shall be made within 90 days after
+the Company accepts delivery. The Company may reject deliverables for any reason and withhold
+payment indefinitely until the Freelancer makes changes the Company considers satisfactory.
+No interest shall accrue on delayed payments.
+
+4. INTELLECTUAL PROPERTY
+All work product, ideas, drafts, source files, and materials created by the Freelancer in
+connection with the Services shall be the sole and exclusive property of the Company from the
+moment of creation, whether or not fully paid for. The Freelancer waives all moral rights
+and shall sign any further documents the Company requires, without extra payment.
+
+5. NON-COMPETE AND NON-SOLICIT
+During the term and for 24 months after termination, the Freelancer shall not provide similar
+services to any client or competitor of the Company anywhere in India, and shall not contact
+any Company client or employee. Breach shall attract liquidated damages of ₹10,00,000
+recoverable without proof of actual loss.
+
+6. CONFIDENTIALITY
+The Freelancer shall keep confidential all information relating to the Company forever,
+including information that is public or independently developed. Breach may be restrained by
+injunction without the Company needing to prove damages.
+
+7. STATUS AND BENEFITS
+The Freelancer is an independent contractor only, not an employee. The Freelancer is not entitled
+to PF, ESI, gratuity, paid leave, or any employment benefit. The Freelancer alone is responsible
+for all taxes. The Company may still control working hours, tools, and methods.
+
+8. LIABILITY AND INDEMNITY
+The Freelancer shall indemnify and hold harmless the Company from all claims arising out of
+the Services, including third-party IP claims and the Company’s own negligence. The Company’s
+aggregate liability to the Freelancer shall not exceed fees paid in the preceding 30 days.
+
+9. PORTFOLIO
+The Freelancer shall not show any work done for the Company in a portfolio, social media, or
+case study without prior written consent of the Company, which may be withheld without reason.
+
+10. GOVERNING LAW
+This Agreement is governed by the laws of India. Exclusive jurisdiction lies with courts in
+Mumbai only. The Freelancer agrees not to raise any objection on grounds of inconvenience.
+
+11. MISCELLANEOUS
+If any provision is unenforceable, the rest survives. This Agreement supersedes all prior
+discussions. Amendments must be in writing signed by the Company.
+
+COMPANY                                 FREELANCER
+Authorised Signatory                    Karan Mehta
+Date: 15/10/2026                        Date: 15/10/2026

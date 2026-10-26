@@ -29,11 +29,11 @@ const Download = () => {
         <View style={styles.header}>
           <View style={styles.headerContent}>
             <View style={styles.badge}>
-              <Text style={styles.badgeText}>OFFICIAL CLIENT APPLICATIONS</Text>
+              <Text style={styles.badgeText}>CITIZEN CLIENT APPLICATIONS</Text>
             </View>
-            <Text style={styles.title}>Download LegalBridge-AI Mobile & Desktop Client</Text>
+            <Text style={styles.title}>Download LegalBridge-AI App</Text>
             <Text style={styles.subtitle}>
-              Install the verified LegalBridge-AI field application for law enforcement officers, investigators, and court liaison personnel.
+              Install the LegalBridge-AI citizen legal assistance and rights awareness app on your mobile device or computer.
             </Text>
           </View>
         </View>
@@ -45,9 +45,9 @@ const Download = () => {
               <View style={styles.platformIconBox}>
                 <Ionicons name="phone-portrait-outline" size={32} color={COLORS.navyGov} />
               </View>
-              <Text style={styles.platform}>Android Client APK</Text>
+              <Text style={styles.platform}>Android App (APK)</Text>
               <Text style={styles.cardDesc}>
-                Official build for police handsets, field tablets, and precinct workstations.
+                Direct download build for Android smartphones and tablets with offline act references.
               </Text>
               <TouchableOpacity
                 style={styles.button}
@@ -59,7 +59,7 @@ const Download = () => {
                 activeOpacity={0.85}
               >
                 <Ionicons name="download-outline" size={17} color={COLORS.white} />
-                <Text style={styles.buttonText}>Download Verified APK</Text>
+                <Text style={styles.buttonText}>Download APK</Text>
               </TouchableOpacity>
             </View>
 
@@ -68,12 +68,12 @@ const Download = () => {
               <View style={styles.platformIconBox}>
                 <Ionicons name="logo-apple" size={32} color={COLORS.navyGov} />
               </View>
-              <Text style={styles.platform}>iOS Enterprise Client</Text>
+              <Text style={styles.platform}>iOS App</Text>
               <Text style={styles.cardDesc}>
-                Under departmental security audit for Apple App Store distribution.
+                Citizen rights and legal assistance companion for iPhone and iPad.
               </Text>
               <View style={styles.comingSoonBadge}>
-                <Text style={styles.comingSoonText}>Scheduled for Deployment</Text>
+                <Text style={styles.comingSoonText}>Coming Soon to App Store</Text>
               </View>
             </View>
 
@@ -82,9 +82,9 @@ const Download = () => {
               <View style={styles.platformIconBox}>
                 <Ionicons name="desktop-outline" size={32} color={COLORS.navyGov} />
               </View>
-              <Text style={styles.platform}>Windows Police Station MIS</Text>
+              <Text style={styles.platform}>Windows PC Application</Text>
               <Text style={styles.cardDesc}>
-                Dedicated workstation software for FIR recording and GD register synchronization.
+                Desktop application for offline document checks, law reading, and rights library.
               </Text>
               <View style={styles.comingSoonBadge}>
                 <Text style={styles.comingSoonText}>Coming Soon</Text>
@@ -96,9 +96,9 @@ const Download = () => {
               <View style={styles.platformIconBox}>
                 <Ionicons name="terminal-outline" size={32} color={COLORS.navyGov} />
               </View>
-              <Text style={styles.platform}>Linux Secured Client</Text>
+              <Text style={styles.platform}>Linux Desktop Client</Text>
               <Text style={styles.cardDesc}>
-                Optimized for state NIC data centers and BOSS Linux installations.
+                Standalone AppImage and Debian package for open-source and Linux desktops.
               </Text>
               <View style={styles.comingSoonBadge}>
                 <Text style={styles.comingSoonText}>Coming Soon</Text>

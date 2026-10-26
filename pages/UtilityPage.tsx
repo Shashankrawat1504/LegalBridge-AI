@@ -12,92 +12,91 @@ interface UtilityPageProps {
   isLoggedIn?: boolean;
 }
 
+interface MenuItem {
+  name: string;
+  icon: string;
+  description: string;
+  screen: string;
+  category: string;
+  badge?: string;
+}
+
 const UtilityPage: React.FC<UtilityPageProps> = () => {
   const navigation = useNavigation<any>();
   const { theme } = useTheme();
   const { width } = useWindowDimensions();
   const isCompact = width < 768;
 
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     {
-      name: 'AI Legal Intelligence',
+      name: 'Legal Help Assistant',
       icon: 'chatbubbles',
-      description: 'Ask precise legal queries regarding active Indian statutes, penal provisions, and case law.',
+      description: 'Ask everyday legal questions in plain language: rent, salary, consumer fraud, neighbour disputes, notices, and more.',
       screen: 'Query',
-      category: 'INVESTIGATIVE ASSISTANT',
-      badge: 'BNS 2023 Enabled',
+      category: ''
     },
     {
-      name: 'Bare Acts Repository',
+      name: 'Know the Law (Simple)',
       icon: 'library',
-      description: 'Access complete official text of Bharatiya Nyaya Sanhita (BNS), BNSS, and related legislation.',
+      description: 'Understand Indian laws in simple words. Browse key sections of BNS, IPC, and other acts explained for everyday life.',
       screen: 'Bare Acts',
-      category: 'STATUTORY CODES',
-      badge: 'Official Gazette',
+      category: ''
     },
     {
-      name: 'Original Documents & PDFs',
-      icon: 'document-text',
-      description: 'Review and download authentic gazetted legal acts, forms, and regulatory notifications.',
-      screen: 'Original Documents',
-      category: 'DOCUMENT REPOSITORY',
-      badge: 'Verified Archive',
+      name: 'Citizen Guides',
+      icon: 'book',
+      description: 'Step-by-step help for common problems: complaints, consumer issues, basic rights.',
+      screen: 'Guides',
+      category: ''
     },
     {
-      name: 'Judicial Precedents Database',
-      icon: 'server',
-      description: 'Search categorized case precedents, High Court rulings, and statutory interpretations.',
-      screen: 'Database',
-      category: 'CASE LAW DATABASE',
-      badge: 'Indexed Records',
+      name: 'Letter Templates',
+      icon: 'mail',
+      description: 'Ready-made letters for deposit refund, salary, consumer complaint—copy and use.',
+      screen: 'LetterTemplates',
+      category: ''
     },
     {
-      name: 'Official FIR Builder',
-      icon: 'create',
-      description: 'Draft and generate compliant First Information Reports (FIR) adhering to police procedures.',
-      screen: 'FIR Download',
-      category: 'POLICE PROCEDURE',
-      badge: 'BNSS Sec 173',
+      name: 'Find Help (Helplines)',
+      icon: 'call',
+      description: 'Official helplines and legal aid contacts you can call or visit online.',
+      screen: 'Helplines',
+      category: ''
     },
     {
-      name: 'Portal Settings & Security',
-      icon: 'settings',
-      description: 'Configure officer authentication preferences, session management, and system display.',
-      screen: 'Settings',
-      category: 'ADMINISTRATION',
-      badge: 'Officer Controls',
-    },
-    {
-      name: 'Document Analyser & Redlining',
-      icon: 'scan',
-      description: 'Upload contracts or legal documents and get AI-powered risk scores, clause redlining, and bilingual safer-wording suggestions.',
-      screen: 'Document Analyzer',
-      category: 'AI CONTRACT REVIEW',
-      badge: 'Redlining Engine',
-    },
-    {
-      name: 'Case Tracker & KPI Dashboard',
-      icon: 'bar-chart',
-      description: 'Track active cases, investigations, and court hearings. Monitor resolution rates and priority KPIs at a glance.',
-      screen: 'Case Tracker',
-      category: 'CASE MANAGEMENT',
-      badge: 'Live Dashboard',
-    },
-    {
-      name: 'Evidence Timeline Builder',
-      icon: 'git-network',
-      description: 'Upload multi-file evidence (photos, PDFs, notes). AI extracts every datable event and builds a chronological forensic timeline with entity tagging.',
-      screen: 'Evidence Timeline',
-      category: 'FORENSIC ANALYSIS',
-      badge: 'AI Timeline',
-    },
-    {
-      name: 'Predictive Case Risk Assessment',
+      name: 'Rights by Situation',
       icon: 'shield-checkmark',
-      description: 'Simulate legal outcomes, calculate overall risk scores and success probability, identify vulnerabilities, and generate optimal litigation strategies.',
-      screen: 'Case Risk Assessment',
-      category: 'CASE STRATEGY',
-      badge: 'Risk Engine',
+      description: 'Tenant, worker, consumer, and safety rights in plain language.',
+      screen: 'RightsBySituation',
+      category: ''
+    },
+    {
+      name: 'My Complaint Notes',
+      icon: 'create',
+      description: 'Privately note when you complained or sent a letter—stored on this device.',
+      screen: 'ComplaintNotes',
+      category: ''
+    },
+    {
+      name: 'Legal Glossary (Simple)',
+      icon: 'book',
+      description: 'Short meanings of words like FIR, notice, affidavit, bail.',
+      screen: 'Glossary',
+      category: ''
+    },
+    {
+      name: 'My Legal Document Library',
+      icon: 'document-text',
+      description: 'Save and organize your personal legal documents: rent agreements, notices, court papers, complaint copies, and ID documents.',
+      screen: 'Original Documents',
+      category: ''
+    },
+    {
+      name: 'Check My Document',
+      icon: 'scan',
+      description: 'Upload agreements or notices and get plain-language risk scores, highlighted clauses, and questions to ask before signing.',
+      screen: 'Document Analyzer',
+      category: ''
     },
   ];
 
@@ -115,10 +114,10 @@ const UtilityPage: React.FC<UtilityPageProps> = () => {
         <View style={styles.contentWrapper}>
           <View style={[styles.infoBanner, { backgroundColor: theme.surface, borderColor: theme.border }]}>
             <Text style={[styles.infoBannerTitle, { color: theme.textPrimary }]}>
-              Official Law Enforcement Notice
+              Legal Help for Everyone
             </Text>
             <Text style={[styles.infoBannerText, { color: theme.textSecondary }]}>
-              All tools on this portal generate documents adhering strictly to official Indian criminal procedure standards. Please verify all case numbers and officer badge IDs before submitting reports.
+              Understand your rights, ask legal questions, and manage your documents. This is an educational aid—always consult a qualified lawyer for serious legal matters.
             </Text>
           </View>
 

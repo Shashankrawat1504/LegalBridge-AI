@@ -1,276 +1,215 @@
-# ⚖️ LegalBridge AI
+# LegalBridge-AI
 
-### Making Legal Information More Accessible Through Technology
+> **Citizen legal-help web app for everyday people in India (educational).**
 
-LegalBridge AI is a legal technology project designed to simplify access to legal information through a modern, intuitive web application. It aims to bridge the gap between complex legal processes and everyday users by making legal information easier to explore and understand.
-
-The project combines modern web development with AI-oriented legal assistance workflows to create a foundation for more accessible, user-friendly legal technology.
+LegalBridge-AI is a web-first citizen assistance platform built to simplify Indian law into plain language, practical steps, and accessible tools. It helps ordinary citizens understand their rights, draft complaint and notice letters, review agreements before signing, and organize personal legal documents safely.
 
 ---
 
-## 📌 Table of Contents
+## 📖 Overview
 
-- [Overview](#-overview)
-- [Objectives](#-objectives)
-- [Key Features](#-key-features)
-- [Technology Stack](#-technology-stack)
-- [Project Structure](#-project-structure)
-- [Getting Started](#-getting-started)
-- [Environment Configuration](#-environment-configuration)
-- [Available Scripts](#-available-scripts)
-- [Security Considerations](#-security-considerations)
-- [Future Enhancements](#-future-enhancements)
-- [Contributing](#-contributing)
-- [Disclaimer](#-disclaimer)
-- [Author](#-author)
+### Who It's For
+- **Tenants:** Resolving withheld security deposits, unfair eviction notices, or unreasonable landlord demands.
+- **Workers & Freelancers:** Navigating unpaid wages, one-sided independent contractor agreements, delayed invoices, and notice periods.
+- **Consumers:** Handling defective products, refund denials, and online UPI fraud without legalese.
+- **Students & Families:** Demystifying consumer rights, basic criminal procedure, and official civic grievance channels.
+
+### What It Is NOT
+- ❌ **Not a law firm:** LegalBridge-AI does not provide legal representation or create an attorney-client relationship.
+- ❌ **Not government filing:** It does not directly file FIRs or register cases with courts or police.
+- ❌ **Not police software:** It does not track suspects or process internal law-enforcement records.
+- ℹ️ **Educational Aid Only:** All guidance, risk scores, and templates are purely informational. Users dealing with complex or high-stakes disputes should always consult a qualified advocate.
 
 ---
 
-## 🎯 Overview
+## ✨ Features (Citizen Tools)
 
-Accessing and understanding legal information can be challenging because of complex terminology, lengthy documents, and unfamiliar legal procedures.
+LegalBridge-AI provides 10 citizen-focused tools accessible directly from the central **Utilities Hub**:
 
-**LegalBridge AI** aims to address these challenges through a digital platform focused on accessibility, usability, and technology-assisted legal information.
+1. **Legal Help Assistant** (`Query`)
+   - Interactive conversational assistant for everyday legal issues (rent, salary, UPI fraud, workplace, neighbour disputes).
+   - **Bilingual guidance:** Instant **[ English ] [ हिंदी ]** toggle with citizen-friendly Hindi translations.
+   - Dual-mode architecture: Optional AI API with instant, fully offline heuristic fallbacks for common topics.
 
-The project is intended to provide a foundation for building intelligent legal workflows that can help users navigate legal information more efficiently.
+2. **Know the Law (Simple)** (`Bare Acts`)
+   - Key Indian statutes simplified for everyday citizens: Bharatiya Nyaya Sanhita (BNS 2023), Bharatiya Nagarik Suraksha Sanhita (BNSS), and consumer protection provisions.
+   - Searchable and categorized with plain-language explanations.
 
-### Project Goals
+3. **Citizen Guides** (`Guides`)
+   - Step-by-step walkthroughs for common disputes: What to do if your landlord keeps your deposit, how to report UPI fraud within the golden hour, and resolving consumer complaints.
 
-- Make legal information easier to access and understand.
-- Create an intuitive interface for legal assistance workflows.
-- Explore the application of artificial intelligence in legal technology.
-- Build a maintainable, scalable web application.
-- Encourage responsible and transparent use of AI in legal-information systems.
+4. **Letter Templates** (`LetterTemplates`)
+   - Ready-to-use, legally phrased formal letters (security deposit refund notice, demand for unpaid salary, consumer deficiency complaint).
+   - Live editing, instant copy to clipboard, `.txt` download, and **WhatsApp Web/Mobile share**.
 
----
+5. **Find Help (Helplines)** (`Helplines`)
+   - Verified national directory: National Consumer Helpline (1915), Cyber Crime Helpline (1930), National Legal Services Authority (NALSA / 15100), Women's Helpline (1091), and state legal aid portals.
 
-## ✨ Key Features
+6. **Rights by Situation** (`RightsBySituation`)
+   - Practical rights breakdowns organized by life situations: Tenant rights, employee rights, consumer rights, and police interaction / custody rights in simple terms.
 
-The following are the primary feature areas for LegalBridge AI. Retain the descriptions that match the functionality currently implemented in your application.
+7. **My Complaint Notes** (`ComplaintNotes`)
+   - On-device incident and timeline logger.
+   - Securely record communications, dates, amounts owed, and follow-ups. Stored 100% locally on the user's device via `AsyncStorage` with zero cloud leakage.
 
-### 🤖 AI-Powered Legal Assistance
-- A conversational interface for legal-information queries.
-- A foundation for natural-language interaction with legal information.
-- An extensible design for integrating AI-powered assistance.
+8. **Legal Glossary (Simple)** (`Glossary`)
+   - Demystifies intimidating legal jargon (FIR, Cognizable, Bail, Affidavit, Legal Notice, Injunction, Quash) into clear 1-2 sentence everyday explanations.
 
-### 📚 Legal Information Access
-- A user-friendly approach to exploring legal topics.
-- A foundation for organizing legal information and resources.
-- An opportunity to simplify complex legal terminology.
+9. **My Legal Document Library** (`Original Documents`)
+   - Personal legal document organizer.
+   - Securely store, categorize, and preview agreements, notices, rent deeds, and receipts directly in browser storage. Pre-seeded with realistic educational demo documents.
 
-### 📄 Legal Document Workflows
-- A foundation for integrating document-related legal workflows.
-- Potential support for document review, summarization, and information extraction as those capabilities are implemented.
-
-### 💻 Modern Web Experience
-- A web application built with Next.js and React.
-- A component-based architecture for maintainable UI development.
-- A foundation for responsive and accessible user experiences.
-
----
-
-## 🛠️ Technology Stack
-
-| Technology | Purpose |
-|---|---|
-| Next.js | Web application framework |
-| React | Component-based user interface |
-| TypeScript / JavaScript | Application logic, depending on the project configuration |
-| CSS / Tailwind CSS | Styling, depending on the implementation |
-| Node.js | JavaScript runtime |
-| npm | Dependency management and scripts |
-
-Additional technologies, AI providers, databases, and authentication services should be listed here once verified against the actual implementation.
+10. **Check My Document** (`Document Analyzer`)
+    - Upload contracts, agreements, or legal notices (`.txt` or `.pdf` with client-side text extraction via `pdfjs-dist`).
+    - Instant analysis: 0–100 Risk Score, severity-coded red flags (unfair lock-ins, excessive non-competes, unilateral indemnity), missing protective terms, questions to ask before signing, and **WhatsApp report export**.
 
 ---
 
-## 📁 Project Structure
+## 🛠️ Tech Stack
 
-The following is a representative Next.js structure. Adjust it to match the directories and files in your repository.
+- **Frontend & App Framework:** [Expo](https://expo.dev/) (SDK 54), [React Native Web](https://necolas.github.io/react-native-web/) (0.21), [React](https://react.dev/) (19.1)
+- **Language:** TypeScript 5.9 (Strict type safety, zero TypeScript errors)
+- **Navigation:** React Navigation (Native Stack)
+- **Styling:** Custom responsive design system with warm, accessible government-civic color palette (`constants/theme.ts`) and dark/light mode (`context/ThemeContext.ts`)
+- **Local Persistence:** `@react-native-async-storage/async-storage` (All citizen notes, document lists, and language preferences remain strictly private on the user's device)
+- **Document Processing:** Dynamic client-side PDF text extraction via `pdfjs-dist` (web-optimized)
+- **AI & Fallbacks:** Google Gemini API integration (`@google/generative-ai`) paired with structured offline heuristic fallbacks
+- **Platform Focus:** Web-first responsive experience (optimized for modern desktop and mobile browsers: Chrome, Edge, Safari, Firefox)
+
+---
+
+## 📁 Project Directory Structure
 
 ```text
 LegalBridge-AI/
-├── public/                 # Static assets
-├── src/
-│   ├── app/                # App Router pages and layouts
-│   ├── components/         # Reusable UI components
-│   ├── lib/                # Shared utilities and integrations
-│   └── ...
-├── .env.example            # Environment variable template, if provided
-├── .gitignore
-├── next.config.ts          # Next.js configuration, if present
-├── package.json            # Dependencies and scripts
-├── tsconfig.json           # TypeScript configuration, if present
-└── README.md
+├── App.tsx                   # Central React Navigation router & theme provider
+├── index.ts                  # Expo root application entry point
+├── app.json                  # Expo application configuration & metadata
+├── types.ts                  # Navigation stack parameter types
+├── pages/                    # Citizen screens
+│   ├── Landing.tsx           # Home landing page with citizen hero & tool highlights
+│   ├── UtilityPage.tsx       # Central Utilities Hub listing all citizen tools
+│   ├── Query.tsx             # Legal Help Assistant (Bilingual English/Hindi)
+│   ├── DocumentAnalyzer.tsx  # Check My Document (Risk score, PDF parse, WhatsApp)
+│   ├── LetterTemplates.tsx   # Ready-to-use letter templates with WhatsApp share
+│   ├── BareActs.tsx          # Know the Law (Simple) act browser
+│   ├── Guides.tsx            # Step-by-step citizen guides
+│   ├── Helplines.tsx         # Verified emergency & legal aid helplines
+│   ├── RightsBySituation.tsx # Citizen rights breakdowns
+│   ├── ComplaintNotes.tsx    # Private, local incident & timeline notes
+│   ├── Glossary.tsx          # Plain-language legal definitions
+│   ├── OriginalDocuments.tsx # Personal document library
+│   ├── Settings.tsx          # App settings & accessibility options
+│   ├── Download.tsx          # Client app installation information
+│   ├── Vision.tsx            # Project mission & constitutional legal aid vision
+│   ├── KeyFeatures.tsx       # Feature overview breakdown
+│   ├── Contact.tsx           # Feedback & support contact
+│   ├── PrivacyPolicy.tsx     # Citizen privacy & on-device storage policy
+│   ├── TermsAndConditions.tsx# Terms of service & educational disclaimers
+│   └── Accessibility.tsx     # Accessibility statement
+├── components/               # Reusable UI components
+│   ├── OfficialNavbar.tsx    # Responsive header with branding and navigation
+│   ├── Footer.tsx            # Civic footer with links & disclaimers
+│   ├── DraftingCoPilot.tsx   # Query composition helper
+│   ├── VoiceDictation.tsx    # Voice input modal
+│   ├── Query/                # Legal Help Assistant components
+│   │   ├── QueryHeader.tsx   # Assistant header
+│   │   ├── QueryInput.tsx    # Query input box
+│   │   ├── QueryResponse.tsx # Answer card, Hindi toggle, action bar
+│   │   ├── SubmitButton.tsx  # Interactive submit button
+│   │   ├── fallbackGuidance.ts # Dual-language structured offline answers
+│   │   └── hindiGuidance.ts  # Plain citizen Hindi guidance dictionary
+│   ├── UtilityPage/          # Utilities hub components
+│   │   ├── UtilityHeader.tsx
+│   │   └── UtilityCard.tsx
+│   └── Settings/             # Settings UI components
+├── context/                  # Context providers (ThemeContext)
+├── constants/                # Design tokens (theme.ts) & API endpoints (api.ts)
+├── services/                 # External service adapters (geminiTranscribe.ts)
+├── assets/                   # App icons, splash screens, emblem, and vector artwork
+├── data/                     # Static data files
+│   ├── demos/                # Demo contract documents for testing
+│   │   ├── Sample_Freelance_Service_Agreement_Demo.txt
+│   │   └── Sample_Residential_Rent_Agreement_Demo.txt
+│   └── acts/                 # Legal act JSON datasets
+│       ├── cpc.json
+│       ├── crpc.json
+│       ├── iea.json
+│       ├── ipc.json
+│       └── mva.json
+├── .env.example              # Sample environment configuration template
+└── README.md                 # Project documentation
 ```
-
-> Note: Your actual folder structure may differ. Update this section to reflect the files present in the repository.
 
 ---
 
 ## 🚀 Getting Started
 
-Follow these steps to run LegalBridge AI locally.
-
 ### Prerequisites
+- [Node.js](https://nodejs.org/) (version 20 or higher recommended)
+- `npm` (comes bundled with Node.js)
 
-Ensure that you have the following installed:
+### Installation
 
-- [Node.js](https://nodejs.org/) — use a version compatible with the project's dependencies.
-- npm — included with Node.js.
-- Git — for cloning the repository.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Shashankrawat1504/LegalBridge-AI.git
+   cd LegalBridge-AI
+   ```
 
-### 1. Clone the Repository
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-```bash
-git clone https://github.com/Shashankrawat1504/LegalBridge-AI.git
-```
+3. **Configure environment (Optional):**
+   ```bash
+   cp .env.example .env
+   ```
+   *Note: All core features, offline guidance dictionaries, letter templates, PDF extraction, and demo analyzers function without any API key.*
 
-### 2. Navigate to the Project Directory
-
-```bash
-cd LegalBridge-AI
-```
-
-### 3. Install Dependencies
-
-```bash
-npm install
-```
-
-### 4. Configure Environment Variables
-
-If the application requires API keys or other environment variables, create a `.env.local` file in the project root and configure the variables required by your application.
-
-See [Environment Configuration](#-environment-configuration) below.
-
-### 5. Start the Development Server
-
-```bash
-npm run dev
-```
-
-### 6. Open the Application
-
-Navigate to:
-
-**http://localhost:3000**
-
-The development server should serve the application locally.
+4. **Start the web application:**
+   ```bash
+   npx expo start --web
+   ```
+   *Or run via npm:*
+   ```bash
+   npm run web
+   ```
+   Open your browser at `http://localhost:8081` (or the port displayed in your terminal).
 
 ---
 
-## 🔐 Environment Configuration
+## 🧪 Quality & Verification
 
-Environment variables keep configuration separate from application code.
+- **TypeScript Compilation:**
+  ```bash
+  npx tsc --noEmit
+  ```
+  Passes with **0 errors**.
 
-Create a `.env.local` file in the project root if required by the application.
-
-Example template:
-
-```env
-# Add the actual variables required by your application.
-# AI_API_KEY=your_api_key
-# DATABASE_URL=your_database_url
-```
-
-**Important:**
-- Use the exact environment variable names referenced by your code.
-- Never commit `.env.local`, API keys, passwords, or database credentials.
-- Keep real secrets in your deployment platform's environment configuration.
-- Only expose variables prefixed with `NEXT_PUBLIC_` when they are intentionally safe for browser access.
-- Do not assume that a secret is protected merely because its name is prefixed with `NEXT_PUBLIC_`.
+- **Web Production Export:**
+  ```bash
+  npx expo export --platform web
+  ```
+  Builds the production-ready static web bundle in `dist/` cleanly.
 
 ---
 
-## 📜 Available Scripts
+## 🔒 Privacy & Security Philosophy
 
-The following are common Next.js scripts. Verify the `scripts` section of `package.json` before using them.
-
-| Command | Description |
-|---|---|
-| `npm run dev` | Starts the development server |
-| `npm run build` | Builds the application for production |
-| `npm run start` | Starts the production server after a successful build |
-| `npm run lint` | Runs the configured linting command, if available |
-
-To create a production build:
-
-```bash
-npm run build
-```
-
-To run the production server:
-
-```bash
-npm run start
-```
+- **Zero Cloud Leakage for Private Notes:** Incident timelines entered in *My Complaint Notes* and documents saved in *My Legal Document Library* are stored locally using browser `AsyncStorage` and are never uploaded to any remote server.
+- **Client-Side Document Extraction:** PDF text extraction for *Check My Document* runs in-browser using Web Workers.
+- **Secret Hygiene:** Environment files (`.env`, `.env.local`), build artifacts (`dist/`, `web-build/`), and native keystores are strictly excluded from source control via `.gitignore`.
 
 ---
 
-## 🔒 Security Considerations
+## ⚖️ Legal Disclaimer
 
-Legal technology applications may handle sensitive information. Security should be considered throughout development.
-
-- Protect API keys and server-side credentials.
-- Validate and sanitize user input.
-- Apply appropriate authentication and authorization if accounts or protected resources are supported.
-- Restrict and validate document uploads if file-upload functionality is implemented.
-- Avoid exposing private legal documents or personal information in logs.
-- Use HTTPS and appropriate access controls in deployed environments.
-
-These are recommended engineering practices, not a claim that every control is already implemented.
-
----
-
-## 🗺️ Future Enhancements
-
-Potential areas for future development include:
-
-- Improved AI-powered legal information retrieval.
-- Legal document summarization and analysis.
-- Source references for AI-generated legal explanations.
-- Multilingual legal information support.
-- Secure user accounts and saved sessions.
-- Legal case and document organization.
-- Improved accessibility and responsive design.
-- Automated testing, monitoring, and deployment workflows.
-
----
-
-## 🤝 Contributing
-
-Contributions and constructive feedback are welcome.
-
-To contribute:
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Make your changes and test them.
-4. Commit your changes with a descriptive message.
-5. Open a pull request describing the proposed improvements.
-
-For substantial changes, consider opening an issue first to discuss the proposed implementation.
-
----
-
-## ⚠️ Disclaimer
-
-LegalBridge AI is a software development project intended to support access to legal information.
-
-Unless explicitly provided by a qualified legal professional, information generated by an AI system should not be treated as professional legal advice. AI-generated content may be inaccurate, incomplete, or outdated, and applicable laws vary by jurisdiction.
-
-Users should verify important legal information with authoritative sources and consult a qualified legal professional before making decisions with legal consequences.
+LegalBridge-AI is developed exclusively as an educational and rights-awareness initiative. It does not provide legal advice, representation, or formal legal services. Legal statutes, rules, and procedures differ across states and jurisdictions. For specific legal issues, disputes, or official filings, please contact a registered legal advocate or visit your nearest Legal Services Authority (NALSA / DLSA).
 
 ---
 
 ## 📄 License
 
-A license has not been specified here. If you intend to distribute this project as open source, add an appropriate `LICENSE` file and reference it in this section.
-
----
-
-<p align="center">
-  <strong>LegalBridge AI</strong><br />
-  Building a more accessible bridge between people and legal information.
-</p>
+This project is licensed under the [0BSD License](LICENSE).
