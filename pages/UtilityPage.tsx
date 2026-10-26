@@ -36,65 +36,37 @@ const UtilityPage: React.FC<UtilityPageProps> = () => {
       category: ''
     },
     {
-      name: 'Know the Law (Simple)',
+      name: 'Know Your Rights',
       icon: 'library',
-      description: 'Understand Indian laws in simple words. Browse key sections of BNS, IPC, and other acts explained for everyday life.',
-      screen: 'Bare Acts',
+      description: 'Understand Indian laws, legal terms, and your rights in simple words. Browse by situation, key laws, or glossary.',
+      screen: 'KnowYourRights',
       category: ''
     },
     {
-      name: 'Citizen Guides',
+      name: 'Guides & Templates',
       icon: 'book',
-      description: 'Step-by-step help for common problems: complaints, consumer issues, basic rights.',
-      screen: 'Guides',
-      category: ''
-    },
-    {
-      name: 'Letter Templates',
-      icon: 'mail',
-      description: 'Ready-made letters for deposit refund, salary, consumer complaint—copy and use.',
-      screen: 'LetterTemplates',
+      description: 'Step-by-step guides and ready-to-use letter templates. Handle common legal situations with confidence.',
+      screen: 'GuidesAndTemplates',
       category: ''
     },
     {
       name: 'Find Help (Helplines)',
       icon: 'call',
-      description: 'Official helplines and legal aid contacts you can call or visit online.',
+      description: 'Verified national helplines and legal aid contacts. Quick access to emergency and consumer support.',
       screen: 'Helplines',
       category: ''
     },
     {
-      name: 'Rights by Situation',
-      icon: 'shield-checkmark',
-      description: 'Tenant, worker, consumer, and safety rights in plain language.',
-      screen: 'RightsBySituation',
-      category: ''
-    },
-    {
-      name: 'My Complaint Notes',
-      icon: 'create',
-      description: 'Privately note when you complained or sent a letter—stored on this device.',
-      screen: 'ComplaintNotes',
-      category: ''
-    },
-    {
-      name: 'Legal Glossary (Simple)',
-      icon: 'book',
-      description: 'Short meanings of words like FIR, notice, affidavit, bail.',
-      screen: 'Glossary',
-      category: ''
-    },
-    {
-      name: 'My Legal Document Library',
+      name: 'My Legal Records',
       icon: 'document-text',
-      description: 'Save and organize your personal legal documents: rent agreements, notices, court papers, complaint copies, and ID documents.',
-      screen: 'Original Documents',
+      description: 'Save personal legal documents and keep complaint notes. Organize agreements, notices, and incident timelines privately.',
+      screen: 'MyLegalRecords',
       category: ''
     },
     {
       name: 'Check My Document',
       icon: 'scan',
-      description: 'Upload agreements or notices and get plain-language risk scores, highlighted clauses, and questions to ask before signing.',
+      description: 'Upload agreements or notices for plain-language risk analysis. Get red flags, safer wording, and questions to ask before signing.',
       screen: 'Document Analyzer',
       category: ''
     },

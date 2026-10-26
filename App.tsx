@@ -29,6 +29,9 @@ import Helplines from './pages/Helplines';
 import RightsBySituation from './pages/RightsBySituation';
 import ComplaintNotes from './pages/ComplaintNotes';
 import Glossary from './pages/Glossary';
+import KnowYourRights from './pages/KnowYourRights';
+import GuidesAndTemplates from './pages/GuidesAndTemplates';
+import MyLegalRecords from './pages/MyLegalRecords';
 // Create the stack navigator
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -62,6 +65,9 @@ function App() {
         <Stack.Screen name="RightsBySituation" component={RightsBySituation} />
         <Stack.Screen name="ComplaintNotes" component={ComplaintNotes} />
         <Stack.Screen name="Glossary" component={Glossary} />
+        <Stack.Screen name="KnowYourRights" component={KnowYourRights} />
+        <Stack.Screen name="GuidesAndTemplates" component={GuidesAndTemplates} />
+        <Stack.Screen name="MyLegalRecords" component={MyLegalRecords} />
         {/* If you want to add a fallback, do it as below */}
         <Stack.Screen
           name="NotFound"

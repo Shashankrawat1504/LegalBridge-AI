@@ -15,53 +15,69 @@ LegalBridge-AI is a web-first citizen assistance platform built to simplify Indi
 - **Students & Families:** Demystifying consumer rights, basic criminal procedure, and official civic grievance channels.
 
 ### What It Is NOT
-- ❌ **Not a law firm:** LegalBridge-AI does not provide legal representation or create an attorney-client relationship.
-- ❌ **Not government filing:** It does not directly file FIRs or register cases with courts or police.
-- ❌ **Not police software:** It does not track suspects or process internal law-enforcement records.
-- ℹ️ **Educational Aid Only:** All guidance, risk scores, and templates are purely informational. Users dealing with complex or high-stakes disputes should always consult a qualified advocate.
+- **Not a law firm:** LegalBridge-AI does not provide legal representation or create an attorney-client relationship.
+- **Not government filing:** It does not directly file FIRs or register cases with courts or police.
+- **Not police software:** It does not track suspects or process internal law-enforcement records.
+- **Educational Aid Only:** All guidance, risk scores, and templates are purely informational. Users dealing with complex or high-stakes disputes should always consult a qualified advocate.
 
 ---
 
 ## ✨ Features (Citizen Tools)
 
-LegalBridge-AI provides 10 citizen-focused tools accessible directly from the central **Utilities Hub**:
+LegalBridge-AI provides 6 citizen-focused tools accessible directly from the central **Tools Hub**:
 
-1. **Legal Help Assistant** (`Query`)
-   - Interactive conversational assistant for everyday legal issues (rent, salary, UPI fraud, workplace, neighbour disputes).
-   - **Bilingual guidance:** Instant **[ English ] [ हिंदी ]** toggle with citizen-friendly Hindi translations.
-   - Dual-mode architecture: Optional AI API with instant, fully offline heuristic fallbacks for common topics.
+### 1. Legal Help Assistant
+- **What it does:** Interactive conversational assistant for everyday legal issues (rent, salary, UPI fraud, workplace, neighbour disputes).
+- **Key features:**
+  - Bilingual guidance with instant English/Hindi toggle
+  - Plain-language answers explaining what the law means for you
+  - Practical next steps and when to see a lawyer
+  - Works offline with structured fallbacks for common topics
+- **Perfect for:** Quick questions when you don't know where to start
 
-2. **Know the Law (Simple)** (`Bare Acts`)
-   - Key Indian statutes simplified for everyday citizens: Bharatiya Nyaya Sanhita (BNS 2023), Bharatiya Nagarik Suraksha Sanhita (BNSS), and consumer protection provisions.
-   - Searchable and categorized with plain-language explanations.
+### 2. Know Your Rights
+- **What it does:** Understand Indian laws, legal terms, and your rights in simple words.
+- **Key features:**
+  - **By Situation:** Tenant rights, worker rights, consumer rights, and police interaction explained for everyday life
+  - **Key Laws:** Plain-language explanations of important Indian statutes (BNS, IPC, CrPC, and others)
+  - **Glossary:** Simple meanings of legal terms like FIR, notice, affidavit, bail, and more
+- **Perfect for:** Learning what your rights are in specific situations
 
-3. **Citizen Guides** (`Guides`)
-   - Step-by-step walkthroughs for common disputes: What to do if your landlord keeps your deposit, how to report UPI fraud within the golden hour, and resolving consumer complaints.
+### 3. Guides & Templates
+- **What it does:** Step-by-step guides and ready-to-use letter templates for common legal situations.
+- **Key features:**
+  - **Step-by-step Guides:** Walkthroughs for filing complaints, handling consumer issues, and understanding basic rights
+  - **Letter Templates:** Ready-made letters for deposit refund, salary demands, consumer complaints, and more
+  - Copy, edit, and share templates easily
+- **Perfect for:** Taking action with confidence using proven formats
 
-4. **Letter Templates** (`LetterTemplates`)
-   - Ready-to-use, legally phrased formal letters (security deposit refund notice, demand for unpaid salary, consumer deficiency complaint).
-   - Live editing, instant copy to clipboard, `.txt` download, and **WhatsApp Web/Mobile share**.
+### 4. Find Help (Helplines)
+- **What it does:** Verified national helplines and legal aid contacts.
+- **Key features:**
+  - National Consumer Helpline (1915)
+  - Cyber Crime Helpline (1930)
+  - National Legal Services Authority (NALSA / 15100)
+  - Women's Helpline (1091)
+  - State legal aid portals
+- **Perfect for:** Finding who to call for immediate help
 
-5. **Find Help (Helplines)** (`Helplines`)
-   - Verified national directory: National Consumer Helpline (1915), Cyber Crime Helpline (1930), National Legal Services Authority (NALSA / 15100), Women's Helpline (1091), and state legal aid portals.
+### 5. My Legal Records
+- **What it does:** Save personal legal documents and keep complaint notes privately on your device.
+- **Key features:**
+  - **My Notes:** Record when you complained, who you spoke to, dates, amounts, and follow-ups
+  - **My Documents:** Save and organize rent agreements, notices, court papers, complaint copies, and ID documents
+  - 100% local storage—nothing uploaded to any server
+- **Perfect for:** Keeping all your legal information in one secure place
 
-6. **Rights by Situation** (`RightsBySituation`)
-   - Practical rights breakdowns organized by life situations: Tenant rights, employee rights, consumer rights, and police interaction / custody rights in simple terms.
-
-7. **My Complaint Notes** (`ComplaintNotes`)
-   - On-device incident and timeline logger.
-   - Securely record communications, dates, amounts owed, and follow-ups. Stored 100% locally on the user's device via `AsyncStorage` with zero cloud leakage.
-
-8. **Legal Glossary (Simple)** (`Glossary`)
-   - Demystifies intimidating legal jargon (FIR, Cognizable, Bail, Affidavit, Legal Notice, Injunction, Quash) into clear 1-2 sentence everyday explanations.
-
-9. **My Legal Document Library** (`Original Documents`)
-   - Personal legal document organizer.
-   - Securely store, categorize, and preview agreements, notices, rent deeds, and receipts directly in browser storage. Pre-seeded with realistic educational demo documents.
-
-10. **Check My Document** (`Document Analyzer`)
-    - Upload contracts, agreements, or legal notices (`.txt` or `.pdf` with client-side text extraction via `pdfjs-dist`).
-    - Instant analysis: 0–100 Risk Score, severity-coded red flags (unfair lock-ins, excessive non-competes, unilateral indemnity), missing protective terms, questions to ask before signing, and **WhatsApp report export**.
+### 6. Check My Document
+- **What it does:** Upload agreements or notices for plain-language risk analysis before signing.
+- **Key features:**
+  - Upload contracts, agreements, or legal notices (.txt or .pdf)
+  - 0–100 Risk Score with severity-coded red flags
+  - Highlights unfair lock-ins, excessive non-competes, unilateral indemnity clauses
+  - Suggests safer wording and questions to ask before signing
+  - Copy full report for your records
+- **Perfect for:** Understanding what you're about to sign
 
 ---
 
@@ -88,17 +104,20 @@ LegalBridge-AI/
 ├── types.ts                  # Navigation stack parameter types
 ├── pages/                    # Citizen screens
 │   ├── Landing.tsx           # Home landing page with citizen hero & tool highlights
-│   ├── UtilityPage.tsx       # Central Utilities Hub listing all citizen tools
+│   ├── UtilityPage.tsx       # Central Tools Hub listing all 6 citizen tools
 │   ├── Query.tsx             # Legal Help Assistant (Bilingual English/Hindi)
-│   ├── DocumentAnalyzer.tsx  # Check My Document (Risk score, PDF parse, WhatsApp)
-│   ├── LetterTemplates.tsx   # Ready-to-use letter templates with WhatsApp share
-│   ├── BareActs.tsx          # Know the Law (Simple) act browser
-│   ├── Guides.tsx            # Step-by-step citizen guides
+│   ├── DocumentAnalyzer.tsx  # Check My Document (Risk score, PDF analysis)
+│   ├── KnowYourRights.tsx    # Hub for: Rights by Situation, Key Laws, Glossary
+│   ├── GuidesAndTemplates.tsx # Hub for: Step-by-step Guides, Letter Templates
+│   ├── MyLegalRecords.tsx    # Hub for: My Complaint Notes, My Document Library
 │   ├── Helplines.tsx         # Verified emergency & legal aid helplines
-│   ├── RightsBySituation.tsx # Citizen rights breakdowns
-│   ├── ComplaintNotes.tsx    # Private, local incident & timeline notes
-│   ├── Glossary.tsx          # Plain-language legal definitions
-│   ├── OriginalDocuments.tsx # Personal document library
+│   ├── LetterTemplates.tsx   # Ready-to-use letter templates
+│   ├── BareActs.tsx          # Key Laws act browser (Know Your Rights section)
+│   ├── Guides.tsx            # Step-by-step citizen guides (Guides & Templates section)
+│   ├── RightsBySituation.tsx # Citizen rights breakdowns (Know Your Rights section)
+│   ├── ComplaintNotes.tsx    # Private, local incident & timeline notes (My Legal Records section)
+│   ├── Glossary.tsx          # Plain-language legal definitions (Know Your Rights section)
+│   ├── OriginalDocuments.tsx # Personal document library (My Legal Records section)
 │   ├── Settings.tsx          # App settings & accessibility options
 │   ├── Download.tsx          # Client app installation information
 │   ├── Vision.tsx            # Project mission & constitutional legal aid vision
@@ -119,7 +138,7 @@ LegalBridge-AI/
 │   │   ├── SubmitButton.tsx  # Interactive submit button
 │   │   ├── fallbackGuidance.ts # Dual-language structured offline answers
 │   │   └── hindiGuidance.ts  # Plain citizen Hindi guidance dictionary
-│   ├── UtilityPage/          # Utilities hub components
+│   ├── UtilityPage/          # Tools hub components
 │   │   ├── UtilityHeader.tsx
 │   │   └── UtilityCard.tsx
 │   └── Settings/             # Settings UI components
@@ -198,7 +217,7 @@ LegalBridge-AI/
 
 ## 🔒 Privacy & Security Philosophy
 
-- **Zero Cloud Leakage for Private Notes:** Incident timelines entered in *My Complaint Notes* and documents saved in *My Legal Document Library* are stored locally using browser `AsyncStorage` and are never uploaded to any remote server.
+- **Zero Cloud Leakage for Private Records:** Notes entered in *My Legal Records* and documents saved in your personal library are stored locally using browser `AsyncStorage` and are never uploaded to any remote server.
 - **Client-Side Document Extraction:** PDF text extraction for *Check My Document* runs in-browser using Web Workers.
 - **Secret Hygiene:** Environment files (`.env`, `.env.local`), build artifacts (`dist/`, `web-build/`), and native keystores are strictly excluded from source control via `.gitignore`.
 

@@ -24,5 +24,8 @@ export type RootStackParamList = {
   RightsBySituation: undefined;
   ComplaintNotes: undefined;
   Glossary: undefined;
+  KnowYourRights: undefined;
+  GuidesAndTemplates: undefined;
+  MyLegalRecords: undefined;
   NotFound: undefined;
 };
